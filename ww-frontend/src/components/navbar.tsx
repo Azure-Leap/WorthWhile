@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FiUser } from "react-icons/fi";
 
 const Navbar: React.FC = () => {
   return (
@@ -20,9 +21,16 @@ const Navbar: React.FC = () => {
           <div className="flex items-center">
             <Link
               href="/my-account"
-              className="px-3 py-2 rounded-md text-sm font-medium/ text-white"
+              className="px-3 py-2 rounded-md text-sm font-medium/ text-white flex gap-1 justify-center align-middle"
             >
-              My Account
+              <FiUser size={20} />
+              MY ACCOUNT
+            </Link>
+            <Link
+              href="/create-business"
+              className="bg-white text-xs py-2 rounded-md px-5"
+            >
+              БИЗНЕС НЭМЭХ
             </Link>
           </div>
         </div>
