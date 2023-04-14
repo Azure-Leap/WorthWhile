@@ -3,7 +3,7 @@ import SalonCard from "@/components/SalonCard";
 import React from "react";
 import { FiCalendar, FiChevronDown } from "react-icons/fi";
 
-const serviceList = () => {
+const services = () => {
   return (
     <>
       <div className="bg-cyan-300 h-1/4 p-5">
@@ -25,4 +25,4 @@ const serviceList = () => {
   );
 };
 
-export default serviceList;
+export default services;

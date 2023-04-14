@@ -10,9 +10,9 @@ const Navbar: React.FC = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/">
               <Image
-                className="h-8 w-8"
-                width="200"
-                height="200"
+                className="h-12 w-12"
+                width="400"
+                height="400"
                 src="/image/2W Logo.png"
                 alt="Hair Salon Logo"
               />
