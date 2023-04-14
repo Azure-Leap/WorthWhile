@@ -3,13 +3,20 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import { connectDB } from "./config/db";
+import userRoute from "./Routes/userRoutes";
+import logger from "./middlewares/logger";
+import error from "./middlewares/error";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(logger);
+app.use("/user", userRoute);
 
 const URI = process.env.URI || "";
 const PORT = process.env.PORT || "";
+
+app.use(error);
 
 connectDB(URI);
 

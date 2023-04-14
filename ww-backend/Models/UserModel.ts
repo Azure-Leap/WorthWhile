@@ -1,4 +1,8 @@
-import { Schema, model } from "mongoose";
-import {}
+import { Schema, model, Types } from "mongoose";
+import { IUser } from "../interfaces";
 
-const UserSchema = new Schema<>();
+const UserSchema = new Schema<IUser>({});
+
+const user = model("User", UserSchema);
+
+export default user;

@@ -1,11 +1,11 @@
 interface IUser {
-  username: string;
+  userName: string;
   email: string;
   password: string;
   profileImg: string;
   phoneNumber: string;
   payments: [IPayment];
-  favoriteStaffs: [];
+  favoriteStaffs: [IStaffer];
   favoriteSalon: [IBusiness];
   appointments: [IAppointment];
   giftCards: [IGiftCard];
@@ -49,14 +49,14 @@ interface IBusiness {
 
 interface IGiftCard {
   businessName: string;
-  username: string;
+  userName: string;
   price: number;
   cardNumber: number;
 }
 
 interface IAppointment {
   serviceName: string;
-  username: string;
+  userName: string;
   businessName: string;
   staffName: string;
   totalPrice: number;
@@ -81,7 +81,7 @@ interface ISale {
 }
 
 interface IReview {
-  username: string;
+  userName: string;
   staffName: string;
   businessName: string;
   serviceName: string;

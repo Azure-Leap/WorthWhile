@@ -1,0 +1,10 @@
+import { Router } from "express";
+import { signup, signin } from "../controllers/userControllers";
+
+const router = Router();
+console.log("ROUTE ajillaa");
+
+router.route("/signin").post(signin);
+router.route("/signup").post(signup);
+
+export default router;
