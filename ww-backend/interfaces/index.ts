@@ -1,39 +1,45 @@
+import mongoose from "mongoose";
+
 interface IUser {
-  userName: string;
-  email: string;
+  userName: { type: String; required: true };
+  email: { type: String; required: true; unique: true };
   password: string;
-  profileImg: string;
-  phoneNumber: string;
-  payments: [IPayment];
-  favoriteStaffs: [IStaffer];
-  favoriteSalon: [IBusiness];
-  appointments: [IAppointment];
-  giftCards: [IGiftCard];
+  profileImg?: String;
+  phoneNumber: { type: String; required: true };
 }
 
 interface IService {
-  serviceName: string;
-  servicePrice: number;
+  categoryId: { type: mongoose.Types.ObjectId; ref: "Category" };
+  serviceName: { type: string; required: true };
+  servicePrice: { type: number; required: true };
   serviceImg: [string];
   description: string;
   duration: number;
-  staffName: string;
-  businessName: string;
+  stafferId: { type: mongoose.Types.ObjectId; ref: "Staffer" };
+  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
 }
 
+interface ICategory {
+  categoryTitle: { type: string; required: true };
+  categoryImg: string;
+  type: {
+    type: string;
+    required: true;
+    enum: ["Hair", "Nail", "Skin", "Makeup", "Tattoo", "Other"];
+  };
+}
 interface IBusiness {
-  businessName: string;
-  contactNumber: string;
+  businessName: { type: string; required: true };
+  contactNumber: { type: string; required: true };
   address: {
     city: string;
     district: string;
     street: string;
     zipCode: number;
   };
-  businessHours: number;
+  businessHours: [number];
   about: string;
   description: string;
-  sales: [ISale];
   socialMedia: [
     {
       title: string;
@@ -41,28 +47,28 @@ interface IBusiness {
       icon: string;
     }
   ];
-  staffers: [IStaffer];
-  appointments: [IAppointment];
-  reviews: [IReview];
-  giftCards: [IGiftCard];
 }
 
 interface IGiftCard {
-  businessName: string;
-  userName: string;
-  price: number;
-  cardNumber: number;
+  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
+  userId: { type: mongoose.Types.ObjectId; ref: "User" };
+  price: { type: number; required: true };
+  amount: { type: number; required: true };
+  cardNumber: { type: string; required: true };
 }
 
 interface IAppointment {
-  serviceName: string;
-  userName: string;
-  businessName: string;
-  staffName: string;
+  services: [
+    {
+      serviceId: { type: mongoose.Types.ObjectId; ref: "Service" };
+    }
+  ];
+  userId: { type: mongoose.Types.ObjectId; ref: "User" };
+  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
   totalPrice: number;
-  paymentStatus: string;
-  bookedDate: Date;
-  startDate: Date;
+  paymentStatus: { type: mongoose.Types.ObjectId; ref: "Payment" };
+  bookedDate: Date; // uilchluulegch zahialga hiisen tsag
+  startDate: Date; //uilcilgeenii ehleh tsag
 }
 
 interface IPayment {
@@ -74,35 +80,34 @@ interface IPayment {
 }
 
 interface ISale {
-  serviceName: string;
+  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
+  serviceId: { type: mongoose.Types.ObjectId; ref: "Service" };
   startDate: Date;
   endDate: Date;
   amount: number;
 }
 
 interface IReview {
-  userName: string;
-  staffName: string;
-  businessName: string;
-  serviceName: string;
+  userId: { type: mongoose.Types.ObjectId; ref: "User" };
+  stafferId: { type: mongoose.Types.ObjectId; ref: "Staffer" };
+  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
+  serviceId: { type: mongoose.Types.ObjectId; ref: "Service" };
   reviewDate: Date;
   rating: number;
   text: string;
-  replies: [IReply];
 }
 
 interface IReply {
-  reviewId: string;
-  businessName: string;
+  reviewId: { type: mongoose.Types.ObjectId; ref: "Review" };
+  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
   replyDate: Date;
   text: string;
 }
 
 interface IStaffer {
-  staffName: string;
-  businessName: string;
+  stafferName: string;
+  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
   about: string;
-  services: [IService];
 }
 
 export {

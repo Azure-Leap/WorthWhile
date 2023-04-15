@@ -1,8 +1,18 @@
-import { Schema, model, Types } from "mongoose";
-import { IUser } from "../interfaces";
+import mongoose, { Schema } from "mongoose";
+import { IUser } from "../interfaces/index";
 
-const UserSchema = new Schema<IUser>({});
+const UserSchema: Schema = new Schema<IUser>({
+  userName: { type: String, required: true },
+  email: {
+    type: String,
+    required: true,
+    unique: [true, "ene email burtgegdsen bn"],
+  },
+  password: String,
+  profileImg: String,
+  phoneNumber: { type: String, required: true },
+});
 
-const user = model("User", UserSchema);
+const User = mongoose.model<IUser>("User", UserSchema);
 
-export default user;
+export default User;
