@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 interface IUser {
-  userName: { type: String; required: true };
-  email: { type: String; required: true; unique: true };
-  password: string;
+  userName: String;
+  email: String;
+  password: String;
   profileImg?: String;
-  phoneNumber: { type: String; required: true };
+  phoneNumber: String;
 }
 
 interface IService {
@@ -13,7 +13,7 @@ interface IService {
   serviceName: { type: string; required: true };
   servicePrice: { type: number; required: true };
   serviceImg: [string];
-  description: string;
+  description?: string;
   duration: number;
   stafferId: { type: mongoose.Types.ObjectId; ref: "Staffer" };
   businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
@@ -29,6 +29,7 @@ interface ICategory {
   };
 }
 interface IBusiness {
+  password: { type: string; required: true };
   businessName: { type: string; required: true };
   contactNumber: { type: string; required: true };
   address: {
@@ -37,7 +38,8 @@ interface IBusiness {
     street: string;
     zipCode: number;
   };
-  businessHours: [number];
+  businessStartTime: Date;
+  businessEndTime: Date;
   about: string;
   description: string;
   socialMedia: [
@@ -64,23 +66,27 @@ interface IAppointment {
     }
   ];
   userId: { type: mongoose.Types.ObjectId; ref: "User" };
-  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
   totalPrice: number;
-  paymentStatus: { type: mongoose.Types.ObjectId; ref: "Payment" };
-  bookedDate: Date; // uilchluulegch zahialga hiisen tsag
-  startDate: Date; //uilcilgeenii ehleh tsag
+  transactionId: { type: mongoose.Types.ObjectId; ref: "Transaction" };
+  bookedTime: Date; // uilchluulegch zahialga hiisen tsag
+  startTime: Date; //uilcilgeenii ehleh tsag
 }
 
-interface IPayment {
-  paidDate: Date;
+interface ITransaction {
+  paymentId: { type: mongoose.Types.ObjectId; ref: "Payment" };
+  date: Date;
   status: {
     type: string;
     enum: ["SUCCEED", "FAILED"];
   };
 }
 
+interface IPayment {
+  paymentType: String;
+  UserId: { type: mongoose.Types.ObjectId; ref: "User" };
+}
+
 interface ISale {
-  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
   serviceId: { type: mongoose.Types.ObjectId; ref: "Service" };
   startDate: Date;
   endDate: Date;
@@ -88,10 +94,8 @@ interface ISale {
 }
 
 interface IReview {
-  userId: { type: mongoose.Types.ObjectId; ref: "User" };
-  stafferId: { type: mongoose.Types.ObjectId; ref: "Staffer" };
   businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
-  serviceId: { type: mongoose.Types.ObjectId; ref: "Service" };
+  appointmentId: { type: mongoose.Types.ObjectId; ref: "Appointment" };
   reviewDate: Date;
   rating: number;
   text: string;
@@ -99,7 +103,6 @@ interface IReview {
 
 interface IReply {
   reviewId: { type: mongoose.Types.ObjectId; ref: "Review" };
-  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
   replyDate: Date;
   text: string;
 }
@@ -107,10 +110,12 @@ interface IReply {
 interface IStaffer {
   stafferName: string;
   businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
+  avialableTime: [{ start: Date; end: Date; isAvialable: boolean }];
   about: string;
 }
 
 export {
+  ICategory,
   IAppointment,
   IUser,
   IBusiness,
@@ -121,4 +126,5 @@ export {
   IPayment,
   IService,
   ISale,
+  ITransaction,
 };

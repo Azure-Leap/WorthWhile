@@ -27,8 +27,8 @@ export const signup = async (
   next: NextFunction
 ) => {
   try {
-    const { userName, email, password, phoneNumber } = req.body;
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    const { userName, email, password, phoneNumber }: IUser = req.body;
+    const hashedPassword = bcrypt.hashSync(password.toString(), 10);
     console.log(userName, email, password, phoneNumber);
     const user = await User.create({
       userName,
@@ -60,7 +60,10 @@ export const signin = async (
     if (!user) {
       res.status(400).json({ message: `Имэйл эсвэл нууц үг буруу байна` });
     } else {
-      const checkPass = bcrypt.compareSync(req.body.password, user.password);
+      const checkPass = bcrypt.compareSync(
+        req.body.password,
+        user.password.toString()
+      );
       if (!checkPass) {
         res.status(400).json({ message: `Имэйл эсвэл нууц үг буруу байна` });
       }
