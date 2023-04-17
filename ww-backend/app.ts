@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(logger);
-app.use("/user", userRoute);
+app.use("/users", userRoute);
 
 const URI = process.env.URI || "";
 const PORT = process.env.PORT || "";
@@ -19,5 +19,7 @@ const PORT = process.env.PORT || "";
 app.use(error);
 
 connectDB(URI);
+
+app.get("/", (req, res) => res.send("HELLO WW"));
 
 app.listen(PORT, () => console.log("WhorthWhile server aslaa"));
