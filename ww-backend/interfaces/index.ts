@@ -15,7 +15,6 @@ interface IService {
   serviceImg: [string];
   description?: string;
   duration: number;
-  stafferId: { type: mongoose.Types.ObjectId; ref: "Staffer" };
   businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
 }
 
@@ -32,14 +31,21 @@ interface IBusiness {
   password: { type: string; required: true };
   businessName: { type: string; required: true };
   contactNumber: { type: string; required: true };
+  email: { type: string; required: true };
   address: {
     city: string;
     district: string;
     street: string;
     zipCode: number;
   };
-  businessStartTime: Date;
-  businessEndTime: Date;
+  businessHours: [
+    {
+      day: Number;
+      startTime: String;
+      endTime: String;
+      isRestDay: Boolean;
+    }
+  ];
   about: string;
   description: string;
   socialMedia: [
@@ -108,10 +114,11 @@ interface IReply {
 }
 
 interface IStaffer {
-  stafferName: string;
-  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
-  avialableTime: [{ start: Date; end: Date; isAvialable: boolean }];
-  about: string;
+  stafferName: String;
+  staffImg?: String;
+  businessId: String;
+  avialableTimes: [Date];
+  about?: string;
 }
 
 export {

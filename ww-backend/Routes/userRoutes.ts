@@ -1,10 +1,17 @@
 import { Router } from "express";
-import { getAllUsers, signup, signin } from "../controllers/userControllers";
+import {
+  getAllUsers,
+  signup,
+  signin,
+  getUser,
+  updateUser,
+  deleteUser,
+} from "../controllers/userControllers";
 
 const router = Router();
-console.log("ROUTE ajillaa");
 
 router.route("/").get(getAllUsers);
+router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 router.route("/signin").post(signin);
 router.route("/signup").post(signup);
 

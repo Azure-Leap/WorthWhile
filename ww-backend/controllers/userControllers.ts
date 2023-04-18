@@ -20,6 +20,70 @@ export const getAllUsers = async (
   }
 };
 
+export const getUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  if (!id) {
+    res.status(400).json({ message: `ID хоосон байна` });
+  }
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      res.status(400).json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+    }
+    res.status(200).json({ message: `${id} IDтэй хэрэглэгч олдлоо`, user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  if (!id) {
+    res.status(400).json({ message: `ID хоосон байна` });
+  }
+  try {
+    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+    if (!user) {
+      res.status(400).json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+    }
+    res.status(200).json({
+      message: `${id} IDтай хэрэглэгчийн мэдээлэл шинэчлэгдлээ`,
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  if (!id) {
+    res.status(400).json({ message: `ID хоосон байна` });
+  }
+  try {
+    const user = await User.findByIdAndDelete(id);
+    if (!user) {
+      res.status(400).json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+    }
+    res.status(200).json({ message: `${id} IDтэй хэрэглэгч устгагдлаа`, user });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const secretKey = process.env.JWT_SECRET_KEY || "";
 export const signup = async (
   req: Request,
