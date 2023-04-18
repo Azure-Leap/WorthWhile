@@ -19,13 +19,9 @@ interface IService {
 }
 
 interface ICategory {
-  categoryTitle: { type: string; required: true };
-  categoryImg: string;
-  type: {
-    type: string;
-    required: true;
-    enum: ["Hair", "Nail", "Skin", "Makeup", "Tattoo", "Other"];
-  };
+  categoryTitle: String;
+  categoryImg?: String;
+  catType: String;
 }
 interface IBusiness {
   password: { type: string; required: true };

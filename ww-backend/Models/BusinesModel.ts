@@ -1,7 +1,7 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { IBusiness } from "../interfaces/index";
 
-const BusinessSchema: Schema = new Schema({
+const BusinessSchema = new Schema<IBusiness>({
   businessName: { type: String, required: true },
   email: {
     type: String,
@@ -22,6 +22,6 @@ const BusinessSchema: Schema = new Schema({
   socialMedia: [{ title: String, url: String, icon: String }],
 });
 
-const Business = mongoose.model("Business", BusinessSchema);
+const Business = model("Business", BusinessSchema);
 
 export default Business;

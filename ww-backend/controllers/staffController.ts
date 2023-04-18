@@ -10,9 +10,9 @@ export const getAllStaffs = async (
   try {
     const staffs = await Staffer.find();
     if (!staffs) {
-      res.status(200).json({ message: "Хэрэглэгчдийн мэдээлэл хоосон байна." });
+      res.status(200).json({ message: "Үсчдийн мэдээлэл хоосон байна." });
     }
-    res.status(200).json({ message: "Хэрэглэгчдийн мэдээлэл олдлоо.", staffs });
+    res.status(200).json({ message: "Үсчдийн мэдээлэл олдлоо.", staffs });
   } catch (error) {
     next(error);
   }
@@ -31,9 +31,9 @@ export const getStaff = async (
   try {
     const staff = await Staffer.findById(id);
     if (!staff) {
-      res.status(400).json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+      res.status(400).json({ message: `${id} ID-тэй үсчин олдсонгүй.` });
     }
-    res.status(200).json({ message: `${id} IDтэй хэрэглэгч олдлоо`, staff });
+    res.status(200).json({ message: `${id} IDтэй үсчин олдлоо`, staff });
   } catch (error) {
     next(error);
   }
@@ -91,10 +91,10 @@ export const updateStaff = async (
   try {
     const staff = await Staffer.findByIdAndUpdate(id, req.body, { new: true });
     if (!staff) {
-      res.status(400).json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+      res.status(400).json({ message: `${id} ID-тэй үсчин олдсонгүй.` });
     }
     res.status(200).json({
-      message: `${id} IDтай хэрэглэгчийн мэдээлэл шинэчлэгдлээ`,
+      message: `${id} IDтай үсчний мэдээлэл шинэчлэгдлээ`,
       staff,
     });
   } catch (error) {
@@ -114,11 +114,9 @@ export const deleteStaff = async (
   try {
     const staff = await Staffer.findByIdAndDelete(id);
     if (!staff) {
-      res.status(400).json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+      res.status(400).json({ message: `${id} ID-тэй үсчин олдсонгүй.` });
     }
-    res
-      .status(200)
-      .json({ message: `${id} IDтэй хэрэглэгч устгагдлаа`, staff });
+    res.status(200).json({ message: `${id} IDтэй үсчин устгагдлаа`, staff });
   } catch (error) {
     next(error);
   }
