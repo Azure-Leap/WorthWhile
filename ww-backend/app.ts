@@ -5,6 +5,7 @@ dotenv.config();
 import { connectDB } from "./config/db";
 import userRoute from "./Routes/userRoutes";
 import businessRoute from "./Routes/businessRoutes";
+import staffRoute from "./Routes/staffRoute";
 import logger from "./middlewares/logger";
 import error from "./middlewares/error";
 
@@ -15,6 +16,7 @@ app.use(logger);
 
 app.use("/users", userRoute);
 app.use("/business", businessRoute);
+app.use("/staffs", staffRoute);
 
 const URI = process.env.URI || "";
 const PORT = process.env.PORT || "";
