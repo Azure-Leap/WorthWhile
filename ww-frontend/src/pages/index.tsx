@@ -3,7 +3,6 @@ import SearchComponent from "@/components/General/search";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
-
 export interface IItem {
   title: string;
   BgURL: string;
@@ -36,15 +35,15 @@ export default function Index() {
   return (
     <>
       <div
-        className="h-1/4 bg-cover bg-center text-white flex flex-col justify-center items-center"
+        className="h-1/4 bg-cover bg-center text-white flex flex-col justify-evenly items-center"
         style={{
           backgroundImage: `url(https://images.unsplash.com/photo-1504221507732-5246c045949b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)`,
         }}
       >
-        <b>Discover yourself</b>
+        <p className="text-3xl">Discover your external beauty</p>
         <SearchComponent />
       </div>
-      <div className="flex gap-4 justify-center h-full w-4/5 flex-wrap">
+      <div className="flex gap-6 justify-center h-full w-11/12 flex-wrap py-10">
         {categories?.map((el, idx) => {
           return <HomeCard key={idx} item={el} />;
         })}
