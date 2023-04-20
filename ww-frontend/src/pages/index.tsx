@@ -1,5 +1,6 @@
 import HomeCard from "@/components/Card";
 import SearchComponent from "@/components/General/search";
+import AuthProvider from "@/context/authContext";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
