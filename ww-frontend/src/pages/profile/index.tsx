@@ -4,18 +4,18 @@ import Side from "@/components/Profile/sidebar";
 
 const Profile = () => {
   return (
-    <div className="flex  ">
-      <div className="flex mx-auto  w-9/12 mt-5 px-5">
+    <div className="w-10/12">
+      <div className="flex justify-center mt-5 px-5">
         <ProSidebarProvider>
           <Side />
         </ProSidebarProvider>
-        <div className="ml-10 mt-2">
+        <div className="mt-2 px-5 max-w-lg">
           <div>
             <h1 className="text-2xl ">Welcome Ashid, Duulga, Zulaa</h1>
           </div>
           <div className="my-20">
             <img
-              src="/image/profile/profile.png"
+              src="/image/profile/review.png"
               alt="review"
               className="w-1/6 h-1/6 mx-auto"
             />

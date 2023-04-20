@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 const Profile = () => {
   return (
     <SideLayout>
-      <div className="ml-5 mt-2">
+      <div className="ml-5 mt-2 ">
         <div>
           <h1 className="text-2xl ">Appointments</h1>
         </div>

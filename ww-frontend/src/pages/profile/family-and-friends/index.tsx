@@ -6,7 +6,7 @@ import BasicModal from "./modal";
 const Profile = () => {
   return (
     <SideLayout>
-      <div className="ml-5 mt-2">
+      <div className="ml-5 mt-2 ">
         <div>
           <h1 className="text-2xl ">Family & Friends</h1>
         </div>
@@ -14,7 +14,7 @@ const Profile = () => {
           <img
             src="/image/profile/family.png"
             alt="review"
-            className="w-1/6 h-1/6 mx-auto"
+            className="w-20 mx-auto"
           />
           <h2 className="text-xl text-center my-5 ">
             Add Your Family & Friends
@@ -27,13 +27,13 @@ const Profile = () => {
           <div className="my-10">
             <Button
               variant="outlined"
-              className=" text-black border-gray-400  w-2/6 h-10 flex mx-auto hover:bg-gray-300"
+              className=" text-black border-gray-400  w-3/6 h-10 flex mx-auto hover:bg-gray-300"
             >
               Learn more
             </Button>
           </div>
           <div>
-            <Button className="bg-green-400 text-white w-4/6 h-10 hover:bg-green-600 flex mx-auto">
+            <Button className="bg-green-400 text-white w-5/6 h-10 hover:bg-green-600 flex mx-auto">
               <BasicModal />
             </Button>
           </div>
