@@ -7,7 +7,7 @@ import {
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-100 py-6">
+    <footer className="bg-gray-100 py-6 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
         <div className="flex items-center mb-4 md:mb-0">
           <Image src="/logo.png" alt="Hair Salon Logo" width={80} height={80} />

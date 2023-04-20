@@ -9,7 +9,7 @@ export default function Layout({ children }: any) {
   return (
     <>
       <Navbar />
-      <main className="h-screen"> {children}</main>
+      <main className="min-h-screen"> {children}</main>
       <Footer />
     </>
   );
