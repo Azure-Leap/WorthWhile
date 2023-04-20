@@ -22,7 +22,13 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+
     "src/components/Modals/Signin.tsx"
+    "src/pages/Auth/SignIn/index.jsx",
+    "src/components/Profile/preloader.jsx",
+    "src/pages/profile/settings/avatar.jsx",
+    "src/components/Profile/avatar.js",
+    "src/components/Profile/Avatar/avatar.tsx"
   ],
   "exclude": ["node_modules"]
 }

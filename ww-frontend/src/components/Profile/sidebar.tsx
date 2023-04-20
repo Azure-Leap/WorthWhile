@@ -1,5 +1,7 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import Link from "next/link";
+import ImageAvatars from "./Avatar/avatar";
+import UploadAvatar from "./Avatar/uploadAvatar";
 
 const Side = () => {
   return (
@@ -16,10 +18,12 @@ const Side = () => {
             },
           }}
         >
+          <ImageAvatars />
+          {/* <UploadAvatar /> */}
           <Link href={"/profile/giftcards"}>
-            <MenuItem> Gift Cards </MenuItem>
+            <MenuItem rootStyles={{ borderLeft: 4 }}> Gift Cards </MenuItem>
           </Link>
-          <Link href="/profile/appointment">
+          <Link href="/profile/appointments">
             <MenuItem> Appointments </MenuItem>
           </Link>
 
@@ -47,11 +51,11 @@ const Side = () => {
             <MenuItem> Custom Forms </MenuItem>
           </Link>
 
-          <Link href="/profile/terms">
+          <Link href="/ab/terms">
             <MenuItem> Terms of Service </MenuItem>
           </Link>
 
-          <Link href="/profile/privacy">
+          <Link href="/ab/privacy">
             <MenuItem> Privacy Policy </MenuItem>
           </Link>
 

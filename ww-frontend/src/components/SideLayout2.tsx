@@ -1,18 +1,18 @@
 import React from "react";
 import { ProSidebarProvider } from "react-pro-sidebar";
-import Side from "@/components/Profile/sidebar";
+import Side2 from "./About/sidebar";
 
-const SideLayout = ({ children }: any) => {
+const SideLayout2 = ({ children }: any) => {
   return (
     <div className="w-10/12">
       <div className="flex justify-center mt-5 px-5">
         <ProSidebarProvider>
-          <Side />
+          <Side2 />
         </ProSidebarProvider>
-        <div className="px-5 max-w-lg">{children}</div>
+        <div className="px-10 max-w-lg">{children}</div>
       </div>
     </div>
   );
 };
 
-export default SideLayout;
+export default SideLayout2;

@@ -22,6 +22,11 @@ const Navbar = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
 
+
+const logo = require("../assets/image/logo.png");
+
+const Navbar: React.FC = () => {
+
   return (
     <nav className="bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,7 +37,7 @@ const Navbar = () => {
                 className="h-12 w-12"
                 width="400"
                 height="400"
-                src="/image/2W Logo.png"
+                src={logo}
                 alt="Hair Salon Logo"
               />
             </Link>
