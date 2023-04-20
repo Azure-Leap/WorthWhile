@@ -4,7 +4,7 @@ import SideLayout from "@/components/SideLayout";
 const Profile = () => {
   return (
     <SideLayout>
-      <div className="ml-5 mt-2">
+      <div className="ml-5 mt-2 ">
         <div>
           <h1 className="text-2xl ">Favourite</h1>
         </div>

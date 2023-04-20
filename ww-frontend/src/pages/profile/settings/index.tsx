@@ -3,6 +3,7 @@ import SideLayout from "@/components/SideLayout";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { Pattern } from "@mui/icons-material";
 
 const Profile = () => {
   const getUser = async () => {
@@ -39,18 +40,20 @@ const Profile = () => {
             id="email"
             label="Email Address"
             name="email"
+            type=""
             autoComplete="email"
             defaultValue={"email123@gmail.com"}
           />
+
           <TextField
             margin="normal"
             fullWidth
             id="number"
             label="Number"
-            name="email"
+            name="number"
             type="number"
-            rows={8}
           />
+
           {/* <TextField
             margin="normal"
             fullWidth

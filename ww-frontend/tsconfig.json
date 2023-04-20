@@ -26,7 +26,7 @@
     "src/components/Profile/preloader.jsx",
     "src/pages/profile/settings/avatar.jsx",
     "src/components/Profile/avatar.js",
-    "src/components/Profile/avatar.jsx"
+    "src/components/Profile/Avatar/avatar.tsx"
   ],
   "exclude": ["node_modules"]
 }
