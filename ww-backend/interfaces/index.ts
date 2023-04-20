@@ -9,13 +9,13 @@ interface IUser {
 }
 
 interface IService {
-  categoryId: { type: mongoose.Types.ObjectId; ref: "Category" };
-  serviceName: { type: string; required: true };
-  servicePrice: { type: number; required: true };
-  serviceImg: [string];
-  description?: string;
-  duration: number;
-  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
+  categoryId: String;
+  serviceName: String;
+  servicePrice: Number;
+  serviceImg: [String];
+  description?: String;
+  duration: Number;
+  businessId: String;
 }
 
 interface ICategory {
@@ -42,9 +42,8 @@ interface IBusiness {
       isRestDay: Boolean;
     }
   ];
-  about: string;
   description: string;
-  socialMedia: [
+  socialMedia?: [
     {
       title: string;
       url: string;
@@ -54,8 +53,12 @@ interface IBusiness {
 }
 
 interface IGiftCard {
-  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
-  userId: { type: mongoose.Types.ObjectId; ref: "User" };
+  businessId: {
+    type: mongoose.Types.ObjectId;
+    ref: "Business";
+    required: true;
+  };
+  userId: { type: mongoose.Types.ObjectId; ref: "User"; required: true };
   price: { type: number; required: true };
   amount: { type: number; required: true };
   cardNumber: { type: string; required: true };
@@ -64,18 +67,25 @@ interface IGiftCard {
 interface IAppointment {
   services: [
     {
-      serviceId: { type: mongoose.Types.ObjectId; ref: "Service" };
+      serviceId: {
+        type: mongoose.Types.ObjectId;
+        ref: "Service";
+        required: true;
+      };
     }
   ];
-  userId: { type: mongoose.Types.ObjectId; ref: "User" };
-  totalPrice: number;
-  transactionId: { type: mongoose.Types.ObjectId; ref: "Transaction" };
-  bookedTime: Date; // uilchluulegch zahialga hiisen tsag
-  startTime: Date; //uilcilgeenii ehleh tsag
+  userId: { type: mongoose.Types.ObjectId; ref: "User"; required: true };
+  totalPrice: Number;
+  startTime: Date; //timestamptai baih!!!
 }
 
 interface ITransaction {
-  paymentId: { type: mongoose.Types.ObjectId; ref: "Payment" };
+  appointmentId: {
+    type: mongoose.Types.ObjectId;
+    ref: "Appointment";
+    required: true;
+  };
+  paymentId: { type: mongoose.Types.ObjectId; ref: "Payment"; required: true };
   date: Date;
   status: {
     type: string;
@@ -85,26 +95,29 @@ interface ITransaction {
 
 interface IPayment {
   paymentType: String;
-  UserId: { type: mongoose.Types.ObjectId; ref: "User" };
+  UserId: { type: mongoose.Types.ObjectId; ref: "User"; required: true };
 }
 
 interface ISale {
-  serviceId: { type: mongoose.Types.ObjectId; ref: "Service" };
+  serviceId: { type: mongoose.Types.ObjectId; ref: "Service"; required: true };
   startDate: Date;
   endDate: Date;
   amount: number;
 }
 
 interface IReview {
-  businessId: { type: mongoose.Types.ObjectId; ref: "Business" };
-  appointmentId: { type: mongoose.Types.ObjectId; ref: "Appointment" };
+  appointmentId: {
+    type: mongoose.Types.ObjectId;
+    ref: "Appointment";
+    required: true;
+  };
   reviewDate: Date;
   rating: number;
   text: string;
 }
 
 interface IReply {
-  reviewId: { type: mongoose.Types.ObjectId; ref: "Review" };
+  reviewId: { type: mongoose.Types.ObjectId; ref: "Review"; required: true };
   replyDate: Date;
   text: string;
 }
