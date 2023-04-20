@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiUser } from "react-icons/fi";
 
+const logo = require("../assets/image/logo.png");
+
 const Navbar: React.FC = () => {
   return (
     <nav className="bg-black">
@@ -13,7 +15,7 @@ const Navbar: React.FC = () => {
                 className="h-12 w-12"
                 width="400"
                 height="400"
-                src="/image/2W Logo.png"
+                src={logo}
                 alt="Hair Salon Logo"
               />
             </Link>
