@@ -8,7 +8,7 @@ export const getAllStaffs = async (
   next: NextFunction
 ) => {
   try {
-    const staffs = await Staffer.find();
+    const staffs = await Staffer.find().populate("Business");
     if (!staffs) {
       res.status(200).json({ message: "Үсчдийн мэдээлэл хоосон байна." });
     }

@@ -8,7 +8,12 @@ export const getAllServices = async (
   next: NextFunction
 ) => {
   try {
-    const services = await Service.find();
+    const { filter } = req.body;
+    //filter: {
+    //   businessId: "bbb",
+    //   categoryId: "kk",
+    // }
+    const services = await Service.find({ filter });
     if (!services) {
       res
         .status(200)
