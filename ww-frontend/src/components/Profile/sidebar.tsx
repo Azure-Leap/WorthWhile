@@ -1,7 +1,8 @@
+import React from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import Link from "next/link";
 import ImageAvatars from "./Avatar/avatar";
-import UploadAvatar from "./Avatar/uploadAvatar";
+// import UploadAvatar from "./Avatar/uploadAvatar";
 
 const Side = () => {
   return (
