@@ -5,6 +5,7 @@ import { FiCalendar, FiChevronDown } from "react-icons/fi";
 import axios from "axios";
 
 export interface IBusiness {
+  _id: String;
   businessName: String;
   email: String;
   password: String;
@@ -23,6 +24,7 @@ export interface IBusiness {
 
 const services = () => {
   const [businessData, setBusinessData] = useState<IBusiness[]>([]);
+
   useEffect(() => {
     axios
       .get("http://localhost:8888/business/")
@@ -35,10 +37,18 @@ const services = () => {
       });
   }, []);
 
+  const SearchedSalon = (e: any) => {
+    const filteredSalon = businessData.filter((business) =>
+      business.businessName.toLowerCase().includes(e.currentTarget.value)
+    );
+    setBusinessData(filteredSalon);
+    console.log("first===>", filteredSalon);
+  };
+
   return (
     <>
       <div className="bg-cyan-300 h-1/4 p-5">
-        <SearchComponent />
+        <SearchComponent handlechange={SearchedSalon} />
         <div className="bg-white inline-flex items-center rounded px-2 py-1">
           <FiCalendar className="mr-1" />
           Dates
@@ -51,7 +61,7 @@ const services = () => {
       <div className="bg-gray-200 h-full text-lg text-center p-4">
         Best Haircut in Ulaanbaatar
         {businessData.map((el, idx) => (
-          <SalonCard key={idx} item={el} />
+          <SalonCard key={idx} businessData={el} />
         ))}
       </div>
     </>
