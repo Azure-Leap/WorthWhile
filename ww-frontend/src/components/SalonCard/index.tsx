@@ -1,9 +1,10 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Service from "../Service";
 import { IBusiness } from "@/pages/services";
+import axios from "axios";
 
-interface Item {
+interface businessData {
   _id: String;
   businessName: String;
   email: String;
@@ -11,12 +12,33 @@ interface Item {
 }
 
 interface Props {
-  item: IBusiness;
+  businessData: IBusiness;
   key: Number;
 }
+interface IService {
+  _id: String;
+  categoryId: String;
+  serviceName: String;
+  servicePrice: Number;
+  serviceImg: [String];
+  description: String;
+  duration: Number;
+  businessId: String;
+}
 
-const SalonCard = ({ item, key }: Props) => {
-  console.log("msdf", item.address);
+const SalonCard = ({ businessData }: Props) => {
+  const [serviceData, setServiceData] = useState<IService[]>([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8888/services/")
+      .then((res) => {
+        setServiceData(res.data.services);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, []);
+
   return (
     <div className="w-full bg-white h-fit flex gap-3 mb-4">
       <Image
@@ -27,14 +49,17 @@ const SalonCard = ({ item, key }: Props) => {
         height={400}
       />
       <div className="w-full text-start p-2">
-        <h1 className="text-2xl">{item.businessName}</h1>
+        <h1 className="text-2xl">{businessData.businessName}</h1>
         <p className="text-sm text-gray-600 my-1">
-          {`${item.address.district} дүүрэг, 3-р хороо, ${item.address.street} гудамж, ${item.businessName}`}
+          {`${businessData.address.district} дүүрэг, 3-р хороо, ${businessData.address.street} гудамж, ${businessData.businessName}`}
         </p>
-        <Service />
-        <Service />
-        <Service />
-        <Service />
+
+        {serviceData.map((el, idx) => {
+          return businessData._id === el.businessId ? (
+            // <p key={idx}>{el.businessId}</p>
+            <Service key={idx} serviceData={el} />
+          ) : null;
+        })}
       </div>
     </div>
   );
