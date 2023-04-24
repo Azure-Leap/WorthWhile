@@ -1,39 +1,73 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
-
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 const Sidebar = () => {
+  const d =new Date()
   return (
-    <Grid item xs={12} md={4.5} sx={{ padding: "45px", minHeight: "100vh" }}>
-      <Box sx={{ backgroundColor: "#F7F7F7", height: "200px" }}>Map</Box>
-      <Typography sx={{ marginTop: "50px" }}>
+    <Grid item xs={12} md={4.5} sx={{ padding: "45px", minHeight: "90vh" }}>
+      <Box sx={{ height: "200px", backgroundColor:"grey" }}>Map</Box>
+      <Box sx={{backgroundColor: "#F7F7F7", padding:"20px", paddingTop:"50px"}}>
+      <Typography sx={{ paddingBottom:"15px", fontSize:"12px", fontWeight:"bold" }}>
         CONTACT & BUSINESS HOURS
       </Typography>
+      <hr/>
+      <Grid container sx={{padding:"15px 0", justifyContent:"space-between", alignItems:"center"}}>
+        <Box sx={{display:"flex", alignItems:"center"}}>
+          <PhoneIphoneIcon sx={{color:"#C3C2C2"}} />
+          <Typography style={{fontSize:"14px"}}>(815) 341-0621</Typography>
+        </Box>
+        <button style={{backgroundColor:"white", padding:"8px 20px", border:"1px solid #C3C2C2", borderRadius:"8px"}}>Call</button>
+      </Grid>
+      <hr/>
+      <div style={{padding:"10px 0", fontSize:"14px"}}>
+        <div style={{display:"flex" , justifyContent:"space-between", padding:"10px 0"}}>
+          <p>Sunday</p>
+          <p style={{fontWeight:"bold"}}>Closed</p>
+        </div>
+        <div style={{display:"flex" , justifyContent:"space-between", padding:"10px 0"}}>
+          <p>Monday</p>
+          <p style={{fontWeight:"bold"}}>Closed</p>
+        </div>
+        <div style={{display:"flex" , justifyContent:"space-between", padding:"10px 0"}}>
+          <p>Tuesday</p>
+          <p style={{fontWeight:"bold"}}>09:00 AM - 06:00 PM</p>
+        </div>
+        <div style={{display:"flex" , justifyContent:"space-between", padding:"10px 0"}}>
+          <p>Wednesday</p>
+          <p style={{fontWeight:"bold"}}>09:00 AM - 06:00 PM</p>
+        </div>
+        <div style={{display:"flex" , justifyContent:"space-between", padding:"10px 0"}}>
+          <p>Thursday</p>
+          <p style={{fontWeight:"bold"}}>09:00 AM - 06:00 PM</p>
+        </div>
+        <div style={{display:"flex" , justifyContent:"space-between", padding:"10px 0"}}>
+          <p>Friday</p>
+          <p style={{fontWeight:"bold"}}>09:00 AM - 06:00 PM</p>
+        </div>
+        <div style={{display:"flex" , justifyContent:"space-between", padding:"10px 0"}}>
+          <p>Saturday</p>
+          <p style={{fontWeight:"bold"}}>09:00 AM - 06:00 PM</p>
+        </div>
+      </div>
+      <hr />
       <Box>
-        <Box>Phone number</Box>
-        <Button>Call</Button>
-      </Box>
-      <Box>
-        <Box></Box>
-        <Box></Box>
-        <Box></Box>
-        <Box></Box>
-        <Box></Box>
-        <Box></Box>
-        <Box></Box>
-      </Box>
-      <Box>
-        <Typography>Today Date</Typography>
-        <Typography>Closed</Typography>
-      </Box>
-      <Box>
-        <Typography>
+        <Box sx={{display:"flex", justifyContent:"space-between", paddingTop:"20px"}}>
+          <Typography sx={{fontSize:"15px"}}>Apr 24, 2023</Typography>
+          <Typography sx={{fontSize:"15px"}}>Closed</Typography>
+        </Box>
+        <Box sx={{padding:"20px"}}>
+          <Typography sx={{fontSize:"12px", color:"grey"}}>
           I will be on our 25th anniversary vacation April 12-24. See y'all when
           I get back!
-        </Typography>
+          </Typography>
+        </Box>
       </Box>
-      <Typography>SOCIAL MEDIA & SHARE</Typography>
-      <Box>
-        <Box></Box>
+      <Typography sx={{ paddingBottom:"15px", marginTop: "20px", fontSize:"12px", fontWeight:"bold"}}>SOCIAL MEDIA & SHARE</Typography>
+      <Box sx={{display:"flex", justifyContent:"space-around"}}>
+        <Box>socials</Box>
+        <Box>socials</Box>
+        <Box>socials</Box>
+      </Box>
       </Box>
     </Grid>
   );
