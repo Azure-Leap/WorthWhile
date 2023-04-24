@@ -15,6 +15,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.1",
     "@mui/styled-engine-sc": "^5.12.0",
+    "@next/font": "^13.3.1",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-avatar-editor": "^13.0.0",

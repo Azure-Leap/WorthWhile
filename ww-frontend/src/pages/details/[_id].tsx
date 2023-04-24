@@ -1,18 +1,26 @@
 import Service from "@/components/Service";
+import Sidebar from "@/components/Sidebar";
+import { Box, Grid } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import { IoSearch } from "react-icons/io5";
 
 const Services = () => {
   return (
-    <div className="flex justify-between">
-      <div className="w-4/6 p-3 bg-red-200">
-        <Image
+    <Grid container maxWidth="lg" sx={{ margin: "0 auto" }}>
+      <Grid
+        item
+        xs={12}
+        md={7.5}
+        sx={{
+          backgroundColor: "pink",
+          padding: { xs: "15px 15px", md: "45px 15px" },
+        }}
+      >
+        <img
           src="https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8c2Fsb258ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60"
-          className="rounded-md"
-          alt="SalonImage"
-          width={500}
-          height={500}
+          alt="Salon"
+          style={{ width: "100%", borderRadius: "6px" }}
         />
         <h1 className="text-2xl">Matrix Salon</h1>
         <p className="text-xs text-gray-700">
@@ -32,11 +40,9 @@ const Services = () => {
           </div>
         </div>
         {/* <Service /> */}
-      </div>
-      <div className="bg-teal-200 w-screen">
-        <div className="w-3/4 bg-neutral-400">Map</div>
-      </div>
-    </div>
+      </Grid>
+      <Sidebar />
+    </Grid>
   );
 };
 
