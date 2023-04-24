@@ -12,11 +12,13 @@ import {
   Box,
   Typography,
   Container,
+  Snackbar,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AuthContext } from "../../context/authContext";
 import { AlertContext } from "../../context/alertContext";
+import AlertComponent from "../Alert";
 
 function Copyright(props: any) {
   return (
@@ -39,18 +41,14 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignIn({ setIsSign, setOpen }: any) {
-  const [email, setEmail] = useState("urnaa@gmail.com");
-  const [password, setPassword] = useState("urnaa");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { setUser, setToken } = useContext(AuthContext);
   const { setMessage, setAlert, setStatus } = useContext(AlertContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
   const changeEmail = (e: any) => {
     setEmail(e.target.value);
@@ -64,11 +62,14 @@ export default function SignIn({ setIsSign, setOpen }: any) {
         email,
         password,
       });
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      setMessage(res.data.message);
+      setStatus("success");
       setUser(res.data.user);
-    } catch (error) {
-      // setMessage(error.response.data.message);
+      setToken(res.data.token);
+      setOpen(false);
+    } catch (error: any) {
       setStatus("error");
+      setMessage(error.message);
       setAlert(true);
     }
   };
@@ -107,6 +108,11 @@ export default function SignIn({ setIsSign, setOpen }: any) {
               autoComplete="email"
               autoFocus
               onChange={changeEmail}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  signin();
+                }
+              }}
             />
             <TextField
               margin="normal"
@@ -130,12 +136,11 @@ export default function SignIn({ setIsSign, setOpen }: any) {
               sx={{ mt: 3, mb: 2 }}
               onClick={() => {
                 signin();
-                setOpen(false);
               }}
             >
               Sign In
             </Button>
-            <Grid container>
+            <Grid container sx={{ flexDirection: "column" }}>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
@@ -149,8 +154,9 @@ export default function SignIn({ setIsSign, setOpen }: any) {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 5, mb: 4 }} />
       </Container>
+      <AlertComponent />
     </ThemeProvider>
   );
 }
