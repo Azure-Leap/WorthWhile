@@ -10,7 +10,7 @@ export const getAllReviews = async (
   try {
     const reviews = await Review.find();
     if (!reviews) {
-      res.status(200).json({ message: "Үнэлгээ хоосон байна." });
+      res.status(400).json({ message: "Үнэлгээ хоосон байна." });
     }
     res.status(200).json({ message: "Үнэлгээ олдлоо.", reviews });
   } catch (error) {

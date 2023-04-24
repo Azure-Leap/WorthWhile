@@ -9,6 +9,7 @@ import staffRoute from "./Routes/staffRoute";
 import categoryRoute from "./Routes/categoryRoute";
 import serviceRoute from "./Routes/serviceRoute";
 import reviewRoute from "./Routes/reviewRoutes";
+import replyRoute from "./Routes/replyRoutes";
 import logger from "./middlewares/logger";
 import error from "./middlewares/error";
 
@@ -23,6 +24,7 @@ app.use("/staffs", staffRoute);
 app.use("/categories", categoryRoute);
 app.use("/services", serviceRoute);
 app.use("/reviews", reviewRoute);
+app.use("/replies", replyRoute);
 
 const URI = process.env.URI || "";
 const PORT = process.env.PORT || "";
