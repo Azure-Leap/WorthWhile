@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoSearch, IoLocationSharp } from "react-icons/io5";
 
-const SearchComponent = ({ handlechange }: any) => {
+const SearchComponent = ({ onChangeText, search }: any) => {
   return (
     <div className="bg-white py-1 px-4 rounded-full shadow-md flex items-center justify-between">
       <div className="relative border-gray-950 border w-full">
         <input
-          onChange={handlechange}
+          onChange={onChangeText}
           type="text"
+          value={search}
           placeholder="Find a service or salon"
           className=" py-2 pl-10 pr-3 text-gray-700 placeholder-gray-400 appearance-none focus:outline-none focus:border-transparent"
         />
