@@ -25,7 +25,7 @@ export interface IBusiness {
 const services = () => {
   const [businessData, setBusinessData] = useState<IBusiness[]>([]);
   const [search, setSearch] = useState("");
-  function onChangeText(e) {
+  function onChangeText(e: any) {
     setSearch(e.target.value);
   }
 

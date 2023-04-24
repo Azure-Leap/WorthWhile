@@ -31,7 +31,7 @@ const Services = () => {
             </div>
           </div>
         </div>
-        <Service />
+        {/* <Service /> */}
       </div>
       <div className="bg-teal-200 w-screen">
         <div className="w-3/4 bg-neutral-400">Map</div>
