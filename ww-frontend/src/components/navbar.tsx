@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FiUser } from "react-icons/fi";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Modal, Box } from "@mui/material";
 import Signin from "./Modals/Signin";
 import Signup from "./Modals/Signup";
+import { AlertContext } from "@/context/alertContext";
 
 const style = {
   position: "absolute",
@@ -21,6 +22,7 @@ const style = {
 const Navbar = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
+  const { setAlert } = useContext(AlertContext);
 
   const logo = require("../assets/image/logo.png");
 
@@ -59,7 +61,7 @@ const Navbar = () => {
       <Modal
         open={Boolean(open)}
         onClose={() => {
-          setOpen(false), setIsSign(true);
+          setOpen(false), setIsSign(true), setAlert(false);
         }}
       >
         <Box sx={style}>
