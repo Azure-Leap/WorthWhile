@@ -56,7 +56,6 @@ const SalonCard = ({ businessData }: Props) => {
 
         {serviceData.map((el, idx) => {
           return businessData._id === el.businessId ? (
-            // <p key={idx}>{el.businessId}</p>
             <Service key={idx} serviceData={el} />
           ) : null;
         })}

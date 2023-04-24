@@ -24,6 +24,10 @@ export interface IBusiness {
 
 const services = () => {
   const [businessData, setBusinessData] = useState<IBusiness[]>([]);
+  const [search, setSearch] = useState("");
+  function onChangeText(e) {
+    setSearch(e.target.value);
+  }
 
   useEffect(() => {
     axios
@@ -37,18 +41,17 @@ const services = () => {
       });
   }, []);
 
-  const SearchedSalon = (e: any) => {
-    const filteredSalon = businessData.filter((business) =>
-      business.businessName.toLowerCase().includes(e.currentTarget.value)
-    );
-    setBusinessData(filteredSalon);
-    console.log("first===>", filteredSalon);
-  };
+  const list =
+    search === ""
+      ? businessData
+      : businessData.filter((business) =>
+          business.businessName.toLowerCase().includes(search)
+        );
 
   return (
     <>
       <div className="bg-cyan-300 h-1/4 p-5">
-        <SearchComponent handlechange={SearchedSalon} />
+        <SearchComponent onChangeText={onChangeText} search={search} />
         <div className="bg-white inline-flex items-center rounded px-2 py-1">
           <FiCalendar className="mr-1" />
           Dates
@@ -60,7 +63,7 @@ const services = () => {
       </div>
       <div className="bg-gray-200 h-full text-lg text-center p-4">
         Best Haircut in Ulaanbaatar
-        {businessData.map((el, idx) => (
+        {list?.map((el, idx) => (
           <SalonCard key={idx} businessData={el} />
         ))}
       </div>
