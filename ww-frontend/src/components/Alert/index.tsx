@@ -4,13 +4,13 @@ import React from "react";
 import { AlertContext } from "@/context/alertContext";
 
 const AlertComponent = () => {
-  const { isAlert, setAlert, status, message } = useContext(AlertContext);
+  const { setMessage, status, message } = useContext(AlertContext);
   return (
     <Snackbar
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isAlert}
+      open={message !== ""}
       onClose={() => {
-        setAlert(false);
+        setMessage("");
       }}
       autoHideDuration={3000}
     >

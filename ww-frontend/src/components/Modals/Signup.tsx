@@ -17,6 +17,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AuthContext } from "../../context/authContext";
 import { AlertContext } from "../../context/alertContext";
+import AlertComponent from "../Alert";
 
 function Copyright(props: any) {
   return (
@@ -44,8 +45,8 @@ export default function SignUp({ setIsSign, setOpen }: any) {
   const [userName, setUserName] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const { setUser, user, setToken } = useContext(AuthContext);
-  const { setMessage, setAlert, setStatus } = useContext(AlertContext);
+  const { setUser, token, setToken } = useContext(AuthContext);
+  const { setMessage, setStatus } = useContext(AlertContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -67,19 +68,16 @@ export default function SignUp({ setIsSign, setOpen }: any) {
     setPhoneNumber(e.target.value);
   };
   const signup = async () => {
-    console.log("signup");
     if (!email || !userName || !password || !rePassword || !phoneNumber) {
-      console.log("medeelel dutuu");
       setStatus("error");
-      setMessage("Мэдээллийг бүрэн бөглөнө үү");
-      setAlert(true);
+      setMessage("Мэдээллийг бүрэн бөглөнө үү!");
+
       return;
     }
     if (password !== rePassword) {
-      console.log("pass zurvvtei");
       setStatus("error");
-      setMessage("Нууц үг хоорондоо таарахгүй байна!!!");
-      setAlert(true);
+      setMessage("Нууц үг хоорондоо таарахгүй байна!");
+
       return;
     }
     try {
@@ -91,14 +89,13 @@ export default function SignUp({ setIsSign, setOpen }: any) {
       });
       setUser(res.data.user);
       setToken(res.data.token);
-      setStatus("succes");
       setMessage(res.data.message);
-      setAlert(true);
-      console.log("USER", user);
+      setStatus("success");
+      setOpen(false);
+      console.log(res.data);
     } catch (error: any) {
       setStatus("error");
-      setMessage(error.message);
-      setAlert(true);
+      setMessage("Бүртгэлтэй имэйл байна!");
     }
   };
 
@@ -136,6 +133,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
                   id="username"
                   label="Username"
                   autoFocus
+                  value={userName}
                   onChange={changeUsername}
                   onKeyPress={(e) => {
                     if (e.key === "Enter") {
@@ -152,6 +150,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
                   onChange={changeEmail}
                 />
               </Grid>
@@ -163,6 +162,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
                   label="Phone number"
                   name="number"
                   autoComplete="phone-number"
+                  value={phoneNumber}
                   onChange={changePhoneNumber}
                 />
               </Grid>
@@ -174,6 +174,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
                   label="Password"
                   type="password"
                   id="password"
+                  value={password}
                   autoComplete="new-password"
                   onChange={changePassword}
                 />
@@ -186,6 +187,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
                   label="Re-Password"
                   type="password"
                   id="re-password"
+                  value={rePassword}
                   autoComplete="re-password"
                   onChange={changeRePassword}
                 />

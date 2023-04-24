@@ -43,8 +43,8 @@ const theme = createTheme();
 export default function SignIn({ setIsSign, setOpen }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser, setToken } = useContext(AuthContext);
-  const { setMessage, setAlert, setStatus } = useContext(AlertContext);
+  const { setUser, user, setToken } = useContext(AuthContext);
+  const { setMessage, setStatus } = useContext(AlertContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -67,10 +67,13 @@ export default function SignIn({ setIsSign, setOpen }: any) {
       setUser(res.data.user);
       setToken(res.data.token);
       setOpen(false);
+      console.log(res.data);
     } catch (error: any) {
       setStatus("error");
-      setMessage(error.message);
-      setAlert(true);
+      setUser(null);
+      if (!user) {
+        setMessage("Имэйл эсвэл нууц үг буруу байна!");
+      }
     }
   };
 
@@ -102,6 +105,7 @@ export default function SignIn({ setIsSign, setOpen }: any) {
               margin="normal"
               required
               fullWidth
+              value={email}
               id="email"
               label="Email Address"
               name="email"
@@ -118,6 +122,7 @@ export default function SignIn({ setIsSign, setOpen }: any) {
               margin="normal"
               required
               fullWidth
+              value={password}
               name="password"
               label="Password"
               type="password"
@@ -156,7 +161,6 @@ export default function SignIn({ setIsSign, setOpen }: any) {
         </Box>
         <Copyright sx={{ mt: 5, mb: 4 }} />
       </Container>
-      <AlertComponent />
     </ThemeProvider>
   );
 }
