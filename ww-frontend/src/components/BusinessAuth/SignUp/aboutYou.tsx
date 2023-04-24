@@ -33,7 +33,8 @@ const AboutYouAuth = () => {
         placeholder="Enter phone number"
         value={phoneNumber}
         onChange={setPhoneNumber}
-        className="border-slate-800 bg-slate-400"
+        className="border border-gray-300 rounded p-2"
+        // onFocus={}
         // inputComponent={CustomInput}
       />
       <p className="text-xs text-left text-gray-500 m-0">
