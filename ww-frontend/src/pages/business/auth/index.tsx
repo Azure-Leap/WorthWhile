@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import BusinessSignIn from "@/components/BusinessAuth/singIn";
+import BusinessSignUp from "@/components/BusinessAuth/SignUp/signup";
 
 const SignInPage = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -11,7 +12,11 @@ const SignInPage = () => {
         <title>Sign In</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <BusinessSignIn />
+      {isSignIn ? (
+        <BusinessSignIn setIsSignIn={setIsSignIn} />
+      ) : (
+        <BusinessSignUp />
+      )}
     </div>
   );
 };
