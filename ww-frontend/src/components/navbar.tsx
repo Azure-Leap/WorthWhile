@@ -22,10 +22,7 @@ const Navbar = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
 
-
-const logo = require("../assets/image/logo.png");
-
-const Navbar: React.FC = () => {
+  const logo = require("../assets/image/logo.png");
 
   return (
     <nav className="bg-black">
