@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import AboutYouAuth from "./aboutYou";
+import AddressAuth from "./address";
+import BusinessHourInput from "./businessHours";
 import EmailAuth from "./email";
+import PasswordAuth from "./password";
 
 const BusinessSignUp = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +21,10 @@ const BusinessSignUp = () => {
           onSubmit={handleSignIn}
         >
           {/* <EmailAuth /> */}
-          <AboutYouAuth />
+          {/* <AboutYouAuth />  */}
+          {/* <PasswordAuth /> */}
+          {/* <AddressAuth /> */}
+          <BusinessHourInput />
         </form>
       </div>
     </main>
