@@ -16,7 +16,17 @@ const Profile = () => {
             alt="review"
             className="w-2/6 h-2/6 mx-auto"
           />
-          <Button className="bg-green-400 text-white w-5/6 h-10 mt-3 hover:bg-green-600  flex mx-auto">
+          <Button
+            sx={{
+              bgcolor: "lime",
+              display: "block",
+              margin: "auto",
+              width: 250,
+              ":hover": {
+                bgcolor: "green",
+              },
+            }}
+          >
             <BasicModal />
           </Button>
         </div>

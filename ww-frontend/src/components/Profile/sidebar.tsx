@@ -2,7 +2,6 @@ import React from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import Link from "next/link";
 import ImageAvatars from "./Avatar/avatar";
-// import UploadAvatar from "./Avatar/uploadAvatar";
 
 const Side = () => {
   return (
@@ -20,7 +19,6 @@ const Side = () => {
           }}
         >
           <ImageAvatars />
-          {/* <UploadAvatar /> */}
           <Link href={"/profile/giftcards"}>
             <MenuItem rootStyles={{ borderLeft: 4 }}> Gift Cards </MenuItem>
           </Link>

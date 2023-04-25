@@ -24,7 +24,7 @@ const BasicModal = () => {
 
   return (
     <div>
-      <Button onClick={handleOpen} className="text-white">
+      <Button onClick={handleOpen} sx={{ color: "white" }}>
         Add payment card
       </Button>
       <Modal

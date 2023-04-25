@@ -26,6 +26,13 @@ const Profile = () => {
           </p>
           <div className="my-10">
             <Button
+              sx={{
+                border: "2px solid gray",
+                color: "black",
+                display: "block",
+                margin: "auto",
+                width: 150,
+              }}
               variant="outlined"
               className=" text-black border-gray-400  w-3/6 h-10 flex mx-auto hover:bg-gray-300"
             >
@@ -33,7 +40,18 @@ const Profile = () => {
             </Button>
           </div>
           <div>
-            <Button className="bg-green-400 text-white w-5/6 h-10 hover:bg-green-600 flex mx-auto">
+            <Button
+              sx={{
+                bgcolor: "lime",
+                color: "black",
+                width: 250,
+                display: "block",
+                margin: "auto",
+                ":hover": {
+                  bgcolor: "green",
+                },
+              }}
+            >
               <BasicModal />
             </Button>
           </div>
