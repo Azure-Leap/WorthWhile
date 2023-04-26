@@ -55,8 +55,9 @@ const CardDetail = () => {
                 label="Card Number"
                 name="card-number"
                 autoComplete="card-number"
+                inputProps={{ maxLength: 16 }}
               />
-            </Grid>{" "}
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 required
@@ -75,7 +76,8 @@ const CardDetail = () => {
                 label="CVV/CVC"
                 type="cvv"
                 id="cvv"
-                autoComplete="cvvw"
+                autoComplete="cvv"
+                inputProps={{ maxLength: 3 }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -89,7 +91,14 @@ const CardDetail = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{
+              mt: 3,
+              mb: 2,
+              bgcolor: "lime",
+              ":hover": {
+                bgcolor: "green",
+              },
+            }}
           >
             Sign Up
           </Button>

@@ -4,8 +4,8 @@ import Side from "@/components/Profile/sidebar";
 
 const SideLayout = ({ children }: any) => {
   return (
-    <div className="w-10/12">
-      <div className="flex justify-center mt-5 px-5">
+    <div>
+      <div className="flex justify-center my-5 px-5">
         <ProSidebarProvider>
           <Side />
         </ProSidebarProvider>

@@ -1,42 +1,46 @@
 import React from "react";
-// import SideLayout from "@/components/SideLayout";
 import Button from "@mui/material/Button";
+interface IAppointments {
+  services: string;
+  totalPrice: number;
+  startTime: Date;
+}
 
-const Appointments = (props: any) => {
-  const Apps = [
-    {
-      Services: "Beard trim",
-      TotalPrice: 15,
-      StartTime: "15 April",
-    },
-    {
-      Services: "HairCut",
-      TotalPrice: 51,
-      StartTime: "15 May",
-    },
-  ];
-
+const Appointments = ({ apps }: { apps: IAppointments[] }) => {
   return (
-    <div>
-      <div className="ml-5 mt-2 ">
+    <div className="ml-5 mt-2 ">
+      <div>
         <h1 className="text-2xl ">Appointments</h1>
         <h2 className="my-5">Finished Appointments</h2>
       </div>
       <div>
-        <div className="my-20">
-          <img
-            src="/image/profile/appointment.png"
-            alt="review"
-            className="w-1/6 h-1/6 mx-auto"
-          />
-          <h2 className="text-xl text-center my-5 ">Scheduled Appointments</h2>
-          <p className="text-gray-500 text-center mb-10">
-            Your scheduled appointment will appear here.
-          </p>
-        </div>
-        <div>
-          <h4></h4>
-        </div>
+        {apps.map((app: IAppointments, i: number) => (
+          <div
+            key={i}
+            className="flex my-10 border-gray-300 border-2 rounded-xl p-5 min-w-full "
+          >
+            <div className="border-r-2 w-96">
+              <h1 className="text-2xl">{app.services}</h1>
+              <h3 className="text-xl">{app.totalPrice}</h3>
+              <Button
+                sx={{
+                  bgcolor: "lime",
+                  color: "white",
+                  marginTop: 2,
+                  paddingLeft: 3,
+                  paddingRight: 3,
+                  ":hover": {
+                    bgcolor: "green",
+                  },
+                }}
+              >
+                Book Again
+              </Button>
+            </div>
+            {/* <div className="flex align-middle">{app.startTime}</div> */}
+            <div className="w-96"></div>
+          </div>
+        ))}
       </div>
     </div>
   );
