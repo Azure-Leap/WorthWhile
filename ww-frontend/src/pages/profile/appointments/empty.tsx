@@ -2,7 +2,7 @@ import React from "react";
 import SideLayout from "@/components/SideLayout";
 import Button from "@mui/material/Button";
 
-export default function Empty(props: any) {
+export default function EmptyAppointment(props: any) {
   return (
     <div className="ml-5 mt-2 ">
       <h1 className="text-2xl ">Appointments</h1>

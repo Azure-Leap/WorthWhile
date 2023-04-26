@@ -3,12 +3,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
+import ModalClose from "@mui/joy/ModalClose";
 import Stack from "@mui/material/Stack";
-import Avatar from "react-avatar-edit";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import dynamic from "next/dynamic";
+
+const Avatar = dynamic(() => import("react-avatar-edit"), {
+  ssr: false,
+});
 
 const style = {
   position: "absolute",
@@ -22,24 +25,25 @@ const style = {
   p: 4,
 };
 
-const ImportImage = () => {
+const ImportImage = ({ setAvatarUrl }: any) => {
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const [src, setSrc] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState("");
 
   const onClose = () => {
-    setPreview(null);
+    setPreview("");
   };
   const onCrop = (view: any) => {
     setPreview(view);
   };
 
-  useEffect(() => {
-    console.log(preview);
-  }, [preview]);
+  // useEffect(() => {
+  //   console.log(preview);
+  // }, [preview]);
 
   return (
     <div className="absolute left-0 top-6">
@@ -58,24 +62,40 @@ const ImportImage = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <ModalClose
+            onClick={() => {
+              handleClose();
+            }}
+            sx={{
+              top: "calc(-1/4 * var(--IconButton-size))",
+              right: "calc(-1/4 * var(--IconButton-size))",
+              boxShadow: "0 2px 12px 0 rgba(0 0 0 / 0.2)",
+              borderRadius: "50%",
+              bgcolor: "background.body",
+            }}
+          />
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Change Avatar
           </Typography>
           <Box sx={{ marginTop: 5, marginBottom: 5 }}>
             <Avatar
-              width={300}
+              width={330}
               height={300}
-              src={src || undefined}
               onCrop={onCrop}
               onClose={onClose}
             />
-            {/* {preview && <img src={preview} />} */}
+            {/* <img src={preview} alt="Alt" /> */}
           </Box>
           <Stack direction="row" spacing={2}>
-            <Button variant="outlined" startIcon={<DeleteIcon />}>
-              Delete
-            </Button>
-            <Button variant="contained" endIcon={<SendIcon />}>
+            <Button variant="outlined">Delete</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setAvatarUrl(preview);
+                console.log(preview);
+                handleClose();
+              }}
+            >
               Save
             </Button>
           </Stack>
