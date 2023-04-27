@@ -1,7 +1,6 @@
-import { Schema, model } from "mongoose";
-import { IBusiness } from "../interfaces/index";
+import { Schema, model, Types } from "mongoose";
 
-const BusinessSchema = new Schema<IBusiness>({
+const BusinessSchema = new Schema({
   businessName: { type: String, required: true },
   email: {
     type: String,

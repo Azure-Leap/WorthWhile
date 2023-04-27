@@ -1,10 +1,6 @@
 import AlertComponent from "@/components/Alert";
 import HomeCard from "@/components/Card";
 import SearchComponent from "@/components/General/search";
-import AuthProvider from "@/context/authContext";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 export interface IItem {
   title: string;
   BgURL: string;

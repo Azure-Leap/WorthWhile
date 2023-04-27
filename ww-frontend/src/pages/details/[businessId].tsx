@@ -1,11 +1,12 @@
 import Service from "@/components/Service";
 import Sidebar from "@/components/Sidebar";
+import { Business } from "@mui/icons-material";
 import { Box, Grid } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import { IoSearch } from "react-icons/io5";
 
-const Services = () => {
+const Services = ({ business, staffs }: any) => {
   return (
     <Grid container maxWidth="lg" sx={{ margin: "0 auto" }}>
       <Grid
@@ -41,9 +42,22 @@ const Services = () => {
         </div>
         {/* <Service /> */}
       </Grid>
-      <Sidebar />
+      <Sidebar business={business} staffs={staffs} />
     </Grid>
   );
 };
+
+export async function getServerSideProps({ query }: any) {
+  const res = await fetch(`http://localhost:8888/business/${query.businessId}`);
+  const data = await res.json();
+  const res2 = await fetch(
+    `http://localhost:8888/staffs?businessId=${query.businessId}`
+  );
+  const data2 = await res2.json();
+
+  return {
+    props: { business: data.business, staffs: data2.staffs },
+  };
+}
 
 export default Services;
