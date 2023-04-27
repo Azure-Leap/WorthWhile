@@ -2,7 +2,7 @@ import React from "react";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import Side from "@/components/Profile/sidebar";
 
-const SideLayout = ({ children }: any) => {
+const 5SideLayout = ({ children }: any) => {
   return (
     <div>
       <div className="flex justify-center my-5 px-5">

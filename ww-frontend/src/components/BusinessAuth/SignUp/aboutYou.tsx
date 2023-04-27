@@ -4,7 +4,7 @@ import PhoneInput from "react-phone-number-input";
 
 const AboutYouAuth = () => {
   const [businessName, setBusinessName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState<String>("99261196");
   return (
     <>
       <h2 className="text-xl font-medium mb-4 ">About You</h2>
@@ -32,7 +32,7 @@ const AboutYouAuth = () => {
         countrySelectProps={{ unicodeFlags: true }}
         placeholder="Enter phone number"
         value={phoneNumber}
-        onChange={setPhoneNumber}
+        onChange={(e) => setPhoneNumber(e)}
         className="border border-gray-300 rounded p-2"
         // onFocus={}
         // inputComponent={CustomInput}
@@ -51,3 +51,4 @@ const AboutYouAuth = () => {
 };
 
 export default AboutYouAuth;
+//
