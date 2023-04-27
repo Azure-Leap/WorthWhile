@@ -25,7 +25,7 @@ const Profile = () => {
             manage their appointments, receive notifications, and make payments.
           </p>
           <div className="my-10">
-            <Button
+            {/* <Button
               sx={{
                 border: "2px solid gray",
                 color: "black",
@@ -53,7 +53,7 @@ const Profile = () => {
               }}
             >
               <BasicModal />
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

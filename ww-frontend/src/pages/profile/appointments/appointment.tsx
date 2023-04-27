@@ -1,8 +1,10 @@
 import React from "react";
 import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+
 interface IAppointments {
   services: string;
-  totalPrice: number;
+  barber: string;
   startTime: Date;
 }
 
@@ -17,16 +19,26 @@ const Appointments = ({ apps }: { apps: IAppointments[] }) => {
         {apps.map((app: IAppointments, i: number) => (
           <div
             key={i}
-            className="flex my-10 border-gray-300 border-2 rounded-xl p-5 min-w-full "
+            className="flex my-10 border-gray-300 border-2 rounded-xl p-5 min-w-full shadow-xl "
           >
             <div className="border-r-2 w-96">
-              <h1 className="text-2xl">{app.services}</h1>
-              <h3 className="text-xl">{app.totalPrice}</h3>
+              <h1 className="text-2xl font-bold">{app.services}</h1>
+              <div className="flex my-2">
+                <Avatar
+                  sx={{
+                    width: 25,
+                    height: 25,
+                  }}
+                  alt="Ashid"
+                  src=""
+                />
+                <h3 className="pl-2">{app.barber}</h3>
+              </div>
+
               <Button
                 sx={{
                   bgcolor: "lime",
                   color: "white",
-                  marginTop: 2,
                   paddingLeft: 3,
                   paddingRight: 3,
                   ":hover": {
@@ -37,8 +49,9 @@ const Appointments = ({ apps }: { apps: IAppointments[] }) => {
                 Book Again
               </Button>
             </div>
-            {/* <div className="flex align-middle">{app.startTime}</div> */}
-            <div className="w-96"></div>
+            <div className="pl-5 flex items-center">
+              {/* {app.startTime.toString()} */}
+            </div>
           </div>
         ))}
       </div>

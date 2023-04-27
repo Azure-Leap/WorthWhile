@@ -2,11 +2,13 @@ import { Schema, model, Types } from "mongoose";
 
 const BusinessSchema = new Schema({
   businessName: { type: String, required: true },
+  profileImg: String,
   email: {
     type: String,
     required: true,
     unique: true,
   },
+  phoneNumber: { type: String, required: true },
   password: { type: String, required: true },
   businessImg: { type: String, required: true },
   businessHours: [

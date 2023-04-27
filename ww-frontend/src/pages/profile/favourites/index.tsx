@@ -35,7 +35,6 @@ export default function App() {
         "https://images.unsplash.com/photo-1633681926035-ec1ac984418a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
       description: "ХУД 18-хороо үшйрүиөхүшйөхийо",
     },
-
     {
       services: "HairCut",
       serviceImage: "",

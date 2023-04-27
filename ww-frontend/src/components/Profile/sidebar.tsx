@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import Link from "next/link";
 import ImageAvatars from "./Avatar/avatar";
@@ -18,48 +18,50 @@ const Side = () => {
         }}
       >
         <ImageAvatars />
-        <Link href={"/profile/giftcards"}>
-          <MenuItem> Gift Cards </MenuItem>
-        </Link>
-        <Link href="/profile/appointments">
-          <MenuItem> Appointments </MenuItem>
-        </Link>
 
-        <Link href="/profile/family-and-friends">
-          <MenuItem> Family & Friends </MenuItem>
-        </Link>
+        <MenuItem component={<Link href={"/profile/giftcards"} />}>
+          Gift Cards
+        </MenuItem>
 
-        <Link href="/profile/favourites">
-          <MenuItem> Favourites </MenuItem>
-        </Link>
+        <MenuItem component={<Link href={"/profile/appointments"} />}>
+          Appointments
+        </MenuItem>
 
-        <Link href="/profile/settings">
-          <MenuItem> Account & Settings </MenuItem>
-        </Link>
+        <MenuItem component={<Link href={"/profile/family-and-friends"} />}>
+          Family & Friends
+        </MenuItem>
 
-        <Link href="/profile/reviews">
-          <MenuItem> Reviews </MenuItem>
-        </Link>
+        <MenuItem component={<Link href={"/profile/favourites"} />}>
+          Favourite
+        </MenuItem>
 
-        <Link href="/profile/payments">
-          <MenuItem> Payments </MenuItem>
-        </Link>
+        <MenuItem component={<Link href={"/profile/settings"} />}>
+          Account $ Settings
+        </MenuItem>
 
-        <Link href="/profile/forms">
-          <MenuItem> Custom Forms </MenuItem>
-        </Link>
+        <MenuItem component={<Link href={"/profile/reviews"} />}>
+          Reviews
+        </MenuItem>
 
-        <Link href="/ab/terms">
-          <MenuItem> Terms of Service </MenuItem>
-        </Link>
+        <MenuItem component={<Link href={"/profile/payments"} />}>
+          Payments
+        </MenuItem>
 
-        <Link href="/ab/privacy">
-          <MenuItem> Privacy Policy </MenuItem>
-        </Link>
+        <MenuItem component={<Link href={"/profile/forms"} />}>
+          Custom Forms
+        </MenuItem>
 
-        <Link href="/profile/log-out">
-          <MenuItem> Log Out </MenuItem>
-        </Link>
+        <MenuItem component={<Link href={"/ab/terms"} />}>
+          Terms of Services
+        </MenuItem>
+
+        <MenuItem component={<Link href={"/ab/privacy"} />}>
+          Privacy Policy
+        </MenuItem>
+
+        <MenuItem component={<Link href={"/profile/appointments"} />}>
+          Log Out
+        </MenuItem>
       </Menu>
     </Sidebar>
   );

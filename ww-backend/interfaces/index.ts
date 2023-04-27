@@ -24,7 +24,9 @@ interface ICategory {
   catType: String;
 }
 interface IBusiness {
+  profileImg: any;
   password: { type: string; required: true };
+  phoneNumber: { type: string; required: true };
   businessName: { type: string; required: true };
   contactNumber: { type: string; required: true };
   email: { type: string; required: true };
