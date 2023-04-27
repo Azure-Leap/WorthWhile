@@ -13,13 +13,29 @@ import {
 } from "./icons";
 
 const menuItems = [
-  { id: 1, label: "Home", icon: HomeIcon, link: "/" },
-  { id: 2, label: "Manage Posts", icon: ArticleIcon, link: "/posts" },
-  { id: 3, label: "Manage Users", icon: UsersIcon, link: "/users" },
-  { id: 4, label: "Manage Tutorials", icon: VideosIcon, link: "/tutorials" },
+  {
+    id: 1,
+    label: "Appointments",
+    icon: HomeIcon,
+    link: "/business/Appointments",
+  },
+  {
+    id: 2,
+    label: "Services",
+    icon: ArticleIcon,
+    link: "/business/Services",
+  },
+  { id: 3, label: "Staff", icon: UsersIcon, link: "/business/Staff" },
+  {
+    id: 4,
+    label: "Salon Detail",
+    icon: VideosIcon,
+    link: "/business/SalonDetail",
+  },
+  { id: 4, label: "Reviews", icon: VideosIcon, link: "/business/Reviews" },
 ];
 
-const Sidebar = () => {
+const BusinessSideBar = () => {
   const [toggleCollapse, setToggleCollapse] = useState(false);
   const [isCollapsible, setIsCollapsible] = useState(false);
 
@@ -31,7 +47,7 @@ const Sidebar = () => {
   );
 
   const wrapperClasses = classNames(
-    "h-screen px-4 pt-8 pb-4 bg-light flex justify-between flex-col",
+    "h-screen px-4 pt-8 pb-4 bg-light flex justify-between flex-col bg-stone-950",
     {
       ["w-80"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
@@ -74,9 +90,12 @@ const Sidebar = () => {
           <div className="flex items-center pl-1 gap-4">
             <LogoIcon />
             <span
-              className={classNames("mt-2 text-lg font-medium text-text", {
-                hidden: toggleCollapse,
-              })}
+              className={classNames(
+                "mt-2 text-lg font-medium text-text text-white",
+                {
+                  hidden: toggleCollapse,
+                }
+              )}
             >
               Logo
             </span>
@@ -97,14 +116,14 @@ const Sidebar = () => {
             return (
               <div key={menu.id} className={classes}>
                 <Link href={menu.link}>
-                  <span className="flex py-4 px-3 items-center w-full h-full">
+                  <span className="flex py-4 px-3 items-center w-full h-full ">
                     <div style={{ width: "2.5rem" }}>
                       <Icon />
                     </div>
                     {!toggleCollapse && (
                       <span
                         className={classNames(
-                          "text-md font-medium text-text-light"
+                          "text-md font-medium text-text-light text-white"
                         )}
                       >
                         {menu.label}
@@ -123,7 +142,11 @@ const Sidebar = () => {
           <LogoutIcon />
         </div>
         {!toggleCollapse && (
-          <span className={classNames("text-md font-medium text-text-light")}>
+          <span
+            className={classNames(
+              "text-md font-medium text-text-light text-white"
+            )}
+          >
             Logout
           </span>
         )}
@@ -132,4 +155,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default BusinessSideBar;
