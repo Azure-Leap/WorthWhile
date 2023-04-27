@@ -1,22 +1,16 @@
 import React, { useState } from "react";
 
-const BusinessSignIn = () => {
+const BusinessSignIn = ({ setIsSignIn }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Add your sign in logic here
   };
   return (
-    <main className="flex flex-col items-center w-full flex-1 px-20 text-center">
-      <h1 className="text-4xl font-bold mb-4">Welcome back!</h1>
-      <p className="text-gray-500 mb-8">
-        Sign in to access your business account.
-      </p>
-      {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
-      <div className="flex w-full justify-center items-center">
+    <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center bg-gray-100 ">
+      <div className="flex w-fit justify-center items-center bg-white p-7 rounded-md">
         <form
           className="mt-8 space-y-6 w-full max-w-md"
           onSubmit={handleSignIn}
@@ -70,7 +64,12 @@ const BusinessSignIn = () => {
               Forgot password?
             </button>
 
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-xs">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-xs"
+              onClick={() => {
+                setIsSignIn(false);
+              }}
+            >
               Don't have an account? Sign Up
             </button>
           </div>
