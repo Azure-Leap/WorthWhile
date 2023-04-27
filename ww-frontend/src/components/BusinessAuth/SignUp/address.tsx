@@ -44,12 +44,6 @@ const AddressAuth = () => {
           placeholder="Zip code"
         />
       </div>
-      <button
-        type="submit"
-        className="w-full bg-gray-800 text-white font-semibold py-2 px-4 rounded-lg shadow text-xs"
-      >
-        CONTINUE
-      </button>
     </>
   );
 };

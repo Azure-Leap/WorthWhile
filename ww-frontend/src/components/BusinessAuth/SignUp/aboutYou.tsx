@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 
-const AboutYouAuth = () => {
-  const [businessName, setBusinessName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState<any>();
+const AboutYouAuth = ({
+  setBusinessName,
+  setPhoneNumber,
+  phoneNumber,
+  businessName,
+}: any) => {
+  // const [businessName, setBusinessName] = useState("");
+  // const [phoneNumber, setPhoneNumber] = useState<any>();
   return (
     <>
       <h2 className="text-xl font-medium mb-4 ">About You</h2>
@@ -19,7 +24,7 @@ const AboutYouAuth = () => {
             name="business-name"
             type="text"
             // autoComplete="email"
-            required
+            // required
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
             className=" rounded block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:border-gray-800  sm:text-sm"
@@ -40,12 +45,6 @@ const AboutYouAuth = () => {
       <p className="text-xs text-left text-gray-500 m-0">
         Other sign in methods {">"}
       </p>
-      <button
-        type="submit"
-        className="w-full bg-gray-800 text-white font-semibold py-2 px-4 rounded-lg shadow text-xs"
-      >
-        CONTINUE
-      </button>
     </>
   );
 };

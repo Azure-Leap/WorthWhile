@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 
-const PasswordAuth = () => {
-  const [password, setPassword] = useState("");
+const PasswordAuth = ({
+  password,
+  setPassword,
+  rePassword,
+  setRePassword,
+}: any) => {
   return (
     <>
       <h2 className="text-xl font-medium mb-4 ">Password Setup</h2>
@@ -18,20 +22,25 @@ const PasswordAuth = () => {
             name="password"
             type="password"
             // autoComplete="email"
-            required
+            // required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className=" rounded block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:border-gray-800  sm:text-sm"
             placeholder="Password"
           />
+          <input
+            id="RePassword"
+            name="RePassword"
+            type="password"
+            // autoComplete="email"
+            // required
+            value={rePassword}
+            onChange={(e) => setRePassword(e.target.value)}
+            className=" rounded block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:border-gray-800  sm:text-sm"
+            placeholder="Enter password again"
+          />
         </div>
       </div>
-      <button
-        type="submit"
-        className="w-full bg-gray-800 text-white font-semibold py-2 px-4 rounded-lg shadow text-xs"
-      >
-        CONTINUE
-      </button>
     </>
   );
 };
