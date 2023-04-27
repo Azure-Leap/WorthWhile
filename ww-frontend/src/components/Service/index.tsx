@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
+import { OrderContext } from "@/context/orderContext";
 
 interface IService {
   _id: String;
@@ -17,6 +18,7 @@ interface Props {
 }
 
 const Service = ({ serviceData }: Props) => {
+  const { setOpen } = useContext(OrderContext);
   return (
     <div className="border-t-2 border-gray-200 text-start flex justify-between py-3 ">
       <div>
@@ -30,7 +32,10 @@ const Service = ({ serviceData }: Props) => {
           <p className="text-sm font-bold">{`${serviceData.servicePrice.toLocaleString()}₮`}</p>
           <p className="text-xs">30min</p>
         </div>
-        <button className="text-xs bg-cyan-500 text-white px-4 py-1 rounded-lg h-9">
+        <button
+          onClick={() => setOpen(true)}
+          className="text-xs bg-cyan-500 text-white px-4 py-1 rounded-lg h-9"
+        >
           Book
         </button>
       </div>

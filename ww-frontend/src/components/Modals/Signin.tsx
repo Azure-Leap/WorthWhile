@@ -44,7 +44,7 @@ export default function SignIn({ setIsSign, setOpen }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser, user, setToken } = useContext(AuthContext);
-  const { setMessage, setStatus } = useContext(AlertContext);
+  const { setMessage, setStatus, message } = useContext(AlertContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -57,6 +57,7 @@ export default function SignIn({ setIsSign, setOpen }: any) {
     setPassword(e.target.value);
   };
   const signin = async () => {
+    console.log("signin");
     try {
       const res = await axios.post("http://localhost:8888/users/signin", {
         email,
@@ -67,7 +68,6 @@ export default function SignIn({ setIsSign, setOpen }: any) {
       setUser(res.data.user);
       setToken(res.data.token);
       setOpen(false);
-      console.log(res.data);
     } catch (error: any) {
       setStatus("error");
       setUser(null);

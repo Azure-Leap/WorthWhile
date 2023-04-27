@@ -10,6 +10,7 @@ const BusinessSchema = new Schema({
   },
   phoneNumber: { type: String, required: true },
   password: { type: String, required: true },
+  businessImg: { type: String, required: true },
   businessHours: [
     { day: Number, startTime: Number, endTime: Number, isRestDay: Boolean },
   ],
