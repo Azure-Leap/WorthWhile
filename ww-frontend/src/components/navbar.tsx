@@ -22,7 +22,6 @@ const style = {
 const Navbar = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
-  const { setAlert } = useContext(AlertContext);
 
   const logo = require("../assets/image/logo.png");
 

@@ -1,10 +1,10 @@
 const getTimes = (start, end) => {
   const arr = [],
     dt = new Date("2023-01-01 00:00:00");
-  dt.setUTCHours(start);
-  console.log(dt.getUTCHours());
+  dt.setUTCHours(Number(start.substring(0, 2)));
+  console.log(Number(start.substring(0, 2)));
 
-  while (dt.getUTCHours() <= end) {
+  while (dt.getUTCHours() <= Number(end.substring(0, 2))) {
     arr.push({ isAvailable: true, time: new Date(dt) });
     dt.setUTCHours(dt.getUTCHours() + 1);
   }
@@ -13,7 +13,7 @@ const getTimes = (start, end) => {
 };
 
 const availableTimes = getTimes(
-  1, //'9
-  9 //
+  "09:00", //'9
+  "17:00" //
 ); //[{},{}]
 console.log(availableTimes);

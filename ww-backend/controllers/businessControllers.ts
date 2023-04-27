@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Business from "../Models/BusinesModel";
-import Staffer from "../Models/StaffModel"
+import Staffer from "../Models/StaffModel";
+import Service from "../Models/ServiceModel";
 
 const getAllBusiness = async (
   req: Request,
@@ -152,13 +153,36 @@ export const getStaffsByBusinessId = async (
   next: NextFunction
 ) => {
   try {
-    const {businessId} = req.query;
-    const staffs:any = await Staffer.find({businessId}).populate('businessId');
+    const { businessId } = req.query;
+    const staffs: any = await Staffer.find({ businessId }).populate(
+      "businessId"
+    );
 
     if (!staffs) {
       res.status(200).json({ message: "Үсчдийн мэдээлэл хоосон байна." });
     }
     res.status(200).json({ message: "Үсчдийн мэдээлэл олдлоо.", staffs });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getServicesByBusinessId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { businessId } = req.query;
+    const services = await Service.find({ businessId }).populate("businessId");
+    if (!services) {
+      res
+        .status(200)
+        .json({ message: "Үйлчилгээнүүдийн мэдээлэл хоосон байна." });
+    }
+    res
+      .status(200)
+      .json({ message: "Үйлчилгээнүүдийн мэдээлэл олдлоо.", services });
   } catch (error) {
     next(error);
   }

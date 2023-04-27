@@ -1,29 +1,42 @@
-import React from "react";
+import React, { useContext } from "react";
 import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Typography } from "@mui/material";
+import { OrderContext } from "@/context/orderContext";
 
 const arr = [1, 2, 3, 4, 5, 6, 7];
 const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 const BookModal = () => {
+  const { setOpen, setModal } = useContext(OrderContext);
   return (
     <Box sx={{ width: "100%" }}>
-      <Typography
+      <Box
         sx={{
-          fontSize: "28px",
-          fontWeight: "bold",
-          textAlign: "center",
-          margin: "20px 0",
+          position: "relative",
+          marginTop: "-15px",
+          paddingBottom: "20px",
         }}
       >
-        May 2023
-      </Typography>
+        <Typography
+          sx={{
+            fontSize: "24px",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          May 2023
+        </Typography>
+        <CloseIcon
+          onClick={() => setOpen(false)}
+          sx={{ position: "absolute", top: "5px", right: "-15px" }}
+        />
+      </Box>
       <Box
         sx={{
           display: "grid",
           gridTemplateColumns: "repeat(7,1fr)",
           gridGap: "10px",
           paddingBottom: "20px",
-          margin: "0 7px",
         }}
       >
         {arr.map(() => (
@@ -44,7 +57,7 @@ const BookModal = () => {
           </Box>
         ))}
       </Box>
-      <hr style={{ margin: "0 30px" }} />
+      <hr />
       <Box sx={{ margin: "0 auto", width: "60%" }}>
         <Box
           sx={{
@@ -91,7 +104,6 @@ const BookModal = () => {
           display: "grid",
           gridTemplateColumns: "repeat(6,1fr)",
           gridGap: "7px",
-          margin: "0 30px",
         }}
       >
         {arr2.map(() => (
@@ -103,7 +115,7 @@ const BookModal = () => {
       <Box
         sx={{
           backgroundColor: "#E6E5E5",
-          margin: "30px",
+          margin: "30px 0",
           borderRadius: "8px",
           padding: "20px",
         }}
@@ -156,7 +168,7 @@ const BookModal = () => {
           </button>
         </Box>
       </Box>
-      <Box sx={{ display: "flex", alignItems: "center", marginLeft: "27px" }}>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
         <AddIcon />
         <Typography>Add another service</Typography>
       </Box>
@@ -172,7 +184,11 @@ const BookModal = () => {
             30min
           </Typography>
         </Box>
-        <Button variant="contained" color="success">
+        <Button
+          onClick={() => setModal("ConfirmModal")}
+          variant="contained"
+          sx={{ backgroundColor: "rgb(6 182 212)", width: "100%" }}
+        >
           Book
         </Button>
       </Box>

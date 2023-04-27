@@ -69,7 +69,7 @@ const Sidebar = ({ business, staffs }: any) => {
               }}
             >
               {staffs.map((staff: any, i: any) => (
-                <Box>
+                <Box key={i}>
                   <div
                     style={{
                       width: "60px",
