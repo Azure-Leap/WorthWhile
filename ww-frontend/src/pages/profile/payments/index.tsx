@@ -27,7 +27,7 @@ const Profile = () => {
               },
             }}
           >
-            <BasicModal />
+            {/* <BasicModal /> */}
           </Button>
         </div>
         <div>
