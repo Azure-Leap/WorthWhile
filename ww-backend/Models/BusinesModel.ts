@@ -3,11 +3,13 @@ import { IBusiness } from "../interfaces/index";
 
 const BusinessSchema = new Schema<IBusiness>({
   businessName: { type: String, required: true },
+  profileImg: String,
   email: {
     type: String,
     required: true,
     unique: true,
   },
+  phoneNumber: { type: String, required: true },
   password: { type: String, required: true },
   businessHours: [
     { day: Number, startTime: Number, endTime: Number, isRestDay: Boolean },

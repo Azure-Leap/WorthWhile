@@ -4,7 +4,7 @@ import PhoneInput from "react-phone-number-input";
 
 const AboutYouAuth = () => {
   const [businessName, setBusinessName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState<String>("99261196");
+  const [phoneNumber, setPhoneNumber] = useState<any>();
   return (
     <>
       <h2 className="text-xl font-medium mb-4 ">About You</h2>
