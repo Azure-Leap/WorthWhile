@@ -11,7 +11,10 @@ import { FiArrowLeft } from "react-icons/fi";
 const BusinessSignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [progress, setProgress] = useState(90);
+  const [address, setAddress] = useState("");
+  const [businessHours, setBusinessHours] = useState([]);
+
+  const [progress, setProgress] = useState(16.6);
 
   const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,17 +34,11 @@ const BusinessSignUp = () => {
         </div>
         <form className="mt-6 space-y-6 max-w-md" onSubmit={handleSignIn}>
           <EmailAuth />
-          <p>End Here</p>
           {/* <AboutYouAuth />
-          <p>End Here</p>
           <PasswordAuth />
-          <p>End Here</p>
           <AddressAuth />
-          <p>End Here</p>
           <BusinessHourInput />
-          <p>End Here</p>
           <AddServiceAuth />
-          <p>End Here</p>
           <AddStaffAuth /> */}
         </form>
       </div>
