@@ -1,8 +1,6 @@
 import Service from "@/components/Service";
 import Sidebar from "@/components/Sidebar";
-import { Business } from "@mui/icons-material";
-import { Box, Grid } from "@mui/material";
-import Image from "next/image";
+import { Grid } from "@mui/material";
 import React from "react";
 import { IoSearch } from "react-icons/io5";
 
@@ -19,14 +17,12 @@ const Services = ({ business, staffs }: any) => {
         }}
       >
         <img
-          src={business.businessImg}
+          src={business.profileImg}
           alt="Salon"
           style={{ width: "100%", borderRadius: "6px" }}
         />
         <h1 className="text-2xl">Matrix Salon</h1>
-        <p className="text-xs text-gray-700">
-          Чингэлтэй дүүрэг, 3-р хороо, Энхтайваны өргөн чөлөө, Матрикс барилга
-        </p>
+        <p className="text-xs text-gray-700">{business.address.city}</p>
         <div className="flex justify-between">
           <h1 className="text-2xl">Services</h1>
           <div className="relative ">

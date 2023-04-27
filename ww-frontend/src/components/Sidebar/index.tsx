@@ -5,20 +5,51 @@ import moment from "moment";
 
 const Sidebar = ({ business, staffs }: any) => {
   return (
-    <Grid item xs={12} md={4.5} sx={{ padding: "45px", minHeight: "90vh" }}>
-      <Box sx={{ height: "200px", backgroundColor: "grey" }}>Map</Box>
+    <Grid
+      item
+      xs={12}
+      md={4.5}
+      sx={{
+        padding: "45px",
+        minHeight: "90vh",
+      }}
+    >
       <Box
-        sx={{ backgroundColor: "#F7F7F7", padding: "20px", paddingTop: "40px" }}
+        sx={{
+          height: "200px",
+          backgroundColor: "grey",
+          borderTopLeftRadius: "8px",
+          borderTopRightRadius: "8px",
+        }}
       >
-        <Typography
-          sx={{
-            paddingBottom: "15px",
-            fontSize: "12px",
-            fontWeight: "bold",
-          }}
-        >
-          ABOUT US
-        </Typography>
+        Map
+      </Box>
+      <Box
+        sx={{
+          backgroundColor: "#F7F7F7",
+          padding: "20px",
+          paddingTop: "40px",
+          borderBottomLeftRadius: "8px",
+          borderBottomRightRadius: "8px",
+        }}
+      >
+        <Box>
+          <Box>
+            <Typography
+              sx={{
+                fontSize: "12px",
+                fontWeight: "bold",
+              }}
+            >
+              ABOUT US
+            </Typography>
+          </Box>
+          <Box sx={{ padding: "20px" }}>
+            <Typography sx={{ fontSize: "12px" }}>
+              {business.description}
+            </Typography>
+          </Box>
+        </Box>
         <Box>
           <Typography
             sx={{
@@ -33,7 +64,7 @@ const Sidebar = ({ business, staffs }: any) => {
             <Box
               sx={{
                 display: "flex",
-                minHeight: "80px",
+                minHeight: "90px",
                 gap: "20px",
               }}
             >
@@ -41,8 +72,8 @@ const Sidebar = ({ business, staffs }: any) => {
                 <Box>
                   <div
                     style={{
-                      width: "50px",
-                      height: "50px",
+                      width: "60px",
+                      height: "60px",
                     }}
                   >
                     <img
@@ -56,12 +87,15 @@ const Sidebar = ({ business, staffs }: any) => {
                     />
                   </div>
                   <Typography
-                    sx={{ fontSize: "12px", textAlign: "center", lineClamp: 1 }}
+                    sx={{
+                      fontSize: "12px",
+                      textAlign: "center",
+                      marginTop: "8px",
+                    }}
                     key={i}
                   >
-                    {`${staff.stafferName}fvhvkhjbkhbj`.length > 3
-                      ? `${staff.stafferName}fvhvkhjbkhbj`.substring(0, 4) +
-                        "..."
+                    {staff.stafferName.length > 8
+                      ? staff.stafferName.substring(0, 8) + "..."
                       : staff.stafferName}
                   </Typography>
                 </Box>
@@ -89,7 +123,15 @@ const Sidebar = ({ business, staffs }: any) => {
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <PhoneIphoneIcon sx={{ color: "#C3C2C2" }} />
-            <Typography style={{ fontSize: "14px" }}>{}</Typography>
+            <Typography style={{ fontSize: "14px" }}>
+              {`(${business.phoneNumber.substring(
+                1,
+                4
+              )}) ${business.phoneNumber.substring(
+                4,
+                8
+              )}-${business.phoneNumber.substring(8)}`}
+            </Typography>
           </Box>
           <button
             style={{
@@ -97,14 +139,6 @@ const Sidebar = ({ business, staffs }: any) => {
               padding: "8px 20px",
               border: "1px solid #C3C2C2",
               borderRadius: "8px",
-            }}
-            onClick={() => {
-              const ds = new Date();
-              ds.setHours(10);
-              console.log(ds.toDateString());
-              moment.locale("mn");
-              const mo = moment(ds);
-              console.log(mo.format("LL"));
             }}
           >
             Call
@@ -147,7 +181,9 @@ const Sidebar = ({ business, staffs }: any) => {
               paddingTop: "20px",
             }}
           >
-            <Typography sx={{ fontSize: "15px" }}>Apr 24, 2023</Typography>
+            <Typography sx={{ fontSize: "15px" }}>
+              {moment(new Date()).format("ll")}
+            </Typography>
             <Typography sx={{ fontSize: "15px" }}>Closed</Typography>
           </Box>
           <Box sx={{ padding: "20px" }}>

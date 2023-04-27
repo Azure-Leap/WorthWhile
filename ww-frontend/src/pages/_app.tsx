@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import AuthProvider from "@/context/authContext";
 import AlertProvider from "@/context/alertContext";
+import AlertComponent from "@/components/Alert";
 import { Lato } from "@next/font/google";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <AlertProvider>
           <AuthProvider>
             <Layout>
+              <AlertComponent />
               <Component {...pageProps} />
             </Layout>
           </AuthProvider>

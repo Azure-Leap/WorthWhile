@@ -61,7 +61,7 @@ const Navbar = () => {
       <Modal
         open={Boolean(open)}
         onClose={() => {
-          setOpen(false), setIsSign(true), setAlert(false);
+          setOpen(false), setIsSign(true);
         }}
       >
         <Box sx={style}>

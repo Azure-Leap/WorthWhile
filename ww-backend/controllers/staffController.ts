@@ -8,8 +8,8 @@ export const getAllStaffs = async (
   next: NextFunction
 ) => {
   try {
-    const {businessId} = req.query;
-    const staffs:any = await Staffer.find().populate('businessId');
+    const { businessId } = req.query;
+    const staffs: any = await Staffer.find().populate("businessId");
 
     if (!staffs) {
       res.status(200).json({ message: "Үсчдийн мэдээлэл хоосон байна." });
@@ -49,23 +49,23 @@ export const createStaff = async (
   try {
     const { stafferName, staffImg, businessId, about }: IStaffer = req.body;
 
-    const getTimes = (start: Date, end: Date): Array<Date> => {
-      const arr = new Array(),
-        dt = new Date(start);
+    const getTimes = (start: number, end: number): Array<Object> => {
+      const arr = [],
+        dt = new Date("2023-01-01 00:00:00");
+      dt.setUTCHours(start);
 
-      while (dt <= end) {
-        arr.push(new Date(dt));
-        dt.setHours(dt.getHours() + 1);
+      while (dt.getUTCHours() <= end) {
+        arr.push({ isAvailable: true, time: new Date(dt) });
+        dt.setUTCHours(dt.getUTCHours() + 1);
       }
 
       return arr;
     };
 
     const availableTimes = getTimes(
-      new Date("2023-04-19"),
-      new Date("2023-04-20")
+      1, //'9
+      9 //
     );
-    console.log(availableTimes);
 
     const staff = await Staffer.create({
       stafferName,
