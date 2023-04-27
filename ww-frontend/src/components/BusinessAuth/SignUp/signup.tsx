@@ -33,9 +33,9 @@ const BusinessSignUp = () => {
           </div>
         </div>
         <form className="mt-6 space-y-6 max-w-md" onSubmit={handleSignIn}>
-          <EmailAuth />
-          {/* <AboutYouAuth />
-          <PasswordAuth />
+          {/* <EmailAuth /> */}
+          <AboutYouAuth />
+          {/* <PasswordAuth />
           <AddressAuth />
           <BusinessHourInput />
           <AddServiceAuth />

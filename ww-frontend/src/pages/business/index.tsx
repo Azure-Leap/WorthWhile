@@ -1,9 +1,8 @@
+import BusinessLayout from "@/components/BusinessLayout";
 import React from "react";
 
 const BusinessHomePage = () => {
-  return (
-    <div>This is BusinessHomePage. This page depends from the singed in</div>
-  );
+  return <BusinessLayout> Home</BusinessLayout>;
 };
 
 export default BusinessHomePage;

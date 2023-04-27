@@ -31,6 +31,8 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
       address,
       description,
       socialMedia,
+      profileImg,
+      phoneNumber,
     }: any = req.body;
     const hashedPassword = bcrypt.hashSync(password.toString(), 10);
     const business = await Business.create({
@@ -41,6 +43,8 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
       address,
       description,
       socialMedia,
+      profileImg,
+      phoneNumber,
     });
     const { id } = business;
     const token = jwt.sign({ id }, secretKey, {
