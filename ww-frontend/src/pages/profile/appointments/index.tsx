@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import SideLayout from "@/components/SideLayout";
 import Appointments from "./appointment";
 import EmptyAppointment from "./empty";
+import moment from "moment";
 
 interface IAppointments {
   services: string;
-  totalPrice: number;
+  barber: string;
   startTime: Date;
 }
 
@@ -13,13 +14,13 @@ export default function App() {
   const [apps, setApps] = useState<IAppointments[]>([
     {
       services: "Beard trim",
-      totalPrice: 15,
-      startTime: new Date(2023, 1, 15),
+      barber: "Byambaa",
+      startTime: new Date(),
     },
     {
       services: "HairCut",
-      totalPrice: 51,
-      startTime: new Date(2023, 4, 25),
+      barber: "Tsogtoo",
+      startTime: new Date(),
     },
   ]);
 

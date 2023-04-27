@@ -24,8 +24,8 @@ const Favourite = ({ apps }: { apps: IFavourite[] }) => {
               />
             </div>
             <div className="w-3/6 pl-5">
-              <h1 className="mb-4 text-lg">{app.services}</h1>
-              <h3>{app.description}</h3>
+              <h1 className="mb-4 text-xl font-black">{app.services}</h1>
+              <h3 className="text-gray-600">{app.description}</h3>
             </div>
           </div>
         ))}
