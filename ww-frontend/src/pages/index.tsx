@@ -1,6 +1,8 @@
 import AlertComponent from "@/components/Alert";
 import HomeCard from "@/components/Card";
 import SearchComponent from "@/components/General/search";
+import Link from "next/link";
+
 export interface IItem {
   title: string;
   BgURL: string;
@@ -44,7 +46,12 @@ export default function Index() {
       </div>
       <div className="flex gap-6 justify-center h-full w-11/12 flex-wrap py-10">
         {categories?.map((el, idx) => {
-          return <HomeCard key={idx} item={el} />;
+          // return <HomeCard key={idx} item={el} />;
+          return (
+            <Link href="/services" className="w-full h-full" key={idx}>
+              <HomeCard key={idx} item={el} />
+            </Link>
+          );
         })}
       </div>
     </>

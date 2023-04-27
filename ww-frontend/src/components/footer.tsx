@@ -14,19 +14,19 @@ const Footer: React.FC = () => {
           <div className="ml-4 text-gray-600">Hair Salon Name</div>
         </div>
         <div className="flex items-center space-x-4">
-          <a href="https://www.facebook.com/">
+          <a href="https://www.facebook.com/" target="_blank">
             <FaFacebookSquare
               className="text-gray-600 hover:text-blue-500 cursor-pointer"
               size={24}
             />
           </a>
-          <a href="https://twitter.com/">
+          <a href="https://twitter.com/" target="_blank">
             <FaTwitterSquare
               className="text-gray-600 hover:text-blue-500 cursor-pointer"
               size={24}
             />
           </a>
-          <a href="https://www.instagram.com/">
+          <a href="https://www.instagram.com/" target="_blank">
             <FaInstagramSquare
               className="text-gray-600 hover:text-blue-500 cursor-pointer"
               size={24}

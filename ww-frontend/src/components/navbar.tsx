@@ -50,7 +50,7 @@ const Navbar = () => {
               MY ACCOUNT
             </button>
             <Link
-              href="/create-business"
+              href="/business/auth"
               className="bg-white text-xs py-2 rounded-md px-5"
             >
               БИЗНЕС НЭМЭХ

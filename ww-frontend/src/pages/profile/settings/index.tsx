@@ -3,9 +3,8 @@ import SideLayout from "@/components/SideLayout";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { Pattern } from "@mui/icons-material";
 
-const Profile = () => {
+const Settings = () => {
   const getUser = async () => {
     try {
       const result = await axios.get("http://localhost:8888/signin");
@@ -53,22 +52,18 @@ const Profile = () => {
             name="number"
             type="number"
           />
-
-          {/* <TextField
-            margin="normal"
-            fullWidth
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-          /> */}
           <Button
-            className="bg-green-500 hover:bg-green-700"
+            sx={{
+              mt: 3,
+              mb: 2,
+              bgcolor: "lime",
+              ":hover": {
+                bgcolor: "green",
+              },
+            }}
             type="submit"
             fullWidth
             variant="contained"
-            // hidden
-            sx={{ mt: 3, mb: 2 }}
           >
             Submit
           </Button>
@@ -78,4 +73,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Settings;
