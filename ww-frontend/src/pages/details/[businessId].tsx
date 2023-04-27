@@ -19,7 +19,7 @@ const Services = ({ business, staffs }: any) => {
         }}
       >
         <img
-          src="https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8c2Fsb258ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60"
+          src={business.businessImg}
           alt="Salon"
           style={{ width: "100%", borderRadius: "6px" }}
         />
@@ -51,7 +51,7 @@ export async function getServerSideProps({ query }: any) {
   const res = await fetch(`http://localhost:8888/business/${query.businessId}`);
   const data = await res.json();
   const res2 = await fetch(
-    `http://localhost:8888/staffs?businessId=${query.businessId}`
+    `http://localhost:8888/business/staffs?businessId=${query.businessId}`
   );
   const data2 = await res2.json();
 

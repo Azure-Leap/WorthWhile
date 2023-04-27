@@ -9,7 +9,7 @@ export const getAllStaffs = async (
 ) => {
   try {
     const {businessId} = req.query;
-    const staffs:any = await Staffer.find({businessId}).populate('businessId');
+    const staffs:any = await Staffer.find().populate('businessId');
 
     if (!staffs) {
       res.status(200).json({ message: "Үсчдийн мэдээлэл хоосон байна." });

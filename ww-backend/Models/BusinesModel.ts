@@ -8,6 +8,7 @@ const BusinessSchema = new Schema({
     unique: true,
   },
   password: { type: String, required: true },
+  businessImg: { type: String, required: true },
   businessHours: [
     { day: Number, startTime: Number, endTime: Number, isRestDay: Boolean },
   ],
