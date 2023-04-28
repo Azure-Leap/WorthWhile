@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import ModalClose from "@mui/joy/ModalClose";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -62,18 +61,6 @@ const ImportImage = ({ setAvatarUrl }: any) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <ModalClose
-            onClick={() => {
-              handleClose();
-            }}
-            sx={{
-              top: "calc(-1/4 * var(--IconButton-size))",
-              right: "calc(-1/4 * var(--IconButton-size))",
-              boxShadow: "0 2px 12px 0 rgba(0 0 0 / 0.2)",
-              borderRadius: "50%",
-              bgcolor: "background.body",
-            }}
-          />
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Change Avatar
           </Typography>
@@ -89,6 +76,7 @@ const ImportImage = ({ setAvatarUrl }: any) => {
           <Stack direction="row" spacing={2}>
             <Button variant="outlined">Delete</Button>
             <Button
+              sx={{ color: "white" }}
               variant="contained"
               onClick={() => {
                 setAvatarUrl(preview);
