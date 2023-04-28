@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { Lato } from "@next/font/google";
+import { Montserrat } from "@next/font/google";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AuthProvider from "@/context/authContext";
 import AlertProvider from "@/context/alertContext";
@@ -9,7 +9,10 @@ import AlertComponent from "@/components/Alert";
 import Layout from "@/components/layout";
 import OrderComponent from "@/components/Order";
 
-const lato = Lato({ subsets: ["latin"], weight: ["400", "700"] });
+const lato = Montserrat({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400"],
+});
 
 const theme = createTheme({
   typography: {

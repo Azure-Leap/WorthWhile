@@ -23,7 +23,7 @@ const Service = ({ serviceData }: Props) => {
     <div className="border-t-2 border-gray-200 text-start flex justify-between py-3 ">
       <div>
         <h1 className="text-lg">{serviceData.serviceName}</h1>
-        <p className="text-sm text-gray-500 font-light">
+        <p className="text-sm text-gray-400 font-light">
           {serviceData.description}
         </p>
       </div>

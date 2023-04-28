@@ -63,7 +63,7 @@ const BookModal = () => {
           sx={{
             display: "flex",
             margin: "20px 0 30px 0",
-            backgroundColor: "#E6E5E5",
+            backgroundColor: "rgb(243 244 246)",
             borderRadius: "8px",
             padding: "4px 5px",
           }}
@@ -114,7 +114,7 @@ const BookModal = () => {
       </Box>
       <Box
         sx={{
-          backgroundColor: "#E6E5E5",
+          backgroundColor: "rgb(243 244 246)",
           margin: "30px 0",
           borderRadius: "8px",
           padding: "20px",
