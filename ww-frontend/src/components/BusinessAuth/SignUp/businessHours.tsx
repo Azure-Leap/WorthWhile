@@ -19,14 +19,14 @@ const days: Day[] = [
   { name: "Sunday", isOpen: true, startTime: "09:00", endTime: "17:00" },
 ];
 
-const BusinessHourInput = () => {
-  const [weekDays, setWeekDays] = useState(days);
+const BusinessHourInput = ({ businessHours, setBusinessHours }: any) => {
+  setBusinessHours(days);
   const toggleDay = (index: any) => {
-    let selectedDay = weekDays[index];
+    let selectedDay = businessHours[index];
     selectedDay.isOpen = selectedDay.isOpen === false ? true : false;
-    let temp = [...weekDays];
+    let temp = [...businessHours];
     temp[index] = selectedDay;
-    setWeekDays(temp);
+    setBusinessHours(temp);
   };
 
   const setTime = (
@@ -34,9 +34,9 @@ const BusinessHourInput = () => {
     key: "startTime" | "endTime",
     value: string
   ) => {
-    let newDays = [...weekDays];
+    let newDays = [...businessHours];
     newDays[index][key] = value;
-    setWeekDays(newDays);
+    setBusinessHours(newDays);
   };
 
   return (
@@ -44,7 +44,7 @@ const BusinessHourInput = () => {
       <h2 className="text-3xl font-medium">Your Business Hours</h2>
       <p className="text-xs text-gray-500">When can clients book with you?</p>
       <div className="flex flex-col text-gray-900">
-        {weekDays.map((day, index) => (
+        {businessHours.map((day: any, index: any) => (
           <div
             key={day.name}
             className={`flex items-center justify-between py-4 gap-7 ${

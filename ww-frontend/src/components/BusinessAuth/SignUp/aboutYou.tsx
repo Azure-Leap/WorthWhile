@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 
@@ -8,13 +8,11 @@ const AboutYouAuth = ({
   phoneNumber,
   businessName,
 }: any) => {
-  // const [businessName, setBusinessName] = useState("");
-  // const [phoneNumber, setPhoneNumber] = useState<any>();
   return (
     <>
-      <h2 className="text-xl font-medium mb-4 ">About You</h2>
+      <h2 className="text-xl font-medium mb-4 ">About Your Business</h2>
       <p className="text-xs text-left text-gray-500">
-        Tell us more about yourself and your business.
+        Tell us more about your business.
       </p>
       <div className="rounded-md shadow-sm">
         <div>
