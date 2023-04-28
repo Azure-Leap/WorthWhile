@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import SideLayout from "@/components/SideLayout";
 import Appointments from "./appointment";
 import EmptyAppointment from "./empty";
-import moment from "moment";
 
 interface IAppointments {
   services: string;

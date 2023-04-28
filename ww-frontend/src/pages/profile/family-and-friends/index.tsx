@@ -1,6 +1,7 @@
 import React from "react";
 import SideLayout from "@/components/SideLayout";
 import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
 import BasicModal from "./modal";
 
 const Profile = () => {
@@ -24,8 +25,8 @@ const Profile = () => {
             child, family member, partner, or even a pet. You will able to
             manage their appointments, receive notifications, and make payments.
           </p>
-          <div className="my-10">
-            {/* <Button
+          <Box sx={{ marginTop: 5, marginBottom: 5 }}>
+            <Button
               sx={{
                 border: "2px solid gray",
                 color: "black",
@@ -38,8 +39,8 @@ const Profile = () => {
             >
               Learn more
             </Button>
-          </div>
-          <div>
+          </Box>
+          <Box>
             <Button
               sx={{
                 bgcolor: "lime",
@@ -53,8 +54,8 @@ const Profile = () => {
               }}
             >
               <BasicModal />
-            </Button> */}
-          </div>
+            </Button>
+          </Box>
         </div>
       </div>
     </SideLayout>
