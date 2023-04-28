@@ -1,4 +1,5 @@
 import { IItem } from "@/pages";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -7,14 +8,19 @@ interface Props {
 
 const HomeCard = ({ item }: Props) => {
   return (
-    <div
-      className="h-1/5  w-1/4 bg-cover bg-center opacity-70 rounded-lg text-white text-xl font-medium flex justify-center items-center"
-      style={{
-        backgroundImage: `url(${item.BgURL})`,
-      }}
+    <Link
+      href="/services"
+      className="w-full h-full flex justify-center mt-64 flex-wrap "
     >
-      {item.title}
-    </div>
+      <div
+        className="h-32  w-10/12 bg-cover bg-center opacity-70 rounded-lg text-white text-xl font-medium flex justify-center items-center shadow"
+        style={{
+          backgroundImage: `url(${item.BgURL})`,
+        }}
+      >
+        {item.title}
+      </div>
+    </Link>
   );
 };
 

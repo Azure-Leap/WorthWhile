@@ -34,22 +34,17 @@ export default function Index() {
   return (
     <>
       <div
-        className="h-1/4 bg-cover bg-center text-white flex flex-col justify-evenly items-center"
+        className="h-1/6 bg-cover bg-center text-white flex flex-col justify-evenly items-center"
         style={{
           backgroundImage: `url(https://images.unsplash.com/photo-1504221507732-5246c045949b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)`,
         }}
       >
-        <p className="text-3xl">Discover your external beauty</p>
+        <p className="text-3xl">Discover your beauty</p>
         <SearchComponent />
       </div>
-      <div className="flex gap-6 justify-center h-full w-11/12 flex-wrap py-10">
+      <div className="w-full h-full flex justify-center items-center ">
         {categories?.map((el, idx) => {
-          // return <HomeCard key={idx} item={el} />;
-          return (
-            <Link href="/services" className="w-full h-full" key={idx}>
-              <HomeCard key={idx} item={el} />
-            </Link>
-          );
+          return <HomeCard key={idx} item={el} />;
         })}
       </div>
     </>
