@@ -32,7 +32,7 @@ const menuItems = [
     icon: VideosIcon,
     link: "/business/SalonDetail",
   },
-  { id: 4, label: "Reviews", icon: VideosIcon, link: "/business/Reviews" },
+  { id: 5, label: "Reviews", icon: VideosIcon, link: "/business/Reviews" },
 ];
 
 const BusinessSideBar = () => {

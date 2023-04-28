@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { BiChevronRight } from "react-icons/bi";
 
-const EmailAuth = () => {
-  const [email, setEmail] = useState("");
+const EmailAuth = ({ email, setEmail }: any) => {
   return (
     <>
       <h2 className="text-xl font-medium mb-4 ">
@@ -31,12 +30,6 @@ const EmailAuth = () => {
       <p className="flex text-xs text-left text-gray-500 items-center">
         Other sign in methods <BiChevronRight />
       </p>
-      <button
-        type="submit"
-        className="w-full bg-gray-800 text-white font-semibold py-2 px-4 rounded-lg shadow text-xs"
-      >
-        CONTINUE
-      </button>
       <p className="text-xs text-left text-gray-500 ">
         By singning up I agree the <b>Terms & Conditions</b> and the{" "}
         <b>Privacy Policy</b>

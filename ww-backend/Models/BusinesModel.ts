@@ -12,7 +12,7 @@ const BusinessSchema = new Schema({
   password: { type: String, required: true },
   businessImg: { type: String, required: true },
   businessHours: [
-    { day: Number, startTime: Number, endTime: Number, isRestDay: Boolean },
+    { name: String, startTime: String, endTime: String, isOpen: Boolean },
   ],
   address: {
     city: String,

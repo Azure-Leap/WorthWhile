@@ -67,6 +67,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
   const changePhoneNumber = (e: any) => {
     setPhoneNumber(e.target.value);
   };
+
   const signup = async () => {
     if (!email || !userName || !password || !rePassword || !phoneNumber) {
       setStatus("error");
@@ -77,7 +78,6 @@ export default function SignUp({ setIsSign, setOpen }: any) {
     if (password !== rePassword) {
       setStatus("error");
       setMessage("Нууц үг хоорондоо таарахгүй байна!");
-
       return;
     }
     try {
