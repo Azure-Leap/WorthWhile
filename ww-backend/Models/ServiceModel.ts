@@ -1,7 +1,6 @@
 import { Schema, model, Types } from "mongoose";
-import { IService } from "../interfaces/index";
 
-const ServiceSchema = new Schema<IService>({
+const ServiceSchema = new Schema({
   categoryId: { type: Types.ObjectId, ref: "Category" },
   serviceName: { type: String, required: true },
   servicePrice: { type: Number, required: true },

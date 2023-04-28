@@ -3,22 +3,53 @@ import React from "react";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import moment from "moment";
 
-const Sidebar = ({ business,staffs }: any) => {
+const Sidebar = ({ business, staffs }: any) => {
   return (
-    <Grid item xs={12} md={4.5} sx={{ padding: "45px", minHeight: "90vh" }}>
-      <Box sx={{ height: "200px", backgroundColor: "grey" }}>Map</Box>
+    <Grid
+      item
+      xs={12}
+      md={4.5}
+      sx={{
+        padding: "45px",
+        minHeight: "90vh",
+      }}
+    >
       <Box
-        sx={{ backgroundColor: "#F7F7F7", padding: "20px", paddingTop: "40px" }}
+        sx={{
+          height: "200px",
+          backgroundColor: "grey",
+          borderTopLeftRadius: "8px",
+          borderTopRightRadius: "8px",
+        }}
       >
-        <Typography
-          sx={{
-            paddingBottom: "15px",
-            fontSize: "12px",
-            fontWeight: "bold",
-          }}
-        >
-          ABOUT US
-        </Typography>
+        Map
+      </Box>
+      <Box
+        sx={{
+          backgroundColor: "#F7F7F7",
+          padding: "20px",
+          paddingTop: "40px",
+          borderBottomLeftRadius: "8px",
+          borderBottomRightRadius: "8px",
+        }}
+      >
+        <Box>
+          <Box>
+            <Typography
+              sx={{
+                fontSize: "12px",
+                fontWeight: "bold",
+              }}
+            >
+              ABOUT US
+            </Typography>
+          </Box>
+          <Box sx={{ padding: "20px" }}>
+            <Typography sx={{ fontSize: "12px" }}>
+              {business.description}
+            </Typography>
+          </Box>
+        </Box>
         <Box>
           <Typography
             sx={{
@@ -29,10 +60,47 @@ const Sidebar = ({ business,staffs }: any) => {
           >
             STAFFERS
           </Typography>
-          <Box>
-            {staffs.map((staff:any,i:any)=>(
-              <Typography key={i}>{staff.stafferName}</Typography>
-            ))}
+          <Box sx={{ display: "flex", overflowX: "auto", width: "100%" }}>
+            <Box
+              sx={{
+                display: "flex",
+                minHeight: "90px",
+                gap: "20px",
+              }}
+            >
+              {staffs.map((staff: any, i: any) => (
+                <Box key={i}>
+                  <div
+                    style={{
+                      width: "60px",
+                      height: "60px",
+                    }}
+                  >
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                      }}
+                      src={staff.staffImg}
+                    />
+                  </div>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      textAlign: "center",
+                      marginTop: "8px",
+                    }}
+                    key={i}
+                  >
+                    {staff.stafferName.length > 8
+                      ? staff.stafferName.substring(0, 8) + "..."
+                      : staff.stafferName}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
           </Box>
         </Box>
         <Typography
@@ -55,7 +123,15 @@ const Sidebar = ({ business,staffs }: any) => {
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <PhoneIphoneIcon sx={{ color: "#C3C2C2" }} />
-            <Typography style={{ fontSize: "14px" }}>(815) 341-0621</Typography>
+            <Typography style={{ fontSize: "14px" }}>
+              {`(${business.phoneNumber.substring(
+                1,
+                4
+              )}) ${business.phoneNumber.substring(
+                4,
+                8
+              )}-${business.phoneNumber.substring(8)}`}
+            </Typography>
           </Box>
           <button
             style={{
@@ -64,33 +140,36 @@ const Sidebar = ({ business,staffs }: any) => {
               border: "1px solid #C3C2C2",
               borderRadius: "8px",
             }}
-            onClick={()=>{
-              const ds = new Date;
-              ds.setHours(10);
-              console.log(ds.toDateString());
-              moment.locale("mn");
-              const mo = moment(ds);
-              console.log(mo.format("LL"));
-              
-            }}
           >
             Call
           </button>
         </Grid>
         <hr />
         <div style={{ padding: "10px 0", fontSize: "14px" }}>
-          {business.businessHours.map((el:any,i:any)=>(
-          <div
-            key={i}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "10px 0",
-            }}
-          >
-            {/* <p>{switch(el.day){}}</p> */}
-            <p style={{ fontWeight: "bold" }}>{el.isRestDay? "Closed": el.startTime + "-" + el.endTime }</p>
-          </div>
+          {business.businessHours.map((el: any, i: any) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "10px 0",
+              }}
+            >
+              <p>
+                {(el.day === 1 && "Monday") ||
+                  (el.day === 2 && "Tuesday") ||
+                  (el.day === 3 && "Wednesday") ||
+                  (el.day === 4 && "Thursday") ||
+                  (el.day === 5 && "Friday") ||
+                  (el.day === 6 && "Saturday") ||
+                  (el.day === 7 && "Sunday")}
+              </p>
+              <p style={{ fontWeight: "bold" }}>
+                {el.isRestDay
+                  ? "Closed"
+                  : el.startTime + ":00" + "-" + el.endTime + ":00"}
+              </p>
+            </div>
           ))}
         </div>
 
@@ -102,7 +181,9 @@ const Sidebar = ({ business,staffs }: any) => {
               paddingTop: "20px",
             }}
           >
-            <Typography sx={{ fontSize: "15px" }}>Apr 24, 2023</Typography>
+            <Typography sx={{ fontSize: "15px" }}>
+              {moment(new Date()).format("ll")}
+            </Typography>
             <Typography sx={{ fontSize: "15px" }}>Closed</Typography>
           </Box>
           <Box sx={{ padding: "20px" }}>

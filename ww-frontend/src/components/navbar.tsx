@@ -20,10 +20,8 @@ const style = {
 };
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const [isSign, setIsSign] = useState(true);
-  const { setAlert } = useContext(AlertContext);
-
+  const [open, setOpen] = useState<Boolean>(false);
+  const [isSign, setIsSign] = useState<Boolean>(true);
   const logo = require("../assets/image/logo.png");
 
   return (
@@ -61,7 +59,7 @@ const Navbar = () => {
       <Modal
         open={Boolean(open)}
         onClose={() => {
-          setOpen(false), setIsSign(true), setAlert(false);
+          setOpen(false), setIsSign(true);
         }}
       >
         <Box sx={style}>
