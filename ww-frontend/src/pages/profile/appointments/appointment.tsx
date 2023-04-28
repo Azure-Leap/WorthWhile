@@ -50,7 +50,7 @@ const Appointments = ({ apps }: { apps: IAppointments[] }) => {
               </Button>
             </div>
             <div className="pl-5 flex items-center">
-              {/* {app.startTime.toString()} */}
+              {app.startTime.toString()}
             </div>
           </div>
         ))}

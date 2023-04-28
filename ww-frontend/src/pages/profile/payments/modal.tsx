@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CardDetail from "./cardDetail";
 
@@ -23,7 +22,7 @@ const BasicModal = () => {
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
+    <Box>
       <Button onClick={handleOpen} sx={{ color: "white" }}>
         Add payment card
       </Button>
@@ -37,7 +36,7 @@ const BasicModal = () => {
           <CardDetail />
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 };
 
