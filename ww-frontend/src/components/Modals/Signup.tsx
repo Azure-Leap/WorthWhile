@@ -5,8 +5,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Link,
   Grid,
   Box,
@@ -14,10 +12,8 @@ import {
   Container,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AuthContext } from "../../context/authContext";
 import { AlertContext } from "../../context/alertContext";
-import AlertComponent from "../Alert";
 
 function Copyright(props: any) {
   return (
@@ -36,8 +32,6 @@ function Copyright(props: any) {
     </Typography>
   );
 }
-
-const theme = createTheme();
 
 export default function SignUp({ setIsSign, setOpen }: any) {
   const [email, setEmail] = useState("");
@@ -100,121 +94,114 @@ export default function SignUp({ setIsSign, setOpen }: any) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="given-name"
+                name="username"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                autoFocus
+                value={userName}
+                onChange={changeUsername}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    signup();
+                  }
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={email}
+                onChange={changeEmail}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="number"
+                label="Phone number"
+                name="number"
+                autoComplete="phone-number"
+                value={phoneNumber}
+                onChange={changePhoneNumber}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={password}
+                autoComplete="new-password"
+                onChange={changePassword}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                name="re-password"
+                label="Re-Password"
+                type="password"
+                id="re-password"
+                value={rePassword}
+                autoComplete="re-password"
+                onChange={changeRePassword}
+              />
+            </Grid>
+          </Grid>
+          <Button
+            onClick={() => {
+              signup();
+            }}
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="given-name"
-                  name="username"
-                  required
-                  fullWidth
-                  id="username"
-                  label="Username"
-                  autoFocus
-                  value={userName}
-                  onChange={changeUsername}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      signup();
-                    }
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={changeEmail}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="number"
-                  label="Phone number"
-                  name="number"
-                  autoComplete="phone-number"
-                  value={phoneNumber}
-                  onChange={changePhoneNumber}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  value={password}
-                  autoComplete="new-password"
-                  onChange={changePassword}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  name="re-password"
-                  label="Re-Password"
-                  type="password"
-                  id="re-password"
-                  value={rePassword}
-                  autoComplete="re-password"
-                  onChange={changeRePassword}
-                />
-              </Grid>
+            Sign Up
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link onClick={() => setIsSign(true)} href="#" variant="body2">
+                Already have an account? Sign in
+              </Link>
             </Grid>
-            <Button
-              onClick={() => {
-                signup();
-              }}
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link onClick={() => setIsSign(true)} href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+          </Grid>
         </Box>
-        <Copyright sx={{ mt: 5, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+      </Box>
+      <Copyright sx={{ mt: 5, mb: 4 }} />
+    </Container>
   );
 }

@@ -5,7 +5,6 @@ import { useContext, useState } from "react";
 import { Modal, Box } from "@mui/material";
 import Signin from "./Modals/Signin";
 import Signup from "./Modals/Signup";
-import { AlertContext } from "@/context/alertContext";
 
 const style = {
   position: "absolute",

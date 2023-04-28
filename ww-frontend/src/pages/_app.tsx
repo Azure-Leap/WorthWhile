@@ -8,12 +8,21 @@ import OrderProvider from "@/context/orderContext";
 import AlertComponent from "@/components/Alert";
 import Layout from "@/components/layout";
 import OrderComponent from "@/components/Order";
+import { green, purple } from "@mui/material/colors";
 
 const lato = Lato({ subsets: ["latin"], weight: ["400", "700"] });
 
 const theme = createTheme({
   typography: {
     fontFamily: "Lato",
+  },
+  palette: {
+    primary: {
+      main: "rgb(6 182 212)",
+    },
+    secondary: {
+      main: green[500],
+    },
   },
 });
 

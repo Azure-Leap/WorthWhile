@@ -185,9 +185,10 @@ const BookModal = () => {
           </Typography>
         </Box>
         <Button
-          onClick={() => setModal("ConfirmModal")}
+          color={"primary"}
           variant="contained"
-          sx={{ backgroundColor: "rgb(6 182 212)", width: "100%" }}
+          onClick={() => setModal("ConfirmModal")}
+          sx={{ width: "100%" }}
         >
           Book
         </Button>
