@@ -56,6 +56,7 @@ const Settings = () => {
             sx={{
               mt: 3,
               mb: 2,
+              color: "white",
               bgcolor: "lime",
               ":hover": {
                 bgcolor: "green",
