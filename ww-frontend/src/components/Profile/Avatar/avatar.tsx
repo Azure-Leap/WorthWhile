@@ -10,7 +10,7 @@ export default function ImageAvatars() {
   return (
     <div className="bg-white pb-3 pl-5">
       <Stack direction="row" spacing={2}>
-        <Avatar alt="Ashid" src={avatarUrl} />
+        <Avatar src={avatarUrl} />
         <ImportImage setAvatarUrl={setAvatarUrl} />
         <h1 className="flex items-center">Name</h1>
       </Stack>

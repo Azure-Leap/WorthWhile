@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { Modal, Box } from "@mui/material";
 import Signin from "./Modals/Signin";
 import Signup from "./Modals/Signup";
+import Avatar from "@mui/material/Avatar";
 
 const style = {
   position: "absolute",
@@ -21,7 +22,12 @@ const style = {
 const Navbar = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false);
   const logo = require("../assets/image/logo.png");
+
+  const logout = () => {
+    setIsLoggedIn(false);
+  };
 
   return (
     <nav className="bg-black">
@@ -39,13 +45,38 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex items-center">
-            <button
-              onClick={() => setOpen(true)}
-              className="px-3 py-2 rounded-md text-sm font-medium/ text-white flex gap-1 justify-center align-middle"
-            >
-              <FiUser size={20} />
-              MY ACCOUNT
-            </button>
+            {isLoggedIn ? (
+              <>
+                <button
+                  onClick={() => setOpen(true)}
+                  className="px-3 py-2 rounded-md text-sm font-medium/ text-white flex gap-1 justify-center align-middle"
+                >
+                  <FiUser size={20} />
+                  MY ACCOUNT
+                </button>
+                <Modal
+                  open={Boolean(open)}
+                  onClose={() => {
+                    setOpen(false), setIsSign(true);
+                  }}
+                >
+                  <Box sx={style}>
+                    {isSign ? (
+                      <Signin setIsSign={setIsSign} setOpen={setOpen} />
+                    ) : (
+                      <Signup setIsSign={setIsSign} setOpen={setOpen} />
+                    )}
+                  </Box>
+                </Modal>
+              </>
+            ) : (
+              <div className="py-4 px-6">
+                <Link href="/profile" className="flex items-center">
+                  <Avatar src="" />
+                  <h1 className="text-white pl-2">Profile</h1>
+                </Link>
+              </div>
+            )}
             <Link
               href="/business/auth"
               className="bg-white text-xs py-2 rounded-md px-5"
@@ -55,20 +86,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <Modal
-        open={Boolean(open)}
-        onClose={() => {
-          setOpen(false), setIsSign(true);
-        }}
-      >
-        <Box sx={style}>
-          {isSign ? (
-            <Signin setIsSign={setIsSign} setOpen={setOpen} />
-          ) : (
-            <Signup setIsSign={setIsSign} setOpen={setOpen} />
-          )}
-        </Box>
-      </Modal>
     </nav>
   );
 };
