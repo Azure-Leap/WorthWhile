@@ -16,24 +16,19 @@ const Side2 = () => {
             },
           }}
         >
-          <Link href={"/ab/about"}>
-            <MenuItem> About Us </MenuItem>
-          </Link>
-          <Link href="/ab/terms">
-            <MenuItem> Terms of Services </MenuItem>
-          </Link>
+          <MenuItem component={<Link href={"/ab/about"} />}>About Us</MenuItem>
 
-          <Link href="/ab/privacy">
-            <MenuItem> Provicy Policy </MenuItem>
-          </Link>
+          <MenuItem component={<Link href={"/ab/terms"} />}>
+            Terms of Services
+          </MenuItem>
 
-          <Link href="/ab/contact">
-            <MenuItem> Contact </MenuItem>
-          </Link>
+          <MenuItem component={<Link href={"/ab/privacy"} />}>
+            Privacy Policy
+          </MenuItem>
 
-          <Link href="/ab/faq">
-            <MenuItem> FAQ </MenuItem>
-          </Link>
+          <MenuItem component={<Link href={"/ab/contact"} />}>Contact</MenuItem>
+
+          <MenuItem component={<Link href={"/ab/faq"} />}>FAQ</MenuItem>
         </Menu>
       </Sidebar>
     </div>
