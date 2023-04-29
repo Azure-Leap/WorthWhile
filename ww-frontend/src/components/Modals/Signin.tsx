@@ -53,7 +53,6 @@ export default function SignIn({ setIsSign, setOpen }: any) {
     setPassword(e.target.value);
   };
   const signin = async () => {
-    console.log("signin");
     try {
       const res = await axios.post("http://localhost:8888/users/signin", {
         email,
@@ -84,8 +83,11 @@ export default function SignIn({ setIsSign, setOpen }: any) {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
+        <Avatar sx={{ m: 1, bgcolor: "rgb()" }}>
+          <img
+            src="../../assets/image/userDefaultAvatar.svg"
+            alt="defaultImg"
+          />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
@@ -125,6 +127,7 @@ export default function SignIn({ setIsSign, setOpen }: any) {
             label="Remember me"
           />
           <Button
+            className="bg-cyan-500"
             type="submit"
             fullWidth
             variant="contained"

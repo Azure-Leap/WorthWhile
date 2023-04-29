@@ -3,8 +3,21 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Typography } from "@mui/material";
 import { OrderContext } from "@/context/orderContext";
+import moment from "moment";
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
+const arr: number[] = [];
+
+const dateVal = Date.now();
+
+const getDays = () => {
+  for (let i: number = 0; i < 7; i++) {
+    arr.push(dateVal + i * 24 * 60 * 60 * 1000);
+  }
+  console.log(arr);
+};
+
+getDays();
+
 const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 const BookModal = () => {
   const { setOpen, setModal } = useContext(OrderContext);
@@ -39,7 +52,7 @@ const BookModal = () => {
           paddingBottom: "20px",
         }}
       >
-        {arr.map(() => (
+        {arr.map((el) => (
           <Box
             sx={{
               padding: "15px 0",
@@ -49,11 +62,14 @@ const BookModal = () => {
             }}
           >
             <Typography
+              className="text-white"
               sx={{ color: "grey", fontSize: "12px", marginBottom: "12px" }}
             >
-              Wed
+              {moment(el).format("dd")}
             </Typography>
-            <Typography sx={{ color: "grey" }}>26</Typography>
+            <Typography sx={{ color: "grey" }}>
+              {moment(el).format("DD")}
+            </Typography>
           </Box>
         ))}
       </Box>
@@ -185,7 +201,7 @@ const BookModal = () => {
           </Typography>
         </Box>
         <Button
-          color={"primary"}
+          className="primary"
           variant="contained"
           onClick={() => setModal("ConfirmModal")}
           sx={{ width: "100%" }}
