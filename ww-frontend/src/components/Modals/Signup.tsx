@@ -185,6 +185,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
             onClick={() => {
               signup();
             }}
+            className="bg-cyan-500"
             type="submit"
             fullWidth
             variant="contained"

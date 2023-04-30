@@ -5,8 +5,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Service from "@/components/Service";
 
-const buttons = ["SERVICES", "REVIEWS", "GIFT CARDS"];
-
 const Services = ({ business, staffs, services }: any) => {
   const [isFavorite, setFavorite] = useState<Boolean>(false);
   const [index, setIndex] = useState(0);
@@ -57,7 +55,7 @@ const Services = ({ business, staffs, services }: any) => {
           )}
         </Box>
         <Box>
-          {buttons.map((button, i) => (
+          {["SERVICES", "REVIEWS", "GIFT CARDS"].map((el, i) => (
             <button
               onClick={() => setIndex(i)}
               key={i}
@@ -70,7 +68,7 @@ const Services = ({ business, staffs, services }: any) => {
                 opacity: index === i ? 1 : 0.5,
               }}
             >
-              {button}
+              {el}
             </button>
           ))}
         </Box>

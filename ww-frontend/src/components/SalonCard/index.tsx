@@ -1,33 +1,11 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Service from "../Service";
-import { IBusiness } from "@/pages/services";
+
 import axios from "axios";
 
-interface businessData {
-  _id: String;
-  businessName: String;
-  email: String;
-  password: String;
-}
-
-interface Props {
-  businessData: IBusiness;
-  key: Number;
-}
-interface IService {
-  _id: String;
-  categoryId: String;
-  serviceName: String;
-  servicePrice: Number;
-  serviceImg: [String];
-  description: String;
-  duration: Number;
-  businessId: String;
-}
-
-const SalonCard = ({ businessData }: Props) => {
-  const [serviceData, setServiceData] = useState<IService[]>([]);
+const SalonCard = ({ businessData }: any) => {
+  const [serviceData, setServiceData] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:8888/services/")
@@ -54,9 +32,9 @@ const SalonCard = ({ businessData }: Props) => {
           {`${businessData.address.district} дүүрэг, 3-р хороо, ${businessData.address.street} гудамж, ${businessData.businessName}`}
         </p>
 
-        {serviceData.map((el, idx) => {
+        {serviceData.map((el: any, i) => {
           return businessData._id === el.businessId ? (
-            <Service key={idx} serviceData={el} />
+            <Service key={i} serviceData={el} />
           ) : null;
         })}
       </div>
