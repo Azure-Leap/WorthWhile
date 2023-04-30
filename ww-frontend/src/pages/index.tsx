@@ -46,7 +46,7 @@ export default function Index() {
         {categories?.map((el, idx) => {
           // return <HomeCard key={idx} item={el} />;
           return (
-            <Link href="/services" className="w-full h-full" key={idx}>
+            <Link href="/salonlist" className="w-full h-full" key={idx}>
               <HomeCard key={idx} item={el} />
             </Link>
           );

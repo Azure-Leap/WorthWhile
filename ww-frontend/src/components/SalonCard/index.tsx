@@ -1,16 +1,28 @@
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Service from "../Service";
-
 import axios from "axios";
+import Link from "next/link";
 
 const SalonCard = ({ businessData }: any) => {
-  const [serviceData, setServiceData] = useState([]);
+  const [servicesData, setServicesData] = useState([]);
+  const [staffs, setStaffs] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8888/services/")
+      .get(
+        `http://localhost:8888/business/services?businessId=${businessData._id}`
+      )
       .then((res) => {
-        setServiceData(res.data.services);
+        setServicesData(res.data.services);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+    axios
+      .get(
+        `http://localhost:8888/business/staffs?businessId=${businessData._id}`
+      )
+      .then((res) => {
+        setStaffs(res.data.staffs);
       })
       .catch((err) => {
         console.log("err", err);
@@ -19,24 +31,31 @@ const SalonCard = ({ businessData }: any) => {
 
   return (
     <div className="w-full bg-white h-fit flex gap-3 mb-4">
-      <Image
-        src="https://images.unsplash.com/photo-1626383137804-ff908d2753a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTN8fGhhaXIlMjBzYWxvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60"
-        alt="Salon Profile"
-        className="rounded"
-        width={800}
-        height={400}
-      />
+      <Link
+        href={`/details/${businessData._id}`}
+        style={{ width: "800px", height: "400px" }}
+      >
+        <img
+          src={businessData.profileImg}
+          alt="Salon Profile"
+          className="rounded"
+          style={{ width: "100%", height: "100%" }}
+        />
+      </Link>
       <div className="w-full text-start p-2">
         <h1 className="text-2xl">{businessData.businessName}</h1>
         <p className="text-sm text-gray-600 my-1">
           {`${businessData.address.district} дүүрэг, 3-р хороо, ${businessData.address.street} гудамж, ${businessData.businessName}`}
         </p>
 
-        {serviceData.map((el: any, i) => {
-          return businessData._id === el.businessId ? (
-            <Service key={i} serviceData={el} />
-          ) : null;
-        })}
+        {servicesData.map((el: any, i) => (
+          <Service
+            key={i}
+            business={businessData}
+            service={el}
+            staffs={staffs}
+          />
+        ))}
       </div>
     </div>
   );

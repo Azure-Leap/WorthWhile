@@ -8,7 +8,7 @@ const OrderProvider = ({ children }: any) => {
   const [staffer, setStaffer] = useState(null);
   const [business, setBusiness] = useState(null);
   const [time, setTime] = useState(null);
-  const [modal, setModal] = useState<String>("BookModal");
+  const [modal, setModal] = useState("BookModal");
   const [open, setOpen] = useState(false);
 
   return (
