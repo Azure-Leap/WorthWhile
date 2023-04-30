@@ -12,8 +12,8 @@ const getTimes = (start, end) => {
   return arr;
 };
 
-const availableTimes = getTimes(
+const times = getTimes(
   "09:00", //'9
   "17:00" //
 ); //[{},{}]
-console.log(availableTimes);
+console.log(times);
