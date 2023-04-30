@@ -181,7 +181,7 @@ const BookModal = () => {
             justifyContent: "space-between",
           }}
         >
-          <Typography>Men's Haircut</Typography>
+          <Typography>{services[0].serviceName}</Typography>
           <Box sx={{ marginBottom: "15px" }}>
             <Typography sx={{ textAlign: "end" }}>
               ₮
@@ -285,7 +285,7 @@ const BookModal = () => {
           onClick={() => setModal("ConfirmModal")}
           sx={{ width: "100%", color: "white" }}
         >
-          Book
+          Continue
         </Button>
       </Box>
     </Box>

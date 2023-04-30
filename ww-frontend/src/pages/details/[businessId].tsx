@@ -74,8 +74,13 @@ const Services = ({ business, staffs, services }: any) => {
         </Box>
         {(index === 0 && (
           <Box>
-            {services.map((serviceData: any, i: any) => (
-              <Service key={i} serviceData={serviceData} />
+            {services.map((service: any, i: any) => (
+              <Service
+                key={i}
+                service={service}
+                business={business}
+                staffs={staffs}
+              />
             ))}
           </Box>
         )) ||

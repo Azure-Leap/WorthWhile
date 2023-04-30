@@ -22,7 +22,7 @@ export interface IBusiness {
   socialMedia: [{ title: String; url: String; icon: String }];
 }
 
-const services = () => {
+const SalonList = () => {
   const [businessData, setBusinessData] = useState<IBusiness[]>([]);
   const [search, setSearch] = useState("");
   function onChangeText(e: any) {
@@ -71,4 +71,4 @@ const services = () => {
   );
 };
 
-export default services;
+export default SalonList;
