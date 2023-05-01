@@ -36,7 +36,7 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignIn({ setIsSign, setOpen, setIsLoggedIn }: any) {
+export default function SignIn({ setIsSign, setOpen, setIsUserSignedIn }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser, user, setToken } = useContext(AuthContext);
@@ -63,7 +63,7 @@ export default function SignIn({ setIsSign, setOpen, setIsLoggedIn }: any) {
       setUser(res.data.user);
       setToken(res.data.token);
       setOpen(false);
-      setIsLoggedIn(true);
+      setIsUserSignedIn(false);
     } catch (error: any) {
       setStatus("error");
       setUser(null);
@@ -132,7 +132,7 @@ export default function SignIn({ setIsSign, setOpen, setIsLoggedIn }: any) {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2, color: "white" }}
             onClick={() => {
               signin();
             }}
