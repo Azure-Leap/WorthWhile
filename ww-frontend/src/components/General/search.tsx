@@ -4,7 +4,7 @@ import { IoSearch, IoLocationSharp } from "react-icons/io5";
 const SearchComponent = ({ onChangeText, search }: any) => {
   return (
     <div className="bg-white py-1 px-4 rounded-full shadow-md flex items-center justify-between">
-      <div className="relative border-gray-950 border w-full">
+      <div className="relative w-full">
         <input
           onChange={onChangeText}
           type="text"
@@ -16,7 +16,7 @@ const SearchComponent = ({ onChangeText, search }: any) => {
           <IoSearch className="w-5 h-5 text-gray-400" />
         </div>
       </div>
-      <div className="relative ml-4 border-gray-950 border w-full">
+      <div className="relative ml-4 w-full">
         <input
           type="text"
           placeholder="Select a location"
