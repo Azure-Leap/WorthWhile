@@ -36,7 +36,7 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignIn({ setIsSign, setOpen }: any) {
+export default function SignIn({ setIsSign, setOpen, setIsLoggedIn }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser, user, setToken } = useContext(AuthContext);
@@ -63,6 +63,7 @@ export default function SignIn({ setIsSign, setOpen }: any) {
       setUser(res.data.user);
       setToken(res.data.token);
       setOpen(false);
+      setIsLoggedIn(true);
     } catch (error: any) {
       setStatus("error");
       setUser(null);
