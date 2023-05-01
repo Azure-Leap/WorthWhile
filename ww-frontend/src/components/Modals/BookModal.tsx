@@ -14,14 +14,11 @@ const BookModal = () => {
     services,
     staffer,
     setStaffer,
-    time,
-    setTime,
-    setDay,
-    day,
     business,
+    staffs,
+    setDateToNumber,
+    dateToNumber,
   } = useContext(OrderContext);
-
-  const today = dayjs();
 
   const [index, setIndex] = useState(0);
   const [indexDay, setIndexDay] = useState(0);
@@ -41,17 +38,21 @@ const BookModal = () => {
   };
 
   const getTimes = (date: Date, start: any, end: any) => {
-    const arr = [];
-    const day = new Date(date);
-    day.setMinutes(0, 0);
+    const arr: any = [];
+    const dt = new Date(date);
+    dt.setMinutes(0, 0);
+    dt.setHours(Number(start.substring(0, 2)));
 
-    console.log("SEL", day);
-
-    day.setHours(Number(start.substring(0, 2)));
-    console.log("SEL-9", day);
-    while (day.getHours() <= Number(end.substring(0, 2))) {
-      arr.push(new Date(day));
-      day.setHours(day.getHours() + 1);
+    while (dt.getHours() <= Number(end.substring(0, 2))) {
+      const newDate = new Date(dt);
+      const result = newDate.getTime();
+      console.log(arr.includes(result));
+      staffs.map((staff: any) => {
+        if (!staff.orders.includes(result) && !arr.includes(result)) {
+          arr.push(result);
+        }
+      });
+      dt.setHours(dt.getHours() + 1);
     }
     return arr;
   };
@@ -59,16 +60,16 @@ const BookModal = () => {
   const changeDate = (selectedDay: Date) => {
     const idx = business.businessHours.findIndex(
       (el: any) => el.name === dayjs(selectedDay).format("dddd")
-    ); // -1
+    );
 
     const t: any = getTimes(
       selectedDay,
       business?.businessHours[idx].startTime,
       business?.businessHours[idx].endTime
     );
-    console.log("t", t);
+
     setTimes(t);
-    setTime(t[0]);
+    setDateToNumber(t[0]);
   };
 
   getDays();
@@ -99,7 +100,7 @@ const BookModal = () => {
           onClick={() => {
             setOpen(false);
             setStaffer(null);
-            setTime(null);
+            setDateToNumber(null);
           }}
           sx={{ position: "absolute", top: "5px", right: "-15px" }}
         />
@@ -180,14 +181,16 @@ const BookModal = () => {
         {times.map((el: any, i: any) => (
           <button
             onClick={() => {
-              setTime(el);
+              setDateToNumber(el);
               console.log(el);
             }}
             key={i}
             style={{
-              backgroundColor: el === time ? "rgb(6 182 212)" : "transparent",
-              color: el === time ? "white" : "grey",
-              border: el === time ? "rgb(8 145 178)" : "1px solid #E6E5E5",
+              backgroundColor:
+                el === dateToNumber ? "rgb(6 182 212)" : "transparent",
+              color: el === dateToNumber ? "white" : "grey",
+              border:
+                el === dateToNumber ? "rgb(8 145 178)" : "1px solid #E6E5E5",
               borderRadius: "8px",
             }}
           >
@@ -218,7 +221,7 @@ const BookModal = () => {
                 : services[0].servicePrice.price}
             </Typography>
             <Typography sx={{ fontSize: "12px", color: "grey" }}>
-              {dayjs(time).format("HH:mm")} -
+              {dayjs(dateToNumber).format("HH:mm")} -
               {/* {time.setMinutes(services[0].duration)} */}
             </Typography>
           </Box>

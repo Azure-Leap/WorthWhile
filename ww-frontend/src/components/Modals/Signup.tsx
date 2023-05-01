@@ -81,12 +81,12 @@ export default function SignUp({ setIsSign, setOpen }: any) {
         password,
         phoneNumber,
       });
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       setUser(res.data.user);
       setToken(res.data.token);
       setMessage(res.data.message);
       setStatus("success");
       setOpen(false);
-      console.log(res.data);
     } catch (error: any) {
       setStatus("error");
       setMessage("Бүртгэлтэй имэйл байна!");
