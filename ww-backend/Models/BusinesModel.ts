@@ -2,7 +2,7 @@ import { Schema, model, Types } from "mongoose";
 
 const BusinessSchema = new Schema({
   businessName: { type: String, required: true },
-  profileImg: String,
+  profileImg: { type: String, required: true },
   email: {
     type: String,
     required: true,

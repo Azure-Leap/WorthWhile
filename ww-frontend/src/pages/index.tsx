@@ -44,7 +44,12 @@ export default function Index() {
       </div>
       <div className="w-full h-full flex justify-center items-center ">
         {categories?.map((el, idx) => {
-          return <HomeCard key={idx} item={el} />;
+          // return <HomeCard key={idx} item={el} />;
+          return (
+            <Link href="/salonlist" className="w-full h-full" key={idx}>
+              <HomeCard key={idx} item={el} />
+            </Link>
+          );
         })}
       </div>
     </>

@@ -18,7 +18,6 @@ const Side = () => {
         }}
       >
         <ImageAvatars />
-
         <MenuItem component={<Link href={"/profile/giftcards"} />}>
           Gift Cards
         </MenuItem>
@@ -36,7 +35,7 @@ const Side = () => {
         </MenuItem>
 
         <MenuItem component={<Link href={"/profile/settings"} />}>
-          Account $ Settings
+          Account & Settings
         </MenuItem>
 
         <MenuItem component={<Link href={"/profile/reviews"} />}>

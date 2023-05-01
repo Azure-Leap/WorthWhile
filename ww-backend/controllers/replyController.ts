@@ -53,7 +53,7 @@ export const createReply = async (
       text,
     });
 
-    res.status(200).json({ message: "Амжилттай бүртгэгдлээ.", reply });
+    res.status(201).json({ message: "Амжилттай бүртгэгдлээ.", reply });
   } catch (error) {
     next(error);
   }

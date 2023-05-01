@@ -4,6 +4,7 @@ import { IoSearch } from "react-icons/io5";
 import BookModal from "@/components/Modals/BookModal";
 import ConfirmModal from "@/components/Modals/ConfirmModal";
 import PaymentModal from "@/components/Modals/PaymentModal";
+import ChooseStaffer from "../Modals/ChooseStaffer";
 import { OrderContext } from "@/context/orderContext";
 
 const style = {
@@ -19,7 +20,9 @@ const style = {
   borderRadius: "10px",
   overflow: "hidden",
   boxShadow: 24,
-  p: 4,
+  p: "2rem 2rem 0 2rem",
+  height: "90vh",
+  overflowY: "auto",
 };
 
 const OrderComponent = () => {
@@ -29,7 +32,8 @@ const OrderComponent = () => {
       <Box sx={style}>
         {(modal == "BookModal" && <BookModal />) ||
           (modal == "ConfirmModal" && <ConfirmModal />) ||
-          (modal == "PaymentModal" && <PaymentModal />)}
+          (modal == "PaymentModal" && <PaymentModal />) ||
+          (modal === "ChooseStaffer" && <ChooseStaffer />)}
       </Box>
     </Modal>
   );

@@ -8,7 +8,6 @@ export const getAllStaffs = async (
   next: NextFunction
 ) => {
   try {
-    const { businessId } = req.query;
     const staffs: any = await Staffer.find().populate("businessId");
 
     if (!staffs) {
@@ -63,18 +62,18 @@ export const createStaff = async (
       return arr;
     };
 
-    const availableTimes = getTimes(
+    const times = getTimes(
       "09:00", //'9
       "17:00" //
     ); //[{},{}]
-    console.log(availableTimes);
+    console.log(times);
 
     const staff = await Staffer.create({
       stafferName,
       staffImg,
       businessId,
       about,
-      avialableTimes: availableTimes,
+      times: times,
     });
 
     res.status(200).json({ message: `Амжилттай бүртгэгдлээ`, staff });

@@ -155,19 +155,9 @@ const Sidebar = ({ business, staffs }: any) => {
                 padding: "10px 0",
               }}
             >
-              <p>
-                {(el.day === 1 && "Monday") ||
-                  (el.day === 2 && "Tuesday") ||
-                  (el.day === 3 && "Wednesday") ||
-                  (el.day === 4 && "Thursday") ||
-                  (el.day === 5 && "Friday") ||
-                  (el.day === 6 && "Saturday") ||
-                  (el.day === 7 && "Sunday")}
-              </p>
+              <p>{el.name}</p>
               <p style={{ fontWeight: "bold" }}>
-                {el.isRestDay
-                  ? "Closed"
-                  : el.startTime + ":00" + "-" + el.endTime + ":00"}
+                {el.isRestDay ? "Closed" : el.startTime + "-" + el.endTime}
               </p>
             </div>
           ))}

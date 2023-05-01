@@ -1,28 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import SideLayout from "@/components/SideLayout";
+import EmptyReviews from "./empty";
+import Reviews from "./reviews";
 
-const Profile = () => {
+interface IReviews {
+  businessName: string;
+  serviceName: string;
+  reviewDate: Date;
+  rating: number;
+  text: string;
+  // replies: [object];
+}
+
+export default function App() {
+  const [apps, setApps] = useState<IReviews[]>([
+    {
+      businessName: "",
+      serviceName: "",
+      reviewDate: new Date(),
+      rating: 3,
+      text: "",
+    },
+  ]);
+
   return (
     <SideLayout>
-      <div className="ml-5 mt-2">
-        <div>
-          <h1 className="text-2xl ">Reviews</h1>
-        </div>
-        <div className="my-20">
-          <img
-            src="/image/profile/review.png"
-            alt="review"
-            className="w-1/6 h-1/6 mx-auto"
-          />
-          <h2 className="text-xl text-center my-5 ">Your reviews</h2>
-          <p className="text-gray-500 text-center">
-            Share experiences after your appointments! All of your reviews will
-            show up here.
-          </p>
-        </div>
-      </div>
+      {apps.length ? <Reviews apps={apps} /> : <EmptyReviews />}
     </SideLayout>
   );
-};
-
-export default Profile;
+}
