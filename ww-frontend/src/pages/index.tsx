@@ -1,4 +1,5 @@
 import HomeCard from "@/components/Card";
+import Link from "next/link";
 import SearchComponent from "@/components/General/search";
 import TailWindNavBar from "@/components/TailwindNavBar";
 export interface IItem {
@@ -32,7 +33,7 @@ const categories: IItem[] = [
 export default function Index() {
   return (
     <>
-      <TailWindNavBar />
+      {/* <TailWindNavBar /> */}
       <div
         className="h-1/6 bg-cover bg-center text-white flex flex-col justify-evenly items-center"
         style={{

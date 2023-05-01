@@ -14,13 +14,13 @@ interface IReviews {
 
 export default function App() {
   const [apps, setApps] = useState<IReviews[]>([
-    {
-      businessName: "",
-      serviceName: "",
-      reviewDate: new Date(),
-      rating: 3,
-      text: "",
-    },
+    // {
+    //   businessName: "",
+    //   serviceName: "",
+    //   reviewDate: new Date(),
+    //   rating: 3,
+    //   text: "",
+    // },
   ]);
 
   return (

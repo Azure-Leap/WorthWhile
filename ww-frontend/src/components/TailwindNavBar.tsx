@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -6,6 +6,7 @@ import { Modal, Box } from "@mui/material";
 import { FiArrowRight } from "react-icons/fi";
 import Signin from "./Modals/Signin";
 import Signup from "./Modals/Signup";
+import { AuthContext } from "@/context/authContext";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -30,10 +31,16 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function TailWindNavBar() {
+export default function TailWindNavBar({ setAvatarUrl }: any) {
   const [isUserSignedIn, setIsUserSignedIn] = useState(true);
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
+
+  const { user } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    setIsUserSignedIn(true);
+  };
 
   return (
     <>
@@ -102,15 +109,15 @@ export default function TailWindNavBar() {
                   </button>
 
                   {/* Profile dropdown */}
-                  {isUserSignedIn ? (
+                  {!isUserSignedIn ? (
                     <Menu as="div" className="relative ml-3">
                       <div>
                         <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                           <span className="sr-only">Open user menu</span>
                           <img
                             className="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
+                            src={user.profileImg}
+                            alt="userImg"
                           />
                         </Menu.Button>
                       </div>
@@ -127,7 +134,7 @@ export default function TailWindNavBar() {
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href="#"
+                                href="/profile"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
@@ -140,7 +147,7 @@ export default function TailWindNavBar() {
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href="#"
+                                href="/profile/settings"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
@@ -153,11 +160,12 @@ export default function TailWindNavBar() {
                           <Menu.Item>
                             {({ active }) => (
                               <a
-                                href="#"
+                                href="/"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
+                                onClick={handleLogOut}
                               >
                                 Sign out
                               </a>
@@ -209,9 +217,17 @@ export default function TailWindNavBar() {
       >
         <Box sx={style}>
           {isSign ? (
-            <Signin setIsSign={setIsSign} setOpen={setOpen} />
+            <Signin
+              setIsSign={setIsSign}
+              setOpen={setOpen}
+              setIsUserSignedIn={setIsUserSignedIn}
+            />
           ) : (
-            <Signup setIsSign={setIsSign} setOpen={setOpen} />
+            <Signup
+              setIsSign={setIsSign}
+              setOpen={setOpen}
+              setIsUserSignedIn={setIsUserSignedIn}
+            />
           )}
         </Box>
       </Modal>
