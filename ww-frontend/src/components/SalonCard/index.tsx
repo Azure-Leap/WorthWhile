@@ -19,7 +19,7 @@ interface IService {
   _id: String;
   categoryId: String;
   serviceName: String;
-  servicePrice: Number;
+  servicePrice: { isMin: Boolean; price: Number };
   serviceImg: [String];
   description: String;
   duration: Number;

@@ -5,7 +5,7 @@ interface IService {
   _id: String;
   categoryId: String;
   serviceName: String;
-  servicePrice: Number;
+  servicePrice: { isMin: Boolean; price: Number };
   serviceImg: [String];
   description: String;
   duration: Number;
@@ -29,7 +29,7 @@ const Service = ({ serviceData }: Props) => {
       </div>
       <div className="flex gap-3 items-center">
         <div className="flex-col gap-1 text-end">
-          <p className="text-sm font-bold">{`${serviceData.servicePrice.toLocaleString()}₮`}</p>
+          <p className="text-sm font-bold">{`${serviceData.servicePrice.price.toLocaleString()}₮`}</p>
           <p className="text-xs">30min</p>
         </div>
         <button

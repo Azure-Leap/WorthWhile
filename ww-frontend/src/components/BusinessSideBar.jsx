@@ -37,7 +37,7 @@ const menuItems = [
 
 const BusinessSideBar = () => {
   const [toggleCollapse, setToggleCollapse] = useState(false);
-  const [isCollapsible, setIsCollapsible] = useState(false);
+  const [isCollapsible, setIsCollapsible] = useState(true);
 
   const router = useRouter();
 
