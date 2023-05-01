@@ -6,7 +6,6 @@ import { Modal, Box } from "@mui/material";
 import { FiArrowRight } from "react-icons/fi";
 import Signin from "./Modals/Signin";
 import Signup from "./Modals/Signup";
-import { AlertContext } from "@/context/alertContext";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -32,7 +31,7 @@ function classNames(...classes: any) {
 }
 
 export default function TailWindNavBar() {
-  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
+  const [isUserSignedIn, setIsUserSignedIn] = useState(true);
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
 
@@ -90,7 +89,7 @@ export default function TailWindNavBar() {
                 <div className="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <Link
                     href="/business/auth"
-                    className="bg-white text-xs py-2 rounded-md px-5"
+                    className="bg-white text-xs py-2 rounded-md px-5 hidden sm:block"
                   >
                     БИЗНЕС НЭМЭХ
                   </Link>
@@ -179,7 +178,6 @@ export default function TailWindNavBar() {
                 </div>
               </div>
             </div>
-            XMarkIcon
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 px-2 pb-3 pt-2">
                 {navigation.map((item) => (
