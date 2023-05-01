@@ -33,7 +33,7 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignUp({ setIsSign, setOpen }: any) {
+export default function SignUp({ setIsSign, setOpen, setIsLoggedIn }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
@@ -86,6 +86,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
       setMessage(res.data.message);
       setStatus("success");
       setOpen(false);
+      setIsLoggedIn(true);
       console.log(res.data);
     } catch (error: any) {
       setStatus("error");
