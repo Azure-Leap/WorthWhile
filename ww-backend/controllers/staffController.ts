@@ -47,33 +47,11 @@ export const createStaff = async (
 ) => {
   try {
     const { stafferName, staffImg, businessId, about }: IStaffer = req.body;
-
-    const getTimes = (start: any, end: any): Array<Object> => {
-      const arr = [],
-        dt = new Date("2023-01-01 00:00:00");
-      dt.setUTCHours(Number(start.substring(0, 2)));
-      console.log(Number(start.substring(0, 2)));
-
-      while (dt.getUTCHours() <= Number(end.substring(0, 2))) {
-        arr.push({ isAvailable: true, time: new Date(dt) });
-        dt.setUTCHours(dt.getUTCHours() + 1);
-      }
-
-      return arr;
-    };
-
-    const times = getTimes(
-      "09:00", //'9
-      "17:00" //
-    ); //[{},{}]
-    console.log(times);
-
     const staff = await Staffer.create({
       stafferName,
       staffImg,
       businessId,
       about,
-      times: times,
     });
 
     res.status(200).json({ message: `Амжилттай бүртгэгдлээ`, staff });

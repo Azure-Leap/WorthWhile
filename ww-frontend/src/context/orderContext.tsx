@@ -8,6 +8,7 @@ const OrderProvider = ({ children }: any) => {
   const [staffer, setStaffer] = useState(null);
   const [business, setBusiness] = useState(null);
   const [time, setTime] = useState(null);
+  const [day, setDay] = useState(null);
   const [modal, setModal] = useState("BookModal");
   const [open, setOpen] = useState(false);
 
@@ -28,6 +29,8 @@ const OrderProvider = ({ children }: any) => {
         setStaffer,
         time,
         setTime,
+        day,
+        setDay,
       }}
     >
       {children}
