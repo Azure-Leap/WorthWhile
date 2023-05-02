@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import {
   Avatar,
@@ -63,6 +63,7 @@ export default function SignIn({ setIsSign, setOpen, setIsUserSignedIn }: any) {
       setUser(res.data.user);
       setToken(res.data.token);
       setOpen(false);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       setIsUserSignedIn(false);
     } catch (error: any) {
       setStatus("error");
