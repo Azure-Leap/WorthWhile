@@ -7,17 +7,30 @@ import axios from "axios";
 
 const Settings = () => {
   const { user } = useContext(AuthContext);
-  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
 
   useEffect(() => {
     if (user) {
-      setName(user.userName);
+      setUserName(user.userName);
       setEmail(user.email);
       setNumber(user.phoneNumber);
     }
   }, [user]);
+
+  const update = async () => {
+    try {
+      const up = await axios.put(`http://localhost:8888/users/${user._id}`, {
+        name,
+        email,
+        number,
+      });
+      console.log(up);
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
 
   return (
     <SideLayout>
@@ -31,12 +44,12 @@ const Settings = () => {
             margin="normal"
             required
             fullWidth
-            id="name"
-            label="Name"
-            name="name"
-            autoComplete="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            id="userName"
+            label="Username"
+            name="userName"
+            autoComplete="userName"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -72,13 +85,7 @@ const Settings = () => {
             }}
             fullWidth
             variant="contained"
-            // onClick={() => {
-            //   axios.put(`http://localhost:8888/users/`, {
-            //     name,
-            //     email,
-            //     number,
-            //   });
-            // }}
+            onClick={update}
           >
             Submit
           </Button>

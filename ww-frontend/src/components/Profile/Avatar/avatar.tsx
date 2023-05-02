@@ -6,9 +6,7 @@ import { AuthContext } from "@/context/authContext";
 
 export default function ImageAvatars() {
   const { user } = useContext(AuthContext);
-  const [avatarUrl, setAvatarUrl] = React.useState(
-    "/static/images/avatar/1.jpg"
-  );
+  const [avatarUrl, setAvatarUrl] = React.useState("");
 
   const [name, setName] = React.useState("Name");
 
