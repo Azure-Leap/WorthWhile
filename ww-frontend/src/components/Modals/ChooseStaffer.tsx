@@ -1,14 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { OrderContext } from "@/context/orderContext";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import dayjs from "dayjs";
 
 const ChooseStaffer = () => {
-  const [status, setStatus] = useState("green");
-  const [text, setText] = useState("Available");
-  const { setOpen, setModal, staffs, staffer, setStaffer } =
+  const { setOpen, setModal, staffs, staffer, setStaffer, dateNumber } =
     useContext(OrderContext);
 
   return (
@@ -89,62 +88,81 @@ const ChooseStaffer = () => {
             </Typography>
           </Box>
         </Box>
-        {staffs.map((el: any, i: any) => (
-          <Box
-            onClick={() => {
-              setStaffer(el);
-              setModal("BookModal");
-            }}
-            key={i}
-            sx={{
-              display: "flex",
-              padding: "20px",
-              borderBottom:
-                i === staffs.length - 1 ? "none" : "1px solid #E6E5E5",
-            }}
-          >
+        {staffs.map((el: any, i: any, arr: any) => {
+          const isAvailable =
+            el.orders.filter(
+              (el: any) =>
+                dayjs(el).format("YYYY-MM-DD HH:mm") ===
+                dayjs(dateNumber).format("YYYY-MM-DD HH:mm")
+            ).length === 0
+              ? true
+              : false;
+          return (
             <Box
               sx={{
-                width: "50px",
-                height: "50px",
-                marginRight: "20px",
-                borderRadius: "50%",
-                border: staffer === el ? "2px solid blue" : "none",
-                padding: "1px",
-                position: "relative",
+                opacity: isAvailable ? 1 : 0.5,
+                display: "flex",
+                padding: "20px",
+                borderBottom:
+                  i === arr.length - 1 ? "none" : "1px solid #E6E5E5",
               }}
             >
-              <img
+              <button
+                onClick={
+                  isAvailable
+                    ? () => {
+                        setStaffer(el);
+                        setModal("BookModal");
+                      }
+                    : () => {}
+                }
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
+                  width: "50px",
+                  height: "50px",
+                  marginRight: "20px",
                   borderRadius: "50%",
+                  border: staffer === el ? "2px solid blue" : "none",
+                  padding: "1px",
+                  position: "relative",
                 }}
-                src={el.staffImg}
-                alt="staffer"
-              />
-              <CheckCircleIcon
-                sx={{
-                  position: "absolute",
-                  right: "0px",
-                  top: "0px",
-                  display: staffer === el ? "block" : "none",
-                  fontSize: "14px",
-                  color: "blue",
-                  backgroundColor: "white",
-                  borderRadius: "50%",
-                }}
-              />
+              >
+                <img
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                  }}
+                  src={el.staffImg}
+                  alt="staffer"
+                />
+                <CheckCircleIcon
+                  sx={{
+                    position: "absolute",
+                    right: "0px",
+                    top: "0px",
+                    display: staffer === el ? "block" : "none",
+                    fontSize: "14px",
+                    color: "blue",
+                    backgroundColor: "white",
+                    borderRadius: "50%",
+                  }}
+                />
+              </button>
+              <Box>
+                <Typography>{el.stafferName}</Typography>
+                <Typography
+                  sx={{
+                    color: isAvailable ? "green" : "red",
+                    fontSize: "12px",
+                  }}
+                >
+                  {isAvailable ? "Available" : "Not Available"}
+                </Typography>
+              </Box>
             </Box>
-            <Box>
-              <Typography>{el.stafferName}</Typography>
-              <Typography sx={{ color: `${status}`, fontSize: "12px" }}>
-                {text}
-              </Typography>
-            </Box>
-          </Box>
-        ))}
+          );
+        })}
       </Box>
     </Box>
   );

@@ -52,6 +52,7 @@ export const createStaff = async (
       staffImg,
       businessId,
       about,
+      orders: [],
     });
 
     res.status(200).json({ message: `Амжилттай бүртгэгдлээ`, staff });
