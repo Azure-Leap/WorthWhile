@@ -90,9 +90,7 @@ const BusinessSideBar = () => {
         <div style={{ width: "2rem" }}>
           <FaSignOutAlt color="white" />
         </div>
-        <span className="text-sm font-medium text-white flex items-center cursor-pointerrounded w-full">
-          Logout
-        </span>
+        <span className="text-sm font-medium text-white">Logout</span>
       </div>
     </div>
   );
