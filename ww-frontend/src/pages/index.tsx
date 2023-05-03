@@ -2,7 +2,6 @@ import HomeCard from "@/components/Card";
 import Link from "next/link";
 import SearchComponent from "@/components/General/search";
 import TailWindNavBar from "@/components/TailwindNavBar";
-import Link from "next/link";
 export interface IItem {
   title: string;
   BgURL: string;
