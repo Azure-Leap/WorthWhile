@@ -41,31 +41,31 @@ const NewFooter = () => {
           <h2 className="text-2xl font-bold mb-4">Follow Us</h2>
           <ul>
             <li className="mb-2">
-              <a
+              <Link
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaTwitter /> Twitter
-              </a>
+              </Link>
             </li>
             <li className="mb-2">
-              <a
+              <Link
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaFacebook /> Facebook
-              </a>
+              </Link>
             </li>
             <li className="mb-2">
-              <a
+              <Link
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaInstagram /> Instagram
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

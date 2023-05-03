@@ -46,17 +46,10 @@ const BusinessSideBar = () => {
 
   const router = useRouter();
 
-  const activeMenu = useMemo(
-    () => menuItems.find((menu) => menu.link === router.pathname),
-    [router.pathname]
-  );
-
-  const getNavItemClasses = (menu) => {
-    return classNames(
-      "flex items-center cursor-pointer focus:bg-gray-100 focus:bg-opacity-5 rounded w-full"
-    );
-  };
-
+  // const activeMenu = useMemo(
+  //   () => menuItems.find((menu) => menu.link === router.pathname),
+  //   [router.pathname]
+  // );
   return (
     <div className="h-screen px-4 pt-8 pb-4 bg-light flex justify-between flex-col bg-stone-800 w-70">
       <div className="flex flex-col">
@@ -71,17 +64,18 @@ const BusinessSideBar = () => {
 
         <div className="flex flex-col items-start">
           {menuItems.map(({ icon: Icon, ...menu }) => {
-            const classes = getNavItemClasses(menu);
+            // const classes = getNavItemClasses(menu);
             return (
-              <div key={menu.id} className={classes}>
+              <div
+                key={menu.id}
+                className="flex items-center cursor-pointer hover:bg-gray-100 hover:bg-opacity-5 rounded w-full"
+              >
                 <Link href={menu.link}>
                   <span className="flex py-4 px-3 items-center w-full h-full ">
-                    <div style={{ width: "2.5rem" }}>
+                    <div style={{ width: "2rem" }}>
                       <Icon color="gray" />
                     </div>
-                    <span
-                      className={classNames("text-sm font-medium text-white")}
-                    >
+                    <span className="text-sm font-medium text-white">
                       {menu.label}
                     </span>
                   </span>
@@ -92,11 +86,11 @@ const BusinessSideBar = () => {
         </div>
       </div>
 
-      <div className={`${getNavItemClasses({})} px-3 py-4`}>
-        <div style={{ width: "2.5rem" }}>
+      <div className="flex items-center cursor-pointer hover:bg-gray-100 hover:bg-opacity-5 rounded w-full px-3 py-4">
+        <div style={{ width: "2rem" }}>
           <FaSignOutAlt color="white" />
         </div>
-        <span className={classNames("text-sm font-medium text-white")}>
+        <span className="text-sm font-medium text-white flex items-center cursor-pointerrounded w-full">
           Logout
         </span>
       </div>
