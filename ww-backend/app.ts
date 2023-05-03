@@ -11,6 +11,7 @@ import serviceRoute from "./Routes/serviceRoute";
 import reviewRoute from "./Routes/reviewRoutes";
 import replyRoute from "./Routes/replyRoutes";
 import appointmentRoute from "./Routes/appointmentRoute";
+import giftCardRoute from "./Routes/giftCardRoute";
 import logger from "./middlewares/logger";
 import error from "./middlewares/error";
 import { cloudinary } from "./utils/cloudinary";
@@ -31,6 +32,7 @@ app.use("/services", serviceRoute);
 app.use("/reviews", reviewRoute);
 app.use("/replies", replyRoute);
 app.use("/appointments", appointmentRoute);
+app.use("/giftcards", giftCardRoute);
 
 const storage = new CloudinaryStorage({
   cloudinary,
