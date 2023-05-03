@@ -1,7 +1,6 @@
-import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import {
   FaCalendarAlt,
@@ -40,11 +39,11 @@ const menuItems = [
 ];
 
 const BusinessSideBar = () => {
-  const [isCollapsible, setIsCollapsible] = useState(true);
-  // const { setBusinessUser, businessUser } =
-  //   useContext(AuthContext);
+  const { businessUser } = useContext(AuthContext);
 
-  const router = useRouter();
+  console.log(businessUser);
+
+  // const router = useRouter();
 
   // const activeMenu = useMemo(
   //   () => menuItems.find((menu) => menu.link === router.pathname),
@@ -52,16 +51,14 @@ const BusinessSideBar = () => {
   // );
   return (
     <div className="h-screen px-4 pt-8 pb-4 bg-light flex justify-between flex-col bg-stone-800 w-70">
-      <div className="flex flex-col">
-        <div className="flex items-center justify-between relative"></div>
+      <div className="flex flex-col ">
         <div class="flex items-center justify-between mt-2 p-3 rounded-md cursor-pointer bg-gray-100 bg-opacity-5">
           <div>
             <h3 class="text-base font-medium text-white">Devias</h3>
             <p class="text-sm text-neutral-400">Production</p>
           </div>
-          <div class="text-neutral-500"></div>
         </div>
-
+        <span className="bg-gray-100 bg-opacity-5 h-0.5 w-full mt-4 mb-3"></span>
         <div className="flex flex-col items-start">
           {menuItems.map(({ icon: Icon, ...menu }) => {
             // const classes = getNavItemClasses(menu);
@@ -71,11 +68,11 @@ const BusinessSideBar = () => {
                 className="flex items-center cursor-pointer hover:bg-gray-100 hover:bg-opacity-5 rounded w-full"
               >
                 <Link href={menu.link}>
-                  <span className="flex py-4 px-3 items-center w-full h-full ">
+                  <span className="flex py-2 px-3 items-center w-full h-full ">
                     <div style={{ width: "2rem" }}>
                       <Icon color="gray" />
                     </div>
-                    <span className="text-sm font-medium text-white">
+                    <span className="text-sm font-semibold text-white">
                       {menu.label}
                     </span>
                   </span>
