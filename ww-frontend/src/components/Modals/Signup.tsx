@@ -33,7 +33,7 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignUp({ setIsSign, setOpen }: any) {
+export default function SignUp({ setIsSign, setOpen, setIsUserSignedIn }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
@@ -86,6 +86,8 @@ export default function SignUp({ setIsSign, setOpen }: any) {
       setMessage(res.data.message);
       setStatus("success");
       setOpen(false);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      setIsUserSignedIn(false);
       console.log(res.data);
     } catch (error: any) {
       setStatus("error");
@@ -189,7 +191,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2, color: "white" }}
           >
             Sign Up
           </Button>

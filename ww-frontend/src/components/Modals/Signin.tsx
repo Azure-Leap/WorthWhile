@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import {
   Avatar,
@@ -36,7 +36,7 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignIn({ setIsSign, setOpen }: any) {
+export default function SignIn({ setIsSign, setOpen, setIsUserSignedIn }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setUser, user, setToken } = useContext(AuthContext);
@@ -63,6 +63,8 @@ export default function SignIn({ setIsSign, setOpen }: any) {
       setUser(res.data.user);
       setToken(res.data.token);
       setOpen(false);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      setIsUserSignedIn(false);
     } catch (error: any) {
       setStatus("error");
       setUser(null);
@@ -131,7 +133,7 @@ export default function SignIn({ setIsSign, setOpen }: any) {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2, color: "white" }}
             onClick={() => {
               signin();
             }}

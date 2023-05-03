@@ -1,4 +1,5 @@
 import Image from "next/image";
+// import Link from "@mui/material";
 import Link from "next/link";
 import { FiUser } from "react-icons/fi";
 import { useContext, useState } from "react";
@@ -26,7 +27,7 @@ const Navbar = () => {
   const logo = require("../assets/image/logo.png");
 
   const logout = () => {
-    setIsLoggedIn(false);
+    // setIsLoggedIn(false);
   };
 
   return (
@@ -45,7 +46,7 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex items-center">
-            {isLoggedIn ? (
+            {!isLoggedIn ? (
               <>
                 <button
                   onClick={() => setOpen(true)}
@@ -62,9 +63,17 @@ const Navbar = () => {
                 >
                   <Box sx={style}>
                     {isSign ? (
-                      <Signin setIsSign={setIsSign} setOpen={setOpen} />
+                      <Signin
+                        setIsSign={setIsSign}
+                        setOpen={setOpen}
+                        setIsLoggedIn={setIsLoggedIn}
+                      />
                     ) : (
-                      <Signup setIsSign={setIsSign} setOpen={setOpen} />
+                      <Signup
+                        setIsSign={setIsSign}
+                        setOpen={setOpen}
+                        setIsLoggedIn={setIsLoggedIn}
+                      />
                     )}
                   </Box>
                 </Modal>

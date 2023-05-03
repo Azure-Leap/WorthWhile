@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SideLayout from "@/components/SideLayout";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { AuthContext } from "@/context/authContext";
 import axios from "axios";
 
 const Settings = () => {
-  const getUser = async () => {
+  const { user } = useContext(AuthContext);
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setUserName(user.userName);
+      setEmail(user.email);
+      setNumber(user.phoneNumber);
+    }
+  }, [user]);
+
+  const update = async () => {
     try {
-      const result = await axios.get("http://localhost:8888/signin");
-      console.log(result.data);
+      const up = await axios.put(`http://localhost:8888/users/${user._id}`, {
+        name,
+        email,
+        number,
+      });
+      console.log(up);
     } catch (error) {
-      console.log("Алдаа гарлаа", error);
+      console.log("Error", error);
     }
   };
 
@@ -26,11 +44,12 @@ const Settings = () => {
             margin="normal"
             required
             fullWidth
-            id="name"
-            label="Name"
-            name="name"
-            autoComplete="name"
-            defaultValue={"Ashid"}
+            id="userName"
+            label="Username"
+            name="userName"
+            autoComplete="userName"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -41,7 +60,8 @@ const Settings = () => {
             name="email"
             type=""
             autoComplete="email"
-            defaultValue={"email123@gmail.com"}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <TextField
@@ -50,7 +70,8 @@ const Settings = () => {
             id="number"
             label="Number"
             name="number"
-            type="number"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
           />
           <Button
             sx={{
@@ -62,9 +83,9 @@ const Settings = () => {
                 bgcolor: "green",
               },
             }}
-            type="submit"
             fullWidth
             variant="contained"
+            onClick={update}
           >
             Submit
           </Button>
