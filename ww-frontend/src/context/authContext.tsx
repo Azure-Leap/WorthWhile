@@ -10,8 +10,12 @@ const AuthProvider = ({ children }: any) => {
 
   useEffect(() => {
     const prev = localStorage.getItem("user");
+    const localBusiness = localStorage.getItem("business");
     if (prev) {
       setUser(JSON.parse(prev));
+    }
+    if (localBusiness) {
+      setBusinessUser(JSON.parse(localBusiness));
     }
   }, []);
 
