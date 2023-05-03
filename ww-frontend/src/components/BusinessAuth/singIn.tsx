@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/authContext";
 import { AlertContext } from "../../context/alertContext";
-import { validateConfig } from "next/dist/server/config-shared";
 import { useRouter } from "next/router";
 
 const BusinessSignIn = ({ setIsSignIn }: any) => {
@@ -34,7 +33,6 @@ const BusinessSignIn = ({ setIsSignIn }: any) => {
     } catch (error: any) {
       setStatus("error");
       console.log("ERROR", error);
-      // setBusinessUser(null);
       if (!businessUser) {
         setMessage("Имэйл эсвэл нууц үг буруу байна!");
       }

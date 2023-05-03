@@ -2,42 +2,47 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useMemo } from "react";
+import { AuthContext } from "../context/authContext";
 import {
-  ArticleIcon,
-  CollapsIcon,
-  HomeIcon,
-  LogoIcon,
-  LogoutIcon,
-  UsersIcon,
-  VideosIcon,
-} from "./icons";
+  FaCalendarAlt,
+  FaShoppingBag,
+  FaUsers,
+  FaSignOutAlt,
+} from "react-icons/fa";
+import { BsGearWideConnected, BsFillEnvelopeHeartFill } from "react-icons/bs";
 
 const menuItems = [
   {
     id: 1,
     label: "Appointments",
-    icon: HomeIcon,
+    icon: FaCalendarAlt,
     link: "/business/Appointments",
   },
   {
     id: 2,
     label: "Services",
-    icon: ArticleIcon,
+    icon: FaShoppingBag,
     link: "/business/Services",
   },
-  { id: 3, label: "Staff", icon: UsersIcon, link: "/business/Staff" },
+  { id: 3, label: "Staff", icon: FaUsers, link: "/business/Staff" },
   {
     id: 4,
     label: "Salon Detail",
-    icon: VideosIcon,
+    icon: BsGearWideConnected,
     link: "/business/SalonDetail",
   },
-  { id: 5, label: "Reviews", icon: VideosIcon, link: "/business/Reviews" },
+  {
+    id: 5,
+    label: "Reviews",
+    icon: BsFillEnvelopeHeartFill,
+    link: "/business/Reviews",
+  },
 ];
 
 const BusinessSideBar = () => {
-  const [toggleCollapse, setToggleCollapse] = useState(false);
   const [isCollapsible, setIsCollapsible] = useState(true);
+  // const { setBusinessUser, businessUser } =
+  //   useContext(AuthContext);
 
   const router = useRouter();
 
@@ -46,71 +51,25 @@ const BusinessSideBar = () => {
     [router.pathname]
   );
 
-  const wrapperClasses = classNames(
-    "h-screen px-4 pt-8 pb-4 bg-light flex justify-between flex-col bg-stone-950",
-    {
-      ["w-80"]: !toggleCollapse,
-      ["w-20"]: toggleCollapse,
-    }
-  );
-
-  const collapseIconClasses = classNames(
-    "p-4 rounded bg-light-lighter absolute right-0",
-    {
-      "rotate-180": toggleCollapse,
-    }
-  );
-
   const getNavItemClasses = (menu) => {
     return classNames(
-      "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap"
-      // {
-      //   ["bg-light-lighter"]: activeMenu.id === menu.id,
-      // }
+      "flex items-center cursor-pointer focus:bg-gray-100 focus:bg-opacity-5 rounded w-full"
     );
   };
 
-  const onMouseOver = () => {
-    setIsCollapsible(!isCollapsible);
-  };
-
-  const handleSidebarToggle = () => {
-    setToggleCollapse(!toggleCollapse);
-  };
-
   return (
-    <div
-      className={wrapperClasses}
-      onMouseEnter={onMouseOver}
-      onMouseLeave={onMouseOver}
-      style={{ transition: "width 300ms cubic-bezier(0.2, 0, 0, 1) 0s" }}
-    >
+    <div className="h-screen px-4 pt-8 pb-4 bg-light flex justify-between flex-col bg-stone-800 w-70">
       <div className="flex flex-col">
-        <div className="flex items-center justify-between relative">
-          <div className="flex items-center pl-1 gap-4">
-            <LogoIcon />
-            <span
-              className={classNames(
-                "mt-2 text-lg font-medium text-text text-white",
-                {
-                  hidden: toggleCollapse,
-                }
-              )}
-            >
-              Logo
-            </span>
+        <div className="flex items-center justify-between relative"></div>
+        <div class="flex items-center justify-between mt-2 p-3 rounded-md cursor-pointer bg-gray-100 bg-opacity-5">
+          <div>
+            <h3 class="text-base font-medium text-white">Devias</h3>
+            <p class="text-sm text-neutral-400">Production</p>
           </div>
-          {isCollapsible && (
-            <button
-              className={collapseIconClasses}
-              onClick={handleSidebarToggle}
-            >
-              <CollapsIcon />
-            </button>
-          )}
+          <div class="text-neutral-500"></div>
         </div>
 
-        <div className="flex flex-col items-start mt-24">
+        <div className="flex flex-col items-start">
           {menuItems.map(({ icon: Icon, ...menu }) => {
             const classes = getNavItemClasses(menu);
             return (
@@ -118,17 +77,13 @@ const BusinessSideBar = () => {
                 <Link href={menu.link}>
                   <span className="flex py-4 px-3 items-center w-full h-full ">
                     <div style={{ width: "2.5rem" }}>
-                      <Icon />
+                      <Icon color="gray" />
                     </div>
-                    {!toggleCollapse && (
-                      <span
-                        className={classNames(
-                          "text-md font-medium text-text-light text-white"
-                        )}
-                      >
-                        {menu.label}
-                      </span>
-                    )}
+                    <span
+                      className={classNames("text-sm font-medium text-white")}
+                    >
+                      {menu.label}
+                    </span>
                   </span>
                 </Link>
               </div>
@@ -139,17 +94,11 @@ const BusinessSideBar = () => {
 
       <div className={`${getNavItemClasses({})} px-3 py-4`}>
         <div style={{ width: "2.5rem" }}>
-          <LogoutIcon />
+          <FaSignOutAlt color="white" />
         </div>
-        {!toggleCollapse && (
-          <span
-            className={classNames(
-              "text-md font-medium text-text-light text-white"
-            )}
-          >
-            Logout
-          </span>
-        )}
+        <span className={classNames("text-sm font-medium text-white")}>
+          Logout
+        </span>
       </div>
     </div>
   );

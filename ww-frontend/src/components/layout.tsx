@@ -8,10 +8,10 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Layout({ children }: any) {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <main className="h-screen"> {children}</main>
       {/* <Footer /> */}
-      <NewFooter />
+      {/* <NewFooter /> */}
     </>
   );
 }
