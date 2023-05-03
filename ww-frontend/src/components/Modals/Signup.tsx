@@ -88,7 +88,7 @@ export default function SignUp({ setIsSign, setOpen, setIsUserSignedIn }: any) {
       setStatus("success");
       setOpen(false);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      setIsUserSignedIn(false);
+      setIsUserSignedIn(true);
       console.log(res.data);
     } catch (error: any) {
       setStatus("error");

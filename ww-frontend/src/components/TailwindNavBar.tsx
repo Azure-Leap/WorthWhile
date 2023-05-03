@@ -32,14 +32,14 @@ function classNames(...classes: any) {
 }
 
 export default function TailWindNavBar({ setAvatarUrl }: any) {
-  const [isUserSignedIn, setIsUserSignedIn] = useState(true);
+  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
 
   const { user, setUser } = useContext(AuthContext);
 
   const handleLogOut = () => {
-    setIsUserSignedIn(true);
+    setIsUserSignedIn(false);
     setIsSign(true);
     localStorage.removeItem("user");
   };
@@ -121,7 +121,15 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                   </button>
 
                   {/* Profile dropdown */}
-                  {user !== null ? (
+                  {!user ? (
+                    <button
+                      onClick={() => setOpen(true)}
+                      className="text-sm text-gray-300 py-2 px-3 hover:bg-gray-700 hover:text-white hover:rounded-md hover:px-3 hover:py-2 flex gap-1 items-center"
+                    >
+                      Log in
+                      <FiArrowRight size={15} />
+                    </button>
+                  ) : (
                     <Menu as="div" className="relative ml-3">
                       <div>
                         <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -146,7 +154,7 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                           <Menu.Item>
                             {({ active }) => (
                               <Link
-                                href="#"
+                                href="/profile"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
@@ -159,7 +167,7 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                           <Menu.Item>
                             {({ active }) => (
                               <Link
-                                href="#"
+                                href="/profile/settings"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
@@ -172,12 +180,15 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                           <Menu.Item>
                             {({ active }) => (
                               <Link
-                                href="#"
+                                href="/"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
-                                onClick={handleLogOut}
+                                onClick={() => {
+                                  setUser(null);
+                                  localStorage.removeItem("user");
+                                }}
                               >
                                 Sign out
                               </Link>
@@ -186,14 +197,6 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                         </Menu.Items>
                       </Transition>
                     </Menu>
-                  ) : (
-                    <button
-                      onClick={() => setOpen(true)}
-                      className="text-sm text-gray-300 py-2 px-3 hover:bg-gray-700 hover:text-white hover:rounded-md hover:px-3 hover:py-2 flex gap-1 items-center"
-                    >
-                      Log in
-                      <FiArrowRight size={15} />
-                    </button>
                   )}
                 </div>
               </div>
