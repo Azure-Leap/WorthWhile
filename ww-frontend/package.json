@@ -48,5 +48,8 @@
   "devDependencies": {
     "eslint": "^8.39.0",
     "eslint-config-next": "^13.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
