@@ -65,7 +65,7 @@ export default function SignIn({ setIsSign, setOpen, setIsUserSignedIn }: any) {
       setToken(res.data.token);
       setOpen(false);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      setIsUserSignedIn(false);
+      setIsUserSignedIn(true);
     } catch (error: any) {
       setStatus("error");
       setUser(null);

@@ -6,10 +6,11 @@ import { AuthContext } from "@/context/authContext";
 import axios from "axios";
 
 const Settings = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
+  const [isChanged, setChanged] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -19,14 +20,26 @@ const Settings = () => {
     }
   }, [user]);
 
+  // useEffect(() => {
+  //   if (!user) return;
+  //   if (user && userName !== "" && number !== "" && email !== "") {
+  //     const changed =
+  //       user?.userName !== userName ||
+  //       user?.number !== number ||
+  //       user?.email !== email;
+
+  //     setChanged(changed);
+  //   }
+  // }, [userName, number, email]);
+
   const update = async () => {
     try {
-      const up = await axios.put(`http://localhost:8888/users/${user._id}`, {
-        name,
+      const res = await axios.put(`http://localhost:8888/users/${user._id}`, {
+        userName,
         email,
         number,
       });
-      console.log(up);
+      setUser(res.data.user);
     } catch (error) {
       console.log("Error", error);
     }
@@ -49,7 +62,10 @@ const Settings = () => {
             name="userName"
             autoComplete="userName"
             value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) => {
+              setUserName(e.target.value);
+              setChanged(true);
+            }}
           />
           <TextField
             margin="normal"
@@ -61,7 +77,10 @@ const Settings = () => {
             type=""
             autoComplete="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setChanged(true);
+            }}
           />
 
           <TextField
@@ -71,24 +90,29 @@ const Settings = () => {
             label="Number"
             name="number"
             value={number}
-            onChange={(e) => setNumber(e.target.value)}
-          />
-          <Button
-            sx={{
-              mt: 3,
-              mb: 2,
-              color: "white",
-              bgcolor: "lime",
-              ":hover": {
-                bgcolor: "green",
-              },
+            onChange={(e) => {
+              setNumber(e.target.value);
+              setChanged(true);
             }}
-            fullWidth
-            variant="contained"
-            onClick={update}
-          >
-            Submit
-          </Button>
+          />
+          {isChanged === true && (
+            <Button
+              sx={{
+                mt: 3,
+                mb: 2,
+                color: "white",
+                bgcolor: "lime",
+                ":hover": {
+                  bgcolor: "green",
+                },
+              }}
+              fullWidth
+              variant="contained"
+              onClick={update}
+            >
+              Submit
+            </Button>
+          )}
         </div>
       </div>
     </SideLayout>
