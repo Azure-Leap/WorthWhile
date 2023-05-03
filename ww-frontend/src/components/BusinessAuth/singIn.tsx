@@ -1,20 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import { AuthContext } from "../../context/authContext";
+import { AlertContext } from "../../context/alertContext";
+import { useRouter } from "next/router";
 
 const BusinessSignIn = ({ setIsSignIn }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setBusinessUser, businessUser, setBusinessToken } =
+    useContext(AuthContext);
+  const { setMessage, setStatus, message } = useContext(AlertContext);
+  console.log("first===>", businessUser);
 
-  const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // Add your sign in logic here
+  const router = useRouter();
+
+  if (businessUser) {
+    router.replace("/business");
+  }
+
+  const signin = async () => {
+    // console.log(email, password);
+    try {
+      const res = await axios.post("http://localhost:8888/business/signin", {
+        email,
+        password,
+      });
+      setMessage(res.data.message);
+      setStatus("success");
+      console.log("RESDATA====>", res.data);
+      setBusinessUser(res.data.business);
+      setBusinessToken(res.data.token);
+    } catch (error: any) {
+      setStatus("error");
+      console.log("ERROR", error);
+      if (!businessUser) {
+        setMessage("Имэйл эсвэл нууц үг буруу байна!");
+      }
+    }
   };
   return (
     <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center bg-gray-100 ">
       <div className="flex w-fit justify-center items-center bg-white p-7 rounded-md">
-        <form
-          className="mt-8 space-y-6 w-full max-w-md"
-          onSubmit={handleSignIn}
-        >
+        <div className="mt-8 space-y-6 w-full max-w-md">
           <h2 className="text-2xl font-bold mb-4">Sign In</h2>
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
@@ -53,8 +80,8 @@ const BusinessSignIn = ({ setIsSignIn }: any) => {
           </div>
           <div>
             <button
-              type="submit"
               className="w-full bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+              onClick={signin}
             >
               Sign In
             </button>
@@ -73,7 +100,7 @@ const BusinessSignIn = ({ setIsSignIn }: any) => {
               Don't have an account? Sign Up
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </main>
   );

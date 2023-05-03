@@ -8,6 +8,7 @@ const Service = ({ business, service, staffs }: any) => {
   return (
     <div className="border-t-2 border-gray-200 text-start flex justify-between py-3 ">
       <div>
+
         <h1 className="text-lg">{service.serviceName}</h1>
         <p className="text-sm text-gray-500 font-light">
           {service.description}

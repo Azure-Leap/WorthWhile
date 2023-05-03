@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
+import dayjs from "dayjs";
 
 interface IAppointments {
   services: string;
@@ -50,7 +51,7 @@ const Appointments = ({ apps }: { apps: IAppointments[] }) => {
               </Button>
             </div>
             <div className="pl-5 flex items-center">
-              {app.startTime.toString()}
+              {dayjs(app.startTime).format("YYYY-MM-DD HH:mm")}
             </div>
           </div>
         ))}
