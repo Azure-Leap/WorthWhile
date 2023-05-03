@@ -24,11 +24,11 @@ const BookModal = () => {
   const [indexDay, setIndexDay] = useState(0);
 
   const getAnyone = () => {
-    if (!staffer) {
-      staffs.map((staff: any) => {
-        staff.orders.
-      }
-    }
+    // if (!staffer) {
+    //   staffs.map((staff: any) => {
+    //     staff.orders.
+    //   }
+    // }
   };
 
   return (
@@ -68,11 +68,15 @@ const BookModal = () => {
       >
         {dateS.map((el: any, i: number) => (
           <Box
-            onClick={() => {
-              setIndexDay(i);
-              changeDate(el.day);
-              setStaffer(null);
-            }}
+            onClick={
+              el.open
+                ? () => {
+                    setIndexDay(i);
+                    changeDate(el.day);
+                    setStaffer(null);
+                  }
+                : () => {}
+            }
             key={i}
             sx={{
               padding: "15px 0",

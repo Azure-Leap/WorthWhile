@@ -15,20 +15,26 @@ const OrderProvider = ({ children }: any) => {
   //================
 
   const [times, setTimes] = useState([]);
-  const [dateS, setDates] = useState<object[]>([]);
+  const [dateS, setDates] = useState<any>([]);
 
   const getDays = () => {
     const arr = [];
     const dateVal = Date.now();
+
     for (let i: number = 0; i < 7; i++) {
       const dayVal = dateVal + i * 24 * 60 * 60 * 1000;
+      const idx = business?.businessHours.findIndex(
+        (el: any) => el.name === dayjs(dayVal).format("dddd")
+      );
       arr.push({
         dayName: dayjs(dayVal).format("dddd"),
         day: dayVal,
+        open: business?.businessHours[idx].isOpen,
       });
     }
     setDates(arr);
   };
+  console.log(dateS);
 
   const getTimes = (date: Date, start: any, end: any) => {
     const arr: any = [];
@@ -39,11 +45,18 @@ const OrderProvider = ({ children }: any) => {
     while (dt.getHours() <= Number(end?.substring(0, 2))) {
       const newDate = new Date(dt);
       const result = newDate.getTime();
-      staffs.map((staff: any) => {
-        if (!staff.orders.includes(result) && !arr.includes(result)) {
-          arr.push(result);
-        }
-      });
+      if (!staffer) {
+        staffs.map((staff: any) => {
+          if (!staff.orders.includes(result) && !arr.includes(result)) {
+            arr.push(result);
+          }
+        });
+      } else {
+        console.log("STAFFER", staffer);
+        // if (!staffer.orders.includes(result)) {
+        //   arr.push(result);
+        // }
+      }
       dt.setHours(dt.getHours() + 1);
     }
     return arr;
@@ -59,7 +72,6 @@ const OrderProvider = ({ children }: any) => {
       business?.businessHours[idx].startTime,
       business?.businessHours[idx].endTime
     );
-
     setTimes(t);
     setDateNumber(t[0]);
   };

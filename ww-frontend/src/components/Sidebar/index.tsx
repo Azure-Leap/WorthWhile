@@ -1,7 +1,8 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import React from "react";
+import { Box, Grid, Typography } from "@mui/material";
+import React, { useContext, useEffect } from "react";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import moment from "moment";
+import { OrderContext } from "@/context/orderContext";
 
 const Sidebar = ({ business, staffs }: any) => {
   return (
@@ -157,32 +158,12 @@ const Sidebar = ({ business, staffs }: any) => {
             >
               <p>{el.name}</p>
               <p style={{ fontWeight: "bold" }}>
-                {el.isRestDay ? "Closed" : el.startTime + "-" + el.endTime}
+                {el.isOpen ? el.startTime + "-" + el.endTime : "Closed"}
               </p>
             </div>
           ))}
         </div>
 
-        <Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              paddingTop: "20px",
-            }}
-          >
-            <Typography sx={{ fontSize: "15px" }}>
-              {moment(new Date()).format("ll")}
-            </Typography>
-            <Typography sx={{ fontSize: "15px" }}>Closed</Typography>
-          </Box>
-          <Box sx={{ padding: "20px" }}>
-            <Typography sx={{ fontSize: "12px", color: "grey" }}>
-              I will be on our 25th anniversary vacation April 12-24. See y'all
-              when I get back!
-            </Typography>
-          </Box>
-        </Box>
         <hr />
         <Typography
           sx={{
