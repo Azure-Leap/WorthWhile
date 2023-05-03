@@ -4,8 +4,8 @@ const StafferSchema = new Schema({
   stafferName: { type: String, required: true },
   staffImg: { type: String, required: true },
   businessId: { type: Types.ObjectId, ref: "Business", required: true },
-  times: [{ isAvailable: Boolean, time: Date }],
   about: String,
+  orders: [Number],
 });
 
 const Staffer = model("Staffer", StafferSchema);

@@ -1,11 +1,13 @@
 import Sidebar from "@/components/Sidebar";
 import { Box, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Service from "@/components/Service";
+import dayjs from "dayjs";
+import { OrderContext } from "@/context/orderContext";
 
-const Services = ({ business, staffs, services }: any) => {
+const SalonDetail = ({ business, staffs, services }: any) => {
   const [isFavorite, setFavorite] = useState<Boolean>(false);
   const [index, setIndex] = useState(0);
 
@@ -112,4 +114,4 @@ export async function getServerSideProps({ query }: any) {
   };
 }
 
-export default Services;
+export default SalonDetail;

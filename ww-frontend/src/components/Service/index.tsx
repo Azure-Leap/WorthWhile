@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { OrderContext } from "@/context/orderContext";
 
 const Service = ({ business, service, staffs }: any) => {
-  const { setOpen, setServices, setStaffs, setBusiness } =
+  const { setOpen, setServices, setStaffs, setBusiness, setModal } =
     useContext(OrderContext);
 
   return (

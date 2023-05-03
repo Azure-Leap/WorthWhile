@@ -3,54 +3,33 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Typography } from "@mui/material";
 import { OrderContext } from "@/context/orderContext";
-import moment from "moment";
+import dayjs from "dayjs";
 
 const BookModal = () => {
-  const [index, setIndex] = useState(0);
-  const [indexDay, setIndexDay] = useState(0);
   const {
     setOpen,
     setModal,
     services,
-    staffs,
     staffer,
     setStaffer,
-    time,
-    setTime,
+    staffs,
+    setDateNumber,
+    dateNumber,
+    times,
+    dateS,
+    changeDate,
   } = useContext(OrderContext);
 
-  const arr: number[] = [];
-  const getDays = () => {
-    const dateVal = Date.now();
-    for (let i: number = 0; i < 7; i++) {
-      arr.push(dateVal + i * 24 * 60 * 60 * 1000);
-    }
-  };
+  const [index, setIndex] = useState(0);
+  const [indexDay, setIndexDay] = useState(0);
 
-  let availableTimes: Object[] = [];
-  const getAvailableTimes = () => {
-    staffs.map((staff: any) => {
-      staff.times.filter((timeObject: any) => {
-        if (timeObject.isAvailable) {
-          availableTimes.push(timeObject);
-        }
-      });
-    });
+  const getAnyone = () => {
+    // if (!staffer) {
+    //   staffs.map((staff: any) => {
+    //     staff.orders.
+    //   }
+    // }
   };
-
-  const times: Date[] = [];
-  const getTimes = () => {
-    availableTimes.map((timeObject: any) => {
-      if (!times.includes(timeObject.time)) {
-        times.push(timeObject.time);
-      }
-    });
-  };
-  getAvailableTimes();
-  getDays();
-  getTimes();
-
-  console.log(times);
 
   return (
     <Box sx={{ width: "100%", position: "relative" }}>
@@ -74,7 +53,7 @@ const BookModal = () => {
           onClick={() => {
             setOpen(false);
             setStaffer(null);
-            setTime(null);
+            setDateNumber(null);
           }}
           sx={{ position: "absolute", top: "5px", right: "-15px" }}
         />
@@ -87,9 +66,17 @@ const BookModal = () => {
           paddingBottom: "20px",
         }}
       >
-        {arr.map((el, i) => (
+        {dateS.map((el: any, i: number) => (
           <Box
-            onClick={() => setIndexDay(i)}
+            onClick={
+              el.open
+                ? () => {
+                    setIndexDay(i);
+                    changeDate(el.day);
+                    setStaffer(null);
+                  }
+                : () => {}
+            }
             key={i}
             sx={{
               padding: "15px 0",
@@ -106,10 +93,10 @@ const BookModal = () => {
                 marginBottom: "12px",
               }}
             >
-              {moment(el).format("ddd")}
+              {dayjs(el.day).format("ddd")}
             </Typography>
             <Typography sx={{ color: indexDay === i ? "white" : "grey" }}>
-              {moment(el).format("DD")}
+              {dayjs(el.day).format("DD")}
             </Typography>
           </Box>
         ))}
@@ -152,18 +139,20 @@ const BookModal = () => {
         {times.map((el: any, i: any) => (
           <button
             onClick={() => {
-              setTime(el);
-              console.log("time", time);
+              setDateNumber(el);
+              setStaffer(null);
             }}
             key={i}
             style={{
-              backgroundColor: el === time ? "rgb(6 182 212)" : "transparent",
-              color: el === time ? "white" : "grey",
-              border: el === time ? "rgb(8 145 178)" : "1px solid #E6E5E5",
+              backgroundColor:
+                el === dateNumber ? "rgb(6 182 212)" : "transparent",
+              color: el === dateNumber ? "white" : "grey",
+              border:
+                el === dateNumber ? "rgb(8 145 178)" : "1px solid #E6E5E5",
               borderRadius: "8px",
             }}
           >
-            {moment(el).format("LT")}
+            {dayjs(el).format("HH:mm")}
           </button>
         ))}
       </Box>
@@ -190,8 +179,10 @@ const BookModal = () => {
                 : services[0].servicePrice.price}
             </Typography>
             <Typography sx={{ fontSize: "12px", color: "grey" }}>
-              {moment(time).format("LT")} -
-              {/* {time.setMinutes(services[0].duration)} */}
+              {dayjs(dateNumber).format("HH:mm")} -{" "}
+              {dayjs(dateNumber + services[0].duration * 60 * 1000).format(
+                "HH:mm"
+              )}
             </Typography>
           </Box>
         </Box>
@@ -282,7 +273,10 @@ const BookModal = () => {
         <Button
           className="bg-cyan-500"
           variant="contained"
-          onClick={() => setModal("ConfirmModal")}
+          onClick={() => {
+            setModal("ConfirmModal");
+            getAnyone();
+          }}
           sx={{ width: "100%", color: "white" }}
         >
           Continue

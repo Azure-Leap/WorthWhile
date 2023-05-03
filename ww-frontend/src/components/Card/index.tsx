@@ -9,7 +9,7 @@ interface Props {
 const HomeCard = ({ item }: Props) => {
   return (
     <Link
-      href="/services"
+      href="/salonlist"
       className="w-full h-full flex justify-center mt-64 flex-wrap "
     >
       <div

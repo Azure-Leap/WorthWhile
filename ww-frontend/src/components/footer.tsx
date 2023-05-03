@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   FaFacebookSquare,
   FaTwitterSquare,
@@ -7,31 +8,31 @@ import {
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-100 py-6 fixed bottom-0 w-full">
+    <footer className="bg-gray-100 py-6  w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
         <div className="flex items-center mb-4 md:mb-0">
           <Image src="/logo.png" alt="Hair Salon Logo" width={80} height={80} />
           <div className="ml-4 text-gray-600">Hair Salon Name</div>
         </div>
         <div className="flex items-center space-x-4">
-          <a href="https://www.facebook.com/" target="_blank">
+          <Link href="https://www.facebook.com/" target="_blank">
             <FaFacebookSquare
               className="text-gray-600 hover:text-blue-500 cursor-pointer"
               size={24}
             />
-          </a>
-          <a href="https://twitter.com/" target="_blank">
+          </Link>
+          <Link href="https://twitter.com/" target="_blank">
             <FaTwitterSquare
               className="text-gray-600 hover:text-blue-500 cursor-pointer"
               size={24}
             />
-          </a>
-          <a href="https://www.instagram.com/" target="_blank">
+          </Link>
+          <Link href="https://www.instagram.com/" target="_blank">
             <FaInstagramSquare
               className="text-gray-600 hover:text-blue-500 cursor-pointer"
               size={24}
             />
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

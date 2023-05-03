@@ -21,7 +21,7 @@ const style = {
   overflow: "hidden",
   boxShadow: 24,
   p: "2rem 2rem 0 2rem",
-  height: "90vh",
+  height: "700px",
   overflowY: "auto",
 };
 

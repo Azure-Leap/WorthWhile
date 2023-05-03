@@ -81,6 +81,7 @@ export default function SignUp({ setIsSign, setOpen, setIsUserSignedIn }: any) {
         password,
         phoneNumber,
       });
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       setUser(res.data.user);
       setToken(res.data.token);
       setMessage(res.data.message);
