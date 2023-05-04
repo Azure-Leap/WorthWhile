@@ -13,7 +13,7 @@ export const getAllServices = async (
     //   businessId: "bbb",
     //   categoryId: "kk",
     // }
-    const services = await Service.find({ filter });
+    const services = await Service.find({ filter }).populate("businessId");
     if (!services) {
       res
         .status(200)
@@ -38,7 +38,7 @@ export const getService = async (
   }
 
   try {
-    const service = await Service.findById(id);
+    const service = await Service.findById(id).populate("businessId");
     if (!service) {
       res.status(400).json({ message: `${id} ID-тэй Үйлчилгээ олдсонгүй.` });
     }
