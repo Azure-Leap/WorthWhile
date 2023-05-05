@@ -1,7 +1,15 @@
-import { useState } from "react";
-import { FiChevronLeft, FiChevronRight, FiSearch } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+  FiSearch,
+  FiTrash2,
+  FiEdit,
+} from "react-icons/fi";
 import { BiRocket } from "react-icons/bi";
+import axios from "axios";
 import BusinessLayout from "@/components/BusinessLayout";
+import ServiceModal from "@/components/Modals/ServiceModal";
 
 interface Data {
   id: number;
@@ -23,19 +31,39 @@ const TableWithPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage] = useState(5);
   const [searchTerm, setSearchTerm] = useState("");
+  const [services, setServices] = useState<any>();
 
   const handleServiceClick = () => {
     // Handle service button click
   };
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:8888/business/services?businessId=643e5b818cf9d3011baabb59`
+      )
+      .then((res) => {
+        console.log("RESPONSE====>", res.data.services);
+        setServices(res.data.services);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, []);
 
-  const filteredData = data.filter((row) =>
-    row.name.toLowerCase().includes(searchTerm.toLowerCase())
+  console.log("res services data===>", services);
+
+  const editHandler = () => {
+    console.log("GGGG");
+  };
+
+  const filteredData = services?.filter((row: any) =>
+    row.serviceName.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = data.slice(indexOfFirstRow, indexOfLastRow);
+  const currentRows = services?.slice(indexOfFirstRow, indexOfLastRow);
 
-  const totalPages = Math.ceil(data.length / rowsPerPage);
+  const totalPages = Math.ceil(services?.length / rowsPerPage);
 
   const handleClick = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -62,13 +90,12 @@ const TableWithPagination = () => {
         </button>
       );
     }
-
     return pageNumbers;
   };
 
   return (
     <BusinessLayout>
-      <div className="flex items-center justify-between mb-4  ">
+      <div className="flex items-center justify-between mb-4">
         <div className="relative text-gray-600 focus-within:text-gray-400">
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
             <FiSearch className="w-5 h-5" />
@@ -89,23 +116,33 @@ const TableWithPagination = () => {
           <BiRocket className="w-5 h-5 mr-2" />
           Service
         </button>
+        <ServiceModal />
       </div>
-      <table className="table-fixed w-full rounded shadow">
-        <thead>
-          <tr>
-            <th className="w-1/6">ID</th>
-            <th className="w-1/3">Name</th>
-            <th className="w-1/6">Age</th>
-            <th className="w-1/2">Email</th>
+      <table className="table-fixed w-10/12 rounded shadow m-auto">
+        <thead className="border">
+          <tr className="text-sm">
+            <th className=" w-1/12">№</th>
+            <th className=" w-1/3">Name</th>
+            <th className=" w-1/6">Category</th>
+            <th className=" w-1/6">Image</th>
+            <th className=" w-2/3">Description</th>
+            <th className=" w-1/6">Duration</th>
+            <th className=" w-1/6">Action</th>
           </tr>
         </thead>
         <tbody>
-          {currentRows.map((row) => (
-            <tr key={row.id}>
-              <td className="border px-4 py-2">{row.id}</td>
-              <td className="border px-4 py-2">{row.name}</td>
-              <td className="border px-4 py-2">{row.age}</td>
-              <td className="border px-4 py-2">{row.email}</td>
+          {filteredData?.map((row: any, id: number) => (
+            <tr key={row._id} className="text-center text-xs">
+              <td className="border px-4 py-2">{id + 1}</td>
+              <td className="border px-4 py-2">{row.serviceName}</td>
+              <td className="border px-4 py-2">{row.categoryId.catType}</td>
+              <td className="border px-4 py-2">Zurag</td>
+              <td className="border px-4 py-2">{row.description}</td>
+              <td className="border px-4 py-2">{row.duration}</td>
+              <td className="border text-lg flex justify-evenly">
+                <FiEdit color="green" onClick={editHandler} />
+                <FiTrash2 color="red" />
+              </td>
             </tr>
           ))}
         </tbody>
