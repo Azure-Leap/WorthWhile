@@ -57,10 +57,6 @@ const Side = () => {
         <MenuItem component={<Link href={"/ab/privacy"} />}>
           Privacy Policy
         </MenuItem>
-
-        <MenuItem component={<Link href={"/profile/appointments"} />}>
-          Log Out
-        </MenuItem>
       </Menu>
     </Sidebar>
   );
