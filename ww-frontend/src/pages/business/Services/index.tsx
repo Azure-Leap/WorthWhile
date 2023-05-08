@@ -11,30 +11,15 @@ import axios from "axios";
 import BusinessLayout from "@/components/BusinessLayout";
 import ServiceModal from "@/components/Modals/ServiceModal";
 
-interface Data {
-  id: number;
-  name: string;
-  age: number;
-  email: string;
-}
-
-const data: Data[] = [
-  { id: 1, name: "John", age: 25, email: "john@example.com" },
-  { id: 2, name: "Jane", age: 30, email: "jane@example.com" },
-  { id: 3, name: "Bob", age: 40, email: "bob@example.com" },
-  { id: 4, name: "Alice", age: 35, email: "alice@example.com" },
-  { id: 5, name: "Mike", age: 45, email: "mike@example.com" },
-  { id: 6, name: "Sarah", age: 20, email: "sarah@example.com" },
-];
-
 const TableWithPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage] = useState(5);
   const [searchTerm, setSearchTerm] = useState("");
   const [services, setServices] = useState<any>();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleServiceClick = () => {
-    // Handle service button click
+  const handleIsOpen = (): any => {
+    setIsOpen(!isOpen);
   };
   useEffect(() => {
     axios
@@ -42,15 +27,12 @@ const TableWithPagination = () => {
         `http://localhost:8888/business/services?businessId=643e5b818cf9d3011baabb59`
       )
       .then((res) => {
-        console.log("RESPONSE====>", res.data.services);
         setServices(res.data.services);
       })
       .catch((err) => {
         console.log("err", err);
       });
   }, []);
-
-  console.log("res services data===>", services);
 
   const editHandler = () => {
     console.log("GGGG");
@@ -111,12 +93,12 @@ const TableWithPagination = () => {
         <button
           type="button"
           className=" flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue"
-          onClick={handleServiceClick}
+          onClick={handleIsOpen}
         >
           <BiRocket className="w-5 h-5 mr-2" />
           Service
         </button>
-        <ServiceModal />
+        <ServiceModal isOpen={isOpen} handleIsOpen={handleIsOpen} />
       </div>
       <table className="table-fixed w-10/12 rounded shadow m-auto">
         <thead className="border">
