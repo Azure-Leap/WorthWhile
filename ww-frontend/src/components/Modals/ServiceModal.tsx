@@ -7,15 +7,17 @@ interface Props {
 }
 
 const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState<any>();
-  const [imageURL, setImageURL] = useState("");
-  const [serviceDuration, setServiceDuration] = useState<any>();
+  const [serviceName, setName] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [servicePrice, setPrice] = useState<any>();
+  const [serviceImg, setImageURL] = useState("");
+  const [duration, setServiceDuration] = useState<any>();
+  const [description, setDescription] = useState<any>();
   const [businessId, setBusinessId] = useState<string>();
   const [catList, setCatList] = useState<any>([]);
 
   const handleSubmit = () => {
+    addService();
     handleIsOpen();
   };
 
@@ -37,7 +39,22 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
     setBusinessId(parsedBusiness._id);
   }, []);
 
-  console.log("catList", catList);
+  const addService = async () => {
+    try {
+      const res = await axios.post("http://localhost:8888/services", {
+        categoryId,
+        businessId,
+        serviceName,
+        serviceImg,
+        servicePrice,
+        duration,
+        description,
+      });
+      console.log(res.data);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
 
   if (!isOpen) {
     return null;
@@ -50,7 +67,7 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
         <h5>Үйлчилгээний нэр:</h5>
         <input
           type="text"
-          value={name}
+          value={serviceName}
           onChange={(e) => {
             setName(e.target.value);
           }}
@@ -58,33 +75,26 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
           placeholder="Service"
         />
         <h5>Үйлчилгээний ангилал:</h5>
-        {/* <input
-          type="text"
-          value={category}
-          onChange={(e) => {
-            setCategory(e.target.value);
-          }}
-          className="border rounded-lg px-3 py-2 w-full mb-4"
-          placeholder="Cateorgy"
-        /> */}
         <select
           id="dropdown"
           name="dropdown"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          value={categoryId}
+          onChange={(e) => setCategoryId(e.target.value)}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         >
           <option value="">Select an option</option>
-          {catList?.map((el: any, idx: number) => {
-            <option key={idx} value={el.catType}>
-              {el.catType}
-            </option>;
-          })}
+          {catList?.map((el: any) => (
+            <option key={`${el._id}`} value={el._id}>
+              {el.categoryTitle}
+            </option>
+          ))}
         </select>
         <h5>Үйлчилгээний тариф:</h5>
         <input
           type="number"
-          value={price}
+          value={servicePrice}
+          min="1000"
+          step="1"
           onChange={(e) => {
             setPrice(e.target.value);
           }}
@@ -94,7 +104,7 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
         <h5>Үйлчилгээний зураг URL:</h5>
         <input
           type="text"
-          value={imageURL}
+          value={serviceImg}
           onChange={(e) => {
             setImageURL(e.target.value);
           }}
@@ -104,12 +114,21 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
         <h5>Үйлчилгээний хугацаа:</h5>
         <input
           type="number"
-          value={serviceDuration}
+          value={duration}
           onChange={(e) => {
             setServiceDuration(e.target.value);
           }}
           className="border rounded-lg px-3 py-2 w-full mb-4"
           placeholder="Service duration"
+        />
+        <h5>Үйлчилгээний тайлбар:</h5>
+        <textarea
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+          className="border rounded-lg px-3 py-2 w-full mb-4"
+          placeholder="Service description"
         />
         <div className="flex justify-end">
           <button
