@@ -14,6 +14,8 @@ import appointmentRoute from "./Routes/appointmentRoute";
 import logger from "./middlewares/logger";
 import error from "./middlewares/error";
 import { cloudinary } from "./utils/cloudinary";
+import { sendEmail } from "./utils/sendEmail";
+import User from "./Models/UserModel";
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 const multer = require("multer");
@@ -45,6 +47,34 @@ app.post("/zuragUploadHiinee", upload.single("zurag"), (req: any, res: any) => {
     file: res.file,
   });
 });
+
+//============================================ Email ywuulah heseg ==================================
+
+// app.get("/confirm/:code", (req, res) => {
+//   console.log(req.params);
+//   const { code } = req.params;
+//   const { email } = req.query;
+//   const user = User.find({ email: email }); //{name: anaraa, pass: 23o4u32ouih4, code: 7692, isVerify: false}
+//   if (!user) {
+//     res.send("Baihgui");
+//   }
+
+//   if (user.code === code) {
+//     user.isVerify = true;
+//     res.redirect("http://localhost:3000/signin");
+//   }
+// });
+
+// app.get("/test", async (req, res) => {
+//   await sendEmail(
+//     "Zulaa",
+//     "azure.munkhzul.bayarkhuu@gmail.com",
+//     Math.floor(Math.random() * 10000).toString()
+//   );
+//   res.send("Email yavchihlaa");
+// });
+
+//===================================================================================================
 
 const URI = process.env.URI || "";
 const PORT = process.env.PORT || "";

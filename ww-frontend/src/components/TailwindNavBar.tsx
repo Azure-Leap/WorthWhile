@@ -52,8 +52,6 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
     }
   }, []);
 
-  console.log(user);
-
   return (
     <>
       <Disclosure as="nav" className="bg-gray-900">

@@ -54,6 +54,7 @@ const SalonCard = ({ businessData }: any) => {
             business={businessData}
             service={el}
             staffs={staffs}
+            services={servicesData}
           />
         ))}
       </div>

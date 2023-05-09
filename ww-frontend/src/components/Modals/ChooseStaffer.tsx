@@ -20,7 +20,7 @@ const ChooseStaffer = () => {
         <Typography
           sx={{
             fontSize: "24px",
-            fontWeight: "bold",
+            fontWeight: "medium",
             textAlign: "center",
           }}
         >
@@ -52,8 +52,8 @@ const ChooseStaffer = () => {
               height: "50px",
               marginRight: "20px",
               borderRadius: "50%",
-              border: staffer ? "none" : "2px solid blue",
-              padding: "1px",
+              border: staffer ? "none" : "2px solid rgb(8 145 178)",
+              padding: "2px",
               position: "relative",
             }}
           >
@@ -75,7 +75,7 @@ const ChooseStaffer = () => {
                 top: "0px",
                 display: staffer ? "none" : "block",
                 fontSize: "14px",
-                color: "blue",
+                color: "rgb(8 145 178)",
                 backgroundColor: "white",
                 borderRadius: "50%",
               }}
@@ -89,16 +89,14 @@ const ChooseStaffer = () => {
           </Box>
         </Box>
         {staffs.map((el: any, i: any, arr: any) => {
-          const isAvailable =
-            el.orders.filter(
-              (el: any) =>
-                dayjs(el).format("YYYY-MM-DD HH:mm") ===
-                dayjs(dateNumber).format("YYYY-MM-DD HH:mm")
-            ).length === 0
-              ? true
-              : false;
+          const isAvailable = el.orders.includes(
+            dayjs(dateNumber).format("YYYY-MM-DD HH:mm")
+          )
+            ? false
+            : true;
           return (
             <Box
+              key={i}
               sx={{
                 opacity: isAvailable ? 1 : 0.5,
                 display: "flex",
@@ -121,8 +119,8 @@ const ChooseStaffer = () => {
                   height: "50px",
                   marginRight: "20px",
                   borderRadius: "50%",
-                  border: staffer === el ? "2px solid blue" : "none",
-                  padding: "1px",
+                  border: staffer === el ? "2px solid rgb(8 145 178)" : "none",
+                  padding: "2px",
                   position: "relative",
                 }}
               >
@@ -143,7 +141,7 @@ const ChooseStaffer = () => {
                     top: "0px",
                     display: staffer === el ? "block" : "none",
                     fontSize: "14px",
-                    color: "blue",
+                    color: "rgb(8 145 178)",
                     backgroundColor: "white",
                     borderRadius: "50%",
                   }}

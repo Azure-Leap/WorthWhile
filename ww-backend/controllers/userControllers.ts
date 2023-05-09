@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../Models/UserModel";
 import { IUser } from "../interfaces";
+import { sendEmail } from "../utils/sendEmail";
 
 export const getAllUsers = async (
   req: Request,
@@ -93,14 +94,12 @@ export const signup = async (
   try {
     const { userName, email, password, phoneNumber }: IUser = req.body;
     const hashedPassword = bcrypt.hashSync(password.toString(), 10);
-    console.log(userName, email, password, phoneNumber);
     const user = await User.create({
       userName,
       email,
       password: hashedPassword,
       phoneNumber,
     });
-    console.log(user);
     const { _id } = user;
     const token = jwt.sign({ _id }, secretKey, {
       expiresIn: 1200,

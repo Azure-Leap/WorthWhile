@@ -20,7 +20,7 @@ const style = {
   borderRadius: "10px",
   overflow: "hidden",
   boxShadow: 24,
-  p: "2rem 2rem 0 2rem",
+  p: "3rem 3rem 0 3rem",
   height: "700px",
   overflowY: "auto",
 };
