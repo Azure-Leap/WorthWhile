@@ -20,18 +20,6 @@ const Settings = () => {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   if (!user) return;
-  //   if (user && userName !== "" && number !== "" && email !== "") {
-  //     const changed =
-  //       user?.userName !== userName ||
-  //       user?.number !== number ||
-  //       user?.email !== email;
-
-  //     setChanged(changed);
-  //   }
-  // }, [userName, number, email]);
-
   const update = async () => {
     try {
       const res = await axios.put(`http://localhost:8888/users/${user._id}`, {

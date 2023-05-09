@@ -92,12 +92,13 @@ const CardDetail = () => {
               mt: 3,
               mb: 2,
               bgcolor: "lime",
+              color: "white",
               ":hover": {
                 bgcolor: "green",
               },
             }}
           >
-            Sign Up
+            Add Cart
           </Button>
         </Box>
       </Box>

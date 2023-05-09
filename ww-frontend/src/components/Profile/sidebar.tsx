@@ -26,9 +26,9 @@ const Side = () => {
           Appointments
         </MenuItem>
 
-        <MenuItem component={<Link href={"/profile/family-and-friends"} />}>
+        {/* <MenuItem component={<Link href={"/profile/family-and-friends"} />}>
           Family & Friends
-        </MenuItem>
+        </MenuItem> */}
 
         <MenuItem component={<Link href={"/profile/favourites"} />}>
           Favourite

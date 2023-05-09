@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SideLayout from "@/components/SideLayout";
 import Appointments from "./appointment";
 import EmptyAppointment from "./empty";
-import axios from "axios";
 
 interface IAppointments {
   services: string;
@@ -23,10 +22,6 @@ export default function App() {
       startTime: new Date(),
     },
   ]);
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:8888/appointments/");
-  // });
 
   return (
     <SideLayout>

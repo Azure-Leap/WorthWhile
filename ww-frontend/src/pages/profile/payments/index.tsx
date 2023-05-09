@@ -1,52 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import SideLayout from "@/components/SideLayout";
-import Button from "@mui/material/Button";
-import BasicModal from "./modal";
+import EmptyPayment from "./empty/empty";
+import Payment from "./payment";
 
-const Profile = () => {
+interface IPayment {
+  paymentType: String;
+}
+
+export default function App() {
+  const [apps, setApps] = useState<IPayment[]>([
+    // {
+    //   paymentType: "Payment",
+    // },
+  ]);
+
   return (
     <SideLayout>
-      <div className="ml-5 mt-2">
-        <div>
-          <h1 className="text-2xl ">Payments</h1>
-        </div>
+      {apps.length ? <Payment apps={apps} /> : <EmptyPayment />}
+      <div>
+        <h4>PAYMENT HISTORY</h4>
         <div className="my-10">
           <img
-            src="/image/profile/payment.png"
+            src="/image/profile/receipts.png"
             alt="review"
-            className="w-2/6 h-2/6 mx-auto"
+            className="w-1/6 h-1/6 mx-auto"
           />
-          <Button
-            sx={{
-              bgcolor: "lime",
-              display: "block",
-              margin: "auto",
-              width: 250,
-              ":hover": {
-                bgcolor: "green",
-              },
-            }}
-          >
-            <BasicModal />
-          </Button>
-        </div>
-        <div>
-          <h4>PAYMENT HISTORY</h4>
-          <div className="my-10">
-            <img
-              src="/image/profile/receipts.png"
-              alt="review"
-              className="w-1/6 h-1/6 mx-auto"
-            />
-            <h2 className="text-xl text-center my-5 ">Your Receipts</h2>
-            <p className=" text-xl text-center text-gray-700">
-              Your completed transactions will appear here
-            </p>
-          </div>
+          <h2 className="text-xl text-center my-5 ">Your Receipts</h2>
+          <p className=" text-xl text-center text-gray-700">
+            Your completed transactions will appear here
+          </p>
         </div>
       </div>
     </SideLayout>
   );
-};
-
-export default Profile;
+}
