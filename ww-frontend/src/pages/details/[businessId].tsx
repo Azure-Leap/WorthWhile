@@ -35,7 +35,7 @@ const SalonDetail = ({ business, staffs, services }: any) => {
         >
           <Box>
             <Typography
-              sx={{ fontSize: "36px", fontWeight: "bold", marginTop: "10px" }}
+              sx={{ fontSize: "36px", fontWeight: "medium", marginTop: "10px" }}
             >
               {business.businessName}
             </Typography>
@@ -51,7 +51,11 @@ const SalonDetail = ({ business, staffs, services }: any) => {
             />
           ) : (
             <FavoriteBorderIcon
-              sx={{ zoom: 1.8, color: "#C3C2C2" }}
+              sx={{
+                zoom: 1.8,
+                color: "#C3C2C2",
+                "&:hover": { color: "#DC3535" },
+              }}
               onClick={() => setFavorite(true)}
             />
           )}
@@ -82,6 +86,7 @@ const SalonDetail = ({ business, staffs, services }: any) => {
                 service={service}
                 business={business}
                 staffs={staffs}
+                services={services}
               />
             ))}
           </Box>

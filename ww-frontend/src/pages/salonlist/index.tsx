@@ -33,7 +33,6 @@ const SalonList = () => {
     axios
       .get("http://localhost:8888/business/")
       .then((res) => {
-        console.log("RESPONSE====>", res.data);
         setBusinessData(res.data.business);
       })
       .catch((err) => {

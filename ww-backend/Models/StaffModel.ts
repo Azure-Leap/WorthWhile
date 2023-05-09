@@ -5,7 +5,7 @@ const StafferSchema = new Schema({
   staffImg: { type: String, required: true },
   businessId: { type: Types.ObjectId, ref: "Business", required: true },
   about: String,
-  orders: [Number],
+  orders: [String],
 });
 
 const Staffer = model("Staffer", StafferSchema);

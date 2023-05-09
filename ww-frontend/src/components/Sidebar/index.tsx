@@ -39,7 +39,7 @@ const Sidebar = ({ business, staffs }: any) => {
             <Typography
               sx={{
                 fontSize: "12px",
-                fontWeight: "bold",
+                fontWeight: 600,
               }}
             >
               ABOUT US
@@ -56,7 +56,7 @@ const Sidebar = ({ business, staffs }: any) => {
             sx={{
               paddingBottom: "15px",
               fontSize: "12px",
-              fontWeight: "bold",
+              fontWeight: 600,
             }}
           >
             STAFFERS
@@ -108,7 +108,7 @@ const Sidebar = ({ business, staffs }: any) => {
           sx={{
             paddingBottom: "15px",
             fontSize: "12px",
-            fontWeight: "bold",
+            fontWeight: 600,
           }}
         >
           CONTACT & BUSINESS HOURS
@@ -157,7 +157,7 @@ const Sidebar = ({ business, staffs }: any) => {
               }}
             >
               <p>{el.name}</p>
-              <p style={{ fontWeight: "bold" }}>
+              <p style={{ fontWeight: 600 }}>
                 {el.isOpen ? el.startTime + "-" + el.endTime : "Closed"}
               </p>
             </div>
@@ -170,7 +170,7 @@ const Sidebar = ({ business, staffs }: any) => {
             paddingBottom: "15px",
             marginTop: "20px",
             fontSize: "12px",
-            fontWeight: "bold",
+            fontWeight: 600,
           }}
         >
           SOCIAL MEDIA & SHARE

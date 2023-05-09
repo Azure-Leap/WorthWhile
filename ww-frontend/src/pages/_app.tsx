@@ -12,12 +12,12 @@ import { green, purple } from "@mui/material/colors";
 
 const lato = Montserrat({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Lato",
+    fontFamily: "Montserrat",
   },
   palette: {
     primary: {
