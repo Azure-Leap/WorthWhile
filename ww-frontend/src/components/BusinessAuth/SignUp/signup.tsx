@@ -22,11 +22,6 @@ const BusinessSignUp = () => {
   const [businessHours, setBusinessHours] = useState([]);
   const [progress, setProgress] = useState(1);
 
-  // const handleSignIn = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   test();
-  // };
-
   const signup = async () => {
     try {
       const res = await axios.post("http://localhost:8888/business/signup", {

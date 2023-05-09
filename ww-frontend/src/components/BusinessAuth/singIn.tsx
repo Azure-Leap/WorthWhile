@@ -10,16 +10,13 @@ const BusinessSignIn = ({ setIsSignIn }: any) => {
   const { setBusinessUser, businessUser, setBusinessToken } =
     useContext(AuthContext);
   const { setMessage, setStatus, message } = useContext(AlertContext);
-  console.log("first===>", businessUser);
 
   const router = useRouter();
-
   if (businessUser) {
     router.replace("/business");
   }
 
   const signin = async () => {
-    // console.log(email, password);
     try {
       const res = await axios.post("http://localhost:8888/business/signin", {
         email,
@@ -29,6 +26,7 @@ const BusinessSignIn = ({ setIsSignIn }: any) => {
       setStatus("success");
       console.log("RESDATA====>", res.data);
       setBusinessUser(res.data.business);
+      localStorage.setItem("business", JSON.stringify(res.data.business));
       setBusinessToken(res.data.token);
     } catch (error: any) {
       setStatus("error");
@@ -56,6 +54,11 @@ const BusinessSignIn = ({ setIsSignIn }: any) => {
                 autoComplete="email"
                 required
                 value={email}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    signin();
+                  }
+                }}
                 onChange={(e) => setEmail(e.target.value)}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                 placeholder="Email address"
@@ -73,6 +76,11 @@ const BusinessSignIn = ({ setIsSignIn }: any) => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    signin();
+                  }
+                }}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                 placeholder="Password"
               />

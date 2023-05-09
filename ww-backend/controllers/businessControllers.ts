@@ -174,7 +174,9 @@ export const getServicesByBusinessId = async (
 ) => {
   try {
     const { businessId } = req.query;
-    const services = await Service.find({ businessId }).populate("businessId");
+    const services = await Service.find({ businessId })
+      .populate("businessId")
+      .populate("categoryId");
     if (!services) {
       res
         .status(200)
