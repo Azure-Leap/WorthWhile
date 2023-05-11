@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { AuthContext } from "@/context/authContext";
 import axios from "axios";
+import { AlertContext } from "@/context/alertContext";
+import PasswordModal from "./passwordModal";
 
 const Settings = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -11,6 +13,11 @@ const Settings = () => {
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [isChanged, setChanged] = useState(false);
+  const { setMessage, setStatus } = useContext(AlertContext);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     if (user) {
@@ -28,8 +35,11 @@ const Settings = () => {
         number,
       });
       setUser(res.data.user);
+      setMessage(res.data.message);
+      setStatus("success");
     } catch (error) {
-      console.log("Error", error);
+      setStatus("error");
+      setMessage("Алдаа!");
     }
   };
 
@@ -83,6 +93,20 @@ const Settings = () => {
               setChanged(true);
             }}
           />
+          <TextField
+            margin="normal"
+            fullWidth
+            disabled
+            id="outlined-disabled"
+            label="Password"
+            defaultValue="*************"
+          />
+          <PasswordModal
+            open={open}
+            handleClose={handleClose}
+            handleOpen={handleOpen}
+          />
+
           {isChanged === true && (
             <Button
               sx={{

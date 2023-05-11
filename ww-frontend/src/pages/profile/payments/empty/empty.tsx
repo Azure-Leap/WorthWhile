@@ -4,6 +4,10 @@ import Button from "@mui/material/Button";
 import BasicModal from "./modal";
 
 const EmptyPayment = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div className="ml-5 mt-2">
       <div>
@@ -17,6 +21,7 @@ const EmptyPayment = () => {
         />
         <Button
           sx={{
+            color: "white",
             bgcolor: "lime",
             display: "block",
             margin: "auto",
@@ -25,8 +30,9 @@ const EmptyPayment = () => {
               bgcolor: "green",
             },
           }}
+          onClick={handleOpen}
         >
-          <BasicModal />
+          add button
         </Button>
       </div>
       <div>
@@ -43,6 +49,11 @@ const EmptyPayment = () => {
           </p>
         </div>
       </div>
+      <BasicModal
+        open={open}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
+      />
     </div>
   );
 };
