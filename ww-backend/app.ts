@@ -12,18 +12,20 @@ import reviewRoute from "./Routes/reviewRoutes";
 import replyRoute from "./Routes/replyRoutes";
 import appointmentRoute from "./Routes/appointmentRoute";
 import giftCardRoute from "./Routes/giftCardRoute";
+import paymentRoute from "./Routes/paymentRoute";
 import logger from "./middlewares/logger";
 import error from "./middlewares/error";
 import { cloudinary } from "./utils/cloudinary";
 import { sendEmail } from "./utils/sendEmail";
-import User from "./Models/UserModel";
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 const multer = require("multer");
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+
 app.use(logger);
 
 app.use("/users", userRoute);
@@ -35,6 +37,7 @@ app.use("/reviews", reviewRoute);
 app.use("/replies", replyRoute);
 app.use("/appointments", appointmentRoute);
 app.use("/giftcards", giftCardRoute);
+app.use("/payments", paymentRoute);
 
 const storage = new CloudinaryStorage({
   cloudinary,

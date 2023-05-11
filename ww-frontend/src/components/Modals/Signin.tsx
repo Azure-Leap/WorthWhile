@@ -14,7 +14,6 @@ import {
   Container,
   Snackbar,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { AuthContext } from "../../context/authContext";
 import { AlertContext } from "../../context/alertContext";
 
@@ -36,10 +35,10 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignIn({ setIsSign, setOpen, setIsUserSignedIn }: any) {
+export default function SignIn({ setIsSign, setOpen }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser, user, setToken } = useContext(AuthContext);
+  const { setUserData, user, setToken } = useContext(AuthContext);
   const { setMessage, setStatus, message } = useContext(AlertContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -60,14 +59,11 @@ export default function SignIn({ setIsSign, setOpen, setIsUserSignedIn }: any) {
       });
       setMessage(res.data.message);
       setStatus("success");
-      setUser(res.data.user);
+      setUserData(res.data.user);
       setToken(res.data.token);
       setOpen(false);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      setIsUserSignedIn(true);
     } catch (error: any) {
       setStatus("error");
-      setUser(null);
       if (!user) {
         setMessage("Имэйл эсвэл нууц үг буруу байна!");
       }
@@ -87,7 +83,7 @@ export default function SignIn({ setIsSign, setOpen, setIsUserSignedIn }: any) {
       >
         <Avatar sx={{ m: 1, bgcolor: "rgb()" }}>
           <img
-            src="../../assets/image/userDefaultAvatar.svg"
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
             alt="defaultImg"
           />
         </Avatar>

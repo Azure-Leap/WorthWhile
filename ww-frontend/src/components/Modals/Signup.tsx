@@ -11,7 +11,6 @@ import {
   Typography,
   Container,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { AuthContext } from "../../context/authContext";
 import { AlertContext } from "../../context/alertContext";
 
@@ -33,13 +32,13 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignUp({ setIsSign, setOpen, setIsUserSignedIn }: any) {
+export default function SignUp({ setIsSign, setOpen }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const { setUser, token, setToken } = useContext(AuthContext);
+  const { setUserData, token, setToken } = useContext(AuthContext);
   const { setMessage, setStatus } = useContext(AlertContext);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -82,14 +81,11 @@ export default function SignUp({ setIsSign, setOpen, setIsUserSignedIn }: any) {
         phoneNumber,
       });
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      setUser(res.data.user);
       setToken(res.data.token);
       setMessage(res.data.message);
       setStatus("success");
+      setUserData(res.data.user);
       setOpen(false);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      setIsUserSignedIn(true);
-      console.log(res.data);
     } catch (error: any) {
       setStatus("error");
       setMessage("Бүртгэлтэй имэйл байна!");
@@ -108,7 +104,10 @@ export default function SignUp({ setIsSign, setOpen, setIsUserSignedIn }: any) {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+            alt="defaultImg"
+          />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up

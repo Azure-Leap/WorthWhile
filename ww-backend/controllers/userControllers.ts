@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../Models/UserModel";
-import { IUser } from "../interfaces";
+import PaymentCard from "../Models/PaymentCard";
 import { sendEmail } from "../utils/sendEmail";
 
 export const getAllUsers = async (
@@ -92,7 +92,7 @@ export const signup = async (
   next: NextFunction
 ) => {
   try {
-    const { userName, email, password, phoneNumber }: IUser = req.body;
+    const { userName, email, password, phoneNumber } = req.body;
     const hashedPassword = bcrypt.hashSync(password.toString(), 10);
     const user = await User.create({
       userName,
@@ -139,5 +139,53 @@ export const signin = async (
   } catch (error) {
     next(error);
   }
-  console.log("amjilttai login hiilee");
+};
+
+export const getPaymentCardByUserId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { userId } = req.query;
+    const paymentCards = await PaymentCard.find({ userId }).populate("userId");
+    if (!paymentCards) {
+      return res
+        .status(200)
+        .json({ message: "Картуудын мэдээлэл хоосон байна." });
+    }
+    res
+      .status(200)
+      .json({ message: "Kартуудын мэдээлэл олдлоо.", paymentCards });
+  } catch (error) {
+    console.log("ERR", error);
+    next(error);
+  }
+};
+
+export const updateGiftCardUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ message: `ID хоосон байна` });
+  }
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+    }
+    user.giftCards.push(req.body.giftCard);
+    await user?.save();
+    res.status(200).json({
+      message: `${id} IDтай хэрэглэгчийн мэдээлэл шинэчлэгдлээ`,
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
 };

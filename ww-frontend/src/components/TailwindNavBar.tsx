@@ -11,8 +11,6 @@ import { AuthContext } from "@/context/authContext";
 const navigation = [
   { name: "Home", href: "/", current: false },
   { name: "Salon List", href: "/salonlist", current: false },
-  { name: "Profile", href: "/profile", current: false },
-  // { name: "Calendar", href: "#", current: false },
 ];
 
 const style = {
@@ -32,25 +30,18 @@ function classNames(...classes: any) {
 }
 
 export default function TailWindNavBar({ setAvatarUrl }: any) {
-  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
+  // const [isUserSignedIn, setIsUserSignedIn] = useState(false);
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
+  const { user, setUserData } = useContext(AuthContext);
 
-  const { user, setUser } = useContext(AuthContext);
-
-  const handleLogOut = () => {
-    setIsUserSignedIn(false);
-    setIsSign(true);
-    localStorage.removeItem("user");
-  };
-
-  useEffect(() => {
-    const prevUser = localStorage.getItem("user");
-    if (prevUser) {
-      setUser(JSON.parse(prevUser));
-      setIsUserSignedIn(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const prevUser = localStorage.getItem("user");
+  //   if (prevUser) {
+  //     setUser(JSON.parse(prevUser));
+  //     setIsUserSignedIn(true);
+  //   }
+  // }, []);
 
   return (
     <>
@@ -184,8 +175,8 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                                 onClick={() => {
-                                  setUser(null);
-                                  localStorage.removeItem("user");
+                                  setUserData(null);
+                                  // localStorage.removeItem("user");
                                 }}
                               >
                                 Sign out
@@ -230,17 +221,9 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
       >
         <Box sx={style}>
           {isSign ? (
-            <Signin
-              setIsSign={setIsSign}
-              setOpen={setOpen}
-              setIsUserSignedIn={setIsUserSignedIn}
-            />
+            <Signin setIsSign={setIsSign} setOpen={setOpen} />
           ) : (
-            <Signup
-              setIsSign={setIsSign}
-              setOpen={setOpen}
-              setIsUserSignedIn={setIsUserSignedIn}
-            />
+            <Signup setIsSign={setIsSign} setOpen={setOpen} />
           )}
         </Box>
       </Modal>
