@@ -44,13 +44,13 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
     localStorage.removeItem("user");
   };
 
-  useEffect(() => {
-    const prevUser = localStorage.getItem("user");
-    if (prevUser) {
-      setUser(JSON.parse(prevUser));
-      setIsUserSignedIn(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const prevUser = localStorage.getItem("user");
+  //   if (prevUser) {
+  //     setUser(JSON.parse(prevUser));
+  //     setIsUserSignedIn(true);
+  //   }
+  // }, []);
 
   return (
     <>

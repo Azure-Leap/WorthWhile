@@ -60,7 +60,7 @@ const CardDetail = () => {
                 required
                 fullWidth
                 id="expires"
-                label="Expires(MM/YYYY)"
+                label="Expires(MM/YY)"
                 name="expires"
                 autoComplete="expires"
               />

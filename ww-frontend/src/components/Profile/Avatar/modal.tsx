@@ -27,10 +27,10 @@ const style = {
 };
 
 const ImportImage = ({ setAvatarUrl }: any) => {
-  const [open, setOpen] = React.useState(false);
-
   const { user, setUser } = useContext(AuthContext);
-  const [img, setImg] = useState(false);
+
+  const [open, setOpen] = React.useState(false);
+  const [img, setImg] = useState("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -44,12 +44,31 @@ const ImportImage = ({ setAvatarUrl }: any) => {
     setPreview(view);
   };
 
-  const add = async () => {
-    try {
-      const res = await axios.post(`http://localhost:8888/zuragUploadHiinee`);
-      setUser(res.data.user);
-    } catch (error) {
-      console.log("Error", error);
+  useEffect(() => {
+    if (user) {
+      setImg(user.profileImg);
+    }
+  }, [user]);
+
+  const onFileLoad = async (file: any) => {
+    const form = new FormData();
+    form.append("zurag", file);
+    const uploadedFile = await axios.post(
+      "http://localhost:8888/zuragUploadHiinee",
+      form
+    );
+
+    if (uploadedFile) {
+      const update = {
+        ...user,
+        profileImg: uploadedFile?.data?.path,
+      };
+
+      const updateProfileImg = await axios.put(
+        `http://localhost:8888/users/${user._id}`,
+        update
+      );
+      setUser(updateProfileImg);
     }
   };
 
@@ -63,7 +82,7 @@ const ImportImage = ({ setAvatarUrl }: any) => {
       >
         <PhotoCamera sx={{ width: 20 }} />
       </IconButton>
-      {img ? (
+      {img === "" ? (
         <Modal
           open={open}
           onClose={handleClose}
@@ -108,7 +127,7 @@ const ImportImage = ({ setAvatarUrl }: any) => {
                 color="error"
                 onClick={() => {
                   handleClose();
-                  setImg(false);
+                  setImg("");
                 }}
               >
                 Delete
@@ -134,7 +153,7 @@ const ImportImage = ({ setAvatarUrl }: any) => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Change Avatar
+              Change Avatar ggg
             </Typography>
             <Box sx={{ marginTop: 5, marginBottom: 5 }}>
               <Avatar
@@ -142,6 +161,7 @@ const ImportImage = ({ setAvatarUrl }: any) => {
                 height={300}
                 onCrop={onCrop}
                 onClose={onClose}
+                onFileLoad={onFileLoad}
               />
             </Box>
             <Stack

@@ -43,11 +43,13 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-app.post("/zuragUploadHiinee", upload.single("zurag"), (req: any, res: any) => {
-  res.status(200).json({
-    message: "Amjilttai upload hiigdlee",
-    file: res.file,
-  });
+app.post("/zuragUploadHiinee", upload.single("zurag"), (req, res, next) => {
+  const file = req.file;
+  if (!file) {
+    const error = new Error("Please upload a file");
+    return next(error);
+  }
+  res.send(file);
 });
 
 //============================================ Email ywuulah heseg ==================================
