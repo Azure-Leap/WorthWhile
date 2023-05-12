@@ -27,7 +27,7 @@ const style = {
 };
 
 const ImportImage = ({ setAvatarUrl }: any) => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUserData } = useContext(AuthContext);
 
   const [open, setOpen] = React.useState(false);
   const [img, setImg] = useState("");
@@ -68,7 +68,7 @@ const ImportImage = ({ setAvatarUrl }: any) => {
         `http://localhost:8888/users/${user._id}`,
         update
       );
-      setUser(updateProfileImg);
+      setUserData(updateProfileImg);
     }
   };
 
@@ -153,7 +153,7 @@ const ImportImage = ({ setAvatarUrl }: any) => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Change Avatar ggg
+              Change Avatar
             </Typography>
             <Box sx={{ marginTop: 5, marginBottom: 5 }}>
               <Avatar

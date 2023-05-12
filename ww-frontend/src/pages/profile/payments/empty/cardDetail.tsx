@@ -8,6 +8,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import axios from "axios";
 
 const CardDetail = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,6 +24,19 @@ const CardDetail = () => {
     });
   };
 
+  const [bank, setBank] = React.useState("");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setBank(event.target.value as string);
+  };
+
+  const addPayment = async () => {
+    try {
+      const res = await axios.post("");
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -43,6 +61,24 @@ const CardDetail = () => {
                 name="name"
                 autoComplete="name"
               />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth required>
+                <InputLabel id="demo-simple-select-label">
+                  Select Bank
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={bank}
+                  label="Select bank"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={"Хаан банк"}>Хаан банк</MenuItem>
+                  <MenuItem value={"Голомт банк"}>Голомт банк</MenuItem>
+                  <MenuItem value={"Хас банк"}>Хас банк</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -80,7 +116,7 @@ const CardDetail = () => {
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                label="Хүлээн зөвшөөрч байна."
               />
             </Grid>
           </Grid>
@@ -97,6 +133,7 @@ const CardDetail = () => {
                 bgcolor: "green",
               },
             }}
+            onClick={addPayment}
           >
             Add Cart
           </Button>
