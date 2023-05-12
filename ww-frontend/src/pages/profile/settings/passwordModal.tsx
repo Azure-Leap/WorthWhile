@@ -20,7 +20,7 @@ const style = {
 };
 
 export default function PasswordModal({ handleOpen, handleClose, open }: any) {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUserData } = useContext(AuthContext);
   console.log(user?.password);
   const { setMessage, setStatus } = useContext(AlertContext);
 
@@ -51,11 +51,15 @@ export default function PasswordModal({ handleOpen, handleClose, open }: any) {
       return;
     }
     try {
-      const res = await axios.put(`http://localhost:8888/users/${user._id}`, {
-        newPassword,
-        oldPassword,
-      });
-      setNewPassword(res.data.user);
+      const res = await axios.put(
+        `http://localhost:8888/users/changePassword/${user._id}`,
+        {
+          newPassword,
+          oldPassword,
+        }
+      );
+      // setUserData(res.data.user);
+      console.log(res);
       setMessage(res.data.message);
       setStatus("success");
       handleClose();

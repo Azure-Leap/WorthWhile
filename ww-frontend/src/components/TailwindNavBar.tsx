@@ -12,7 +12,6 @@ const navigation = [
   { name: "Home", href: "/", current: false },
   { name: "Salon List", href: "/salonlist", current: false },
   { name: "Profile", href: "/profile", current: false },
-  // { name: "Calendar", href: "#", current: false },
 ];
 
 const style = {
@@ -38,11 +37,11 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
 
   const { user, setUser } = useContext(AuthContext);
 
-  const handleLogOut = () => {
-    setIsUserSignedIn(false);
-    setIsSign(true);
-    localStorage.removeItem("user");
-  };
+  // const handleLogOut = () => {
+  //   setIsUserSignedIn(false);
+  //   setIsSign(true);
+  //   localStorage.removeItem("user");
+  // };
 
   // useEffect(() => {
   //   const prevUser = localStorage.getItem("user");

@@ -13,8 +13,8 @@ export default function ImageAvatars() {
   useEffect(() => {
     if (user) {
       console.log(user);
-      user?.userName && setName(user.userName);
-      user?.profileImg && setAvatarUrl(user.profileImg);
+      setName(user.userName);
+      setAvatarUrl(user.profileImg);
     }
   }, [user]);
   return (

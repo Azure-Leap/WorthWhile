@@ -8,10 +8,10 @@ import { AlertContext } from "@/context/alertContext";
 import PasswordModal from "./passwordModal";
 
 const Settings = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUserData } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [isChanged, setChanged] = useState(false);
   const { setMessage, setStatus } = useContext(AlertContext);
 
@@ -23,7 +23,7 @@ const Settings = () => {
     if (user) {
       setUserName(user.userName);
       setEmail(user.email);
-      setNumber(user.phoneNumber);
+      setPhoneNumber(user.phoneNumber);
     }
   }, [user]);
 
@@ -32,9 +32,10 @@ const Settings = () => {
       const res = await axios.put(`http://localhost:8888/users/${user._id}`, {
         userName,
         email,
-        number,
+        phoneNumber,
       });
-      setUser(res.data.user);
+      setUserData(res.data.updatedUser);
+      console.log(res);
       setMessage(res.data.message);
       setStatus("success");
     } catch (error) {
@@ -87,9 +88,9 @@ const Settings = () => {
             id="number"
             label="Number"
             name="number"
-            value={number}
+            value={phoneNumber}
             onChange={(e) => {
-              setNumber(e.target.value);
+              setPhoneNumber(e.target.value);
               setChanged(true);
             }}
           />
