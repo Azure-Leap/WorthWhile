@@ -9,6 +9,7 @@ import AlertComponent from "@/components/Alert";
 import Layout from "@/components/layout";
 import OrderComponent from "@/components/Order";
 import { green, purple } from "@mui/material/colors";
+import "react-toastify/dist/ReactToastify.css";
 
 const lato = Montserrat({
   subsets: ["latin"],

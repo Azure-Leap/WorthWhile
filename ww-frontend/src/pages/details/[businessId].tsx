@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Box, Grid, Typography } from "@mui/material";
@@ -7,12 +7,40 @@ import Sidebar from "@/components/Sidebar";
 import Service from "@/components/Service";
 import GiftCard from "@/components/GiftCards/card";
 import GiftCardPaymentModal from "@/components/GiftCards/modal";
+import axios from "axios";
+import { AuthContext } from "@/context/authContext";
 
 const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
   const [isFavorite, setFavorite] = useState<Boolean>(false);
   const [index, setIndex] = useState(0);
   const [payModalOpen, setPayModalOpen] = useState<Boolean>(false);
   const [selectedGiftCard, setSelectedGiftCard] = useState(null);
+
+  const { user, setUserData } = useContext(AuthContext);
+
+  const handleAdd = async (id: string) => {
+    const res = await axios.post(
+      `http://localhost:8888/users/favorites/${user?._id}`,
+      {
+        favoriteId: id,
+      }
+    );
+
+    const updatedUser = res.data.user;
+    setUserData(updatedUser);
+    console.log("ADD", res);
+  };
+  const handleRemove = async (id: string) => {
+    const res = await axios.put(
+      `http://localhost:8888/users/favorites/${user?._id}`,
+      {
+        favoriteId: id,
+      }
+    );
+    const updatedUser = res.data.user;
+    setUserData(updatedUser);
+    console.log("REM", id);
+  };
 
   return (
     <Grid container maxWidth="lg" sx={{ margin: "0 auto" }}>
@@ -47,7 +75,24 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
           ${business.address.street} street`}
             </Typography>
           </Box>
-          {isFavorite ? (
+          {console.log("UU", user)}
+          {user &&
+            (user?.favorites?.includes(business._id) ? (
+              <FavoriteIcon
+                sx={{ zoom: 1.8, color: "#DC3535" }}
+                onClick={() => handleRemove(business._id)}
+              />
+            ) : (
+              <FavoriteBorderIcon
+                sx={{
+                  zoom: 1.8,
+                  color: "#C3C2C2",
+                  "&:hover": { color: "#DC3535" },
+                }}
+                onClick={() => handleAdd(business._id)}
+              />
+            ))}
+          {/* {isFavorite ? (
             <FavoriteIcon
               sx={{ zoom: 1.8, color: "#DC3535" }}
               onClick={() => setFavorite(false)}
@@ -61,7 +106,7 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
               }}
               onClick={() => setFavorite(true)}
             />
-          )}
+          )} */}
         </Box>
         <Box>
           {["SERVICES", "REVIEWS", "GIFT CARDS"].map((el, i) => (

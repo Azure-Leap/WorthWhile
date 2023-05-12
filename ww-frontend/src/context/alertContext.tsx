@@ -9,6 +9,7 @@ const AlertProvider = ({ children }: any) => {
   return (
     <AlertContext.Provider value={{ message, status, setMessage, setStatus }}>
       {children}
+      {/* Alert Component  */}
     </AlertContext.Provider>
   );
 };
