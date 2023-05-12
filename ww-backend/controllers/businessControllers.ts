@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import Business from "../Models/BusinesModel";
 import Staffer from "../Models/StaffModel";
 import Service from "../Models/ServiceModel";
+import GiftCard from "../Models/GiftCardModel";
 
 const getAllBusiness = async (
   req: Request,
@@ -83,7 +84,6 @@ const signin = async (req: Request, res: Response, next: NextFunction) => {
   } catch (error) {
     next(error);
   }
-  console.log("amjilttai login hiilee");
 };
 
 const getBusiness = async (req: Request, res: Response, next: NextFunction) => {
@@ -185,6 +185,26 @@ export const getServicesByBusinessId = async (
     res
       .status(200)
       .json({ message: "Үйлчилгээнүүдийн мэдээлэл олдлоо.", services });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getGiftCardsByBusinessId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { businessId } = req.query;
+    const giftCards = await GiftCard.find({ businessId }).populate(
+      "businessId"
+    );
+
+    if (!giftCards) {
+      res.status(200).json({ message: "Картуудын мэдээлэл хоосон байна." });
+    }
+    res.status(200).json({ message: "Картуудын мэдээлэл олдлоо.", giftCards });
   } catch (error) {
     next(error);
   }

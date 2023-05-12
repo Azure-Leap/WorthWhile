@@ -33,7 +33,12 @@ const SalonCard = ({ businessData }: any) => {
     <div className="w-full bg-white h-fit flex gap-3 mb-4">
       <Link
         href={`/details/${businessData._id}`}
-        style={{ width: "800px", height: "400px" }}
+        style={{
+          minWidth: "40%",
+          maxWidth: "40%",
+          height: "400px",
+          objectFit: "cover",
+        }}
       >
         <img
           src={businessData.profileImg}
@@ -42,7 +47,7 @@ const SalonCard = ({ businessData }: any) => {
           style={{ width: "100%", height: "100%" }}
         />
       </Link>
-      <div className="w-full text-start p-2">
+      <div className="w-[60%] text-start p-2">
         <h1 className="text-2xl">{businessData.businessName}</h1>
         <p className="text-sm text-gray-600 my-1">
           {`${businessData.address.district} дүүрэг, 3-р хороо, ${businessData.address.street} гудамж, ${businessData.businessName}`}

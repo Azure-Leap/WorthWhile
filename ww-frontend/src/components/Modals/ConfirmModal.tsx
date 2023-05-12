@@ -1,11 +1,22 @@
 import React, { useContext, useState } from "react";
+import Image from "next/image";
 import { Box, Button, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import CreditCardOffIcon from "@mui/icons-material/CreditCardOff";
 import { OrderContext } from "@/context/orderContext";
 import dayjs from "dayjs";
+import { AuthContext } from "@/context/authContext";
+import { Tangerine } from "@next/font/google";
+
+const tangerine = Tangerine({
+  weight: ["400"],
+  subsets: ["latin"],
+});
 
 const ConfirmModal = () => {
+  const [giftcard, setGiftcard] = useState(null);
+  const [selectedGiftcard, setSelectedGiftCard] = useState(null);
   const {
     setOpen,
     setModal,
@@ -20,6 +31,7 @@ const ConfirmModal = () => {
     setSelectedServices,
     dateS,
   } = useContext(OrderContext);
+  const { user } = useContext(AuthContext);
 
   const year = dayjs(dateNumber).format("YYYY");
   const month = dayjs(dateNumber).format("MMMM");
@@ -143,14 +155,100 @@ const ConfirmModal = () => {
           </Typography>
         </Box>
       </Box>
+      <Box sx={{ marginTop: "30px" }}>
+        <Typography sx={{ fontSize: "20px" }}>Choose Gift Card</Typography>
+        {user.giftCards.length === 0 ? (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <CreditCardOffIcon
+              sx={{
+                fontSize: "100px",
+                color: "#E6E5E5",
+                margin: "20px 0",
+              }}
+            />
+            <Typography
+              sx={{ color: "grey", fontSize: "14px", marginBottom: "40px" }}
+            >
+              You don't have any giftcards
+            </Typography>
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              margin: "20px 0",
+              display: "flex",
+            }}
+          >
+            {user.giftCards.map((giftcard: any, i: any) => (
+              <Box
+                key={i}
+                sx={{
+                  width: "340px",
+                  height: "215px",
+                  objectFit: "contain",
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                  position: "relative",
+                  zoom: 0.7,
+                  marginRight: "40px",
+                }}
+              >
+                <Image
+                  width={2000}
+                  height={2000}
+                  alt="zurag"
+                  src={giftcard?.image}
+                  className="h-full w-full"
+                />
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    right: "50%",
+                    transform: "translate(50% ,-50%)",
+                  }}
+                >
+                  <p
+                    className={`${tangerine.className}`}
+                    style={{
+                      fontSize: "40px",
+                      color: "rgb(163 68 113)",
+                      textAlign: "center",
+                    }}
+                  >
+                    {giftcard.businessId.businessName}
+                  </p>
+                  <p
+                    className={`${tangerine.className}`}
+                    style={{
+                      zoom: 5,
+                      color: "rgb(163 68 113)",
+                      textAlign: "center",
+                      lineHeight: "10px",
+                    }}
+                  >
+                    {giftcard.amount},000
+                  </p>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        )}
+      </Box>
       <Box
         sx={{
           width: "100%",
-          position: "fixed",
+          position: "sticky",
           bottom: 0,
           right: 0,
           backgroundColor: "white",
-          padding: "0 3rem 3rem 3rem",
+          paddingBottom: "3rem",
         }}
       >
         <hr style={{ borderTop: "1px solid #E6E5E5" }} />

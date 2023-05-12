@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import GiftCard from "../Models/GiftCardModel";
-import { IGiftCard } from "../interfaces";
 
 export const getAllGiftCards = async (
   req: Request,
@@ -10,9 +9,9 @@ export const getAllGiftCards = async (
   try {
     const giftCards = await GiftCard.find();
     if (!giftCards) {
-      res.status(400).json({ message: "Урамшуулалын карт хоосон байна." });
+      res.status(400).json({ message: "Урамшуулалын картууд хоосон байна." });
     }
-    res.status(200).json({ message: "Урамшуулалын карт оллоо.", giftCards });
+    res.status(200).json({ message: "Урамшуулалын картууд оллоо.", giftCards });
   } catch (error) {
     next(error);
   }
@@ -49,15 +48,13 @@ export const createGiftCard = async (
   next: NextFunction
 ) => {
   try {
-    const { businessId, userId, price, amount, cardNumber }: IGiftCard =
-      req.body;
+    const { businessId, price, amount, image } = req.body;
 
     const giftCard = await GiftCard.create({
       businessId,
-      userId,
       price,
       amount,
-      cardNumber,
+      image,
     });
 
     res.status(201).json({ message: "Амжилттай бүртгэгдлээ.", giftCard });

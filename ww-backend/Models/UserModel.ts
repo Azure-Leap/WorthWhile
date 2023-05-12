@@ -15,6 +15,8 @@ const UserSchema = new Schema({
   },
   phoneNumber: { type: String, required: true },
   favorites: [Object],
+  giftCards: [Object],
+  isVerify: { type: Boolean, default: false },
 });
 
 const User = model("User", UserSchema);

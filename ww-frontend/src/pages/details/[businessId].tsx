@@ -1,15 +1,46 @@
-import Sidebar from "@/components/Sidebar";
-import { Box, Grid, Typography } from "@mui/material";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Box, Grid, Typography } from "@mui/material";
+import CreditCardOffIcon from "@mui/icons-material/CreditCardOff";
+import Sidebar from "@/components/Sidebar";
 import Service from "@/components/Service";
-import dayjs from "dayjs";
-import { OrderContext } from "@/context/orderContext";
+import GiftCard from "@/components/GiftCards/card";
+import GiftCardPaymentModal from "@/components/GiftCards/modal";
+import axios from "axios";
+import { AuthContext } from "@/context/authContext";
 
-const SalonDetail = ({ business, staffs, services }: any) => {
+const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
   const [isFavorite, setFavorite] = useState<Boolean>(false);
   const [index, setIndex] = useState(0);
+  const [payModalOpen, setPayModalOpen] = useState<Boolean>(false);
+  const [selectedGiftCard, setSelectedGiftCard] = useState(null);
+
+  const { user, setUserData } = useContext(AuthContext);
+
+  const handleAdd = async (id: string) => {
+    const res = await axios.post(
+      `http://localhost:8888/users/favorites/${user?._id}`,
+      {
+        favoriteId: id,
+      }
+    );
+
+    const updatedUser = res.data.user;
+    setUserData(updatedUser);
+    console.log("ADD", res);
+  };
+  const handleRemove = async (id: string) => {
+    const res = await axios.put(
+      `http://localhost:8888/users/favorites/${user?._id}`,
+      {
+        favoriteId: id,
+      }
+    );
+    const updatedUser = res.data.user;
+    setUserData(updatedUser);
+    console.log("REM", id);
+  };
 
   return (
     <Grid container maxWidth="lg" sx={{ margin: "0 auto" }}>
@@ -44,7 +75,24 @@ const SalonDetail = ({ business, staffs, services }: any) => {
           ${business.address.street} street`}
             </Typography>
           </Box>
-          {isFavorite ? (
+          {console.log("UU", user)}
+          {user &&
+            (user?.favorites?.includes(business._id) ? (
+              <FavoriteIcon
+                sx={{ zoom: 1.8, color: "#DC3535" }}
+                onClick={() => handleRemove(business._id)}
+              />
+            ) : (
+              <FavoriteBorderIcon
+                sx={{
+                  zoom: 1.8,
+                  color: "#C3C2C2",
+                  "&:hover": { color: "#DC3535" },
+                }}
+                onClick={() => handleAdd(business._id)}
+              />
+            ))}
+          {/* {isFavorite ? (
             <FavoriteIcon
               sx={{ zoom: 1.8, color: "#DC3535" }}
               onClick={() => setFavorite(false)}
@@ -58,7 +106,7 @@ const SalonDetail = ({ business, staffs, services }: any) => {
               }}
               onClick={() => setFavorite(true)}
             />
-          )}
+          )} */}
         </Box>
         <Box>
           {["SERVICES", "REVIEWS", "GIFT CARDS"].map((el, i) => (
@@ -91,8 +139,51 @@ const SalonDetail = ({ business, staffs, services }: any) => {
             ))}
           </Box>
         )) ||
-          (index === 1 && <Box>Reviews</Box>) ||
-          (index === 2 && <Box>GiftCards</Box>)}
+          (index === 1 && <Box></Box>) ||
+          (index === 2 && giftCards.length === 0 ? (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <CreditCardOffIcon
+                sx={{
+                  fontSize: "100px",
+                  color: "#E6E5E5",
+                  margin: "20px 0",
+                }}
+              />
+              <Typography
+                sx={{ color: "grey", fontSize: "14px", marginBottom: "40px" }}
+              >
+                There are no giftcards
+              </Typography>
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+              }}
+            >
+              {giftCards.map((giftcard: any, i: any) => (
+                <GiftCard
+                  key={i}
+                  giftcard={giftcard}
+                  setOpen={setPayModalOpen}
+                  setSelectedGiftCard={setSelectedGiftCard}
+                />
+              ))}
+              <GiftCardPaymentModal
+                open={payModalOpen}
+                setOpen={setPayModalOpen}
+                selectedGiftCard={selectedGiftCard}
+              />
+            </Box>
+          ))}
       </Grid>
       <Sidebar business={business} staffs={staffs} />
     </Grid>
@@ -110,11 +201,17 @@ export async function getServerSideProps({ query }: any) {
     `http://localhost:8888/business/services?businessId=${query.businessId}`
   );
   const data3 = await res3.json();
+  const res4 = await fetch(
+    `http://localhost:8888/business/giftcards?businessId=${query.businessId}`
+  );
+  const data4 = await res4.json();
+
   return {
     props: {
       business: data.business,
       staffs: data2.staffs,
       services: data3.services,
+      giftCards: data4.giftCards,
     },
   };
 }

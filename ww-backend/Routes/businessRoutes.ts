@@ -8,14 +8,16 @@ import {
   deleteBusiness,
   getStaffsByBusinessId,
   getServicesByBusinessId,
+  getGiftCardsByBusinessId,
 } from "../controllers/businessControllers";
 
 const router = Router();
-console.log("Business ROUTE ajillaa");
 
 router.route("/").get(getAllBusiness);
 router.route("/staffs").get(getStaffsByBusinessId);
 router.route("/services").get(getServicesByBusinessId);
+router.route("/giftcards").get(getGiftCardsByBusinessId);
+
 router.route("/signin").post(signin);
 router.route("/signup").post(signup);
 

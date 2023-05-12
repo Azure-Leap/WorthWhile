@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext<any>(null);
 
 const AuthProvider = ({ children }: any) => {
-  const [user, setUser] = useState<any>();
+  const [user, setUser] = useState<any>(null);
   const [token, setToken] = useState(null);
   const [businessUser, setBusinessUser] = useState();
   const [businessToken, setBusinessToken] = useState();
@@ -32,7 +32,6 @@ const AuthProvider = ({ children }: any) => {
     <AuthContext.Provider
       value={{
         user,
-        setUser,
         setUserData,
         token,
         setToken,
