@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import { ICategory } from "../interfaces/index";
 
 const CategorySchema = new Schema<ICategory>({
-  categoryTitle: { type: String, required: true },
+  categoryTitle: { type: String, required: true, unique: true },
   categoryImg: String,
   catType: {
     type: String,

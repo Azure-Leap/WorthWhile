@@ -5,6 +5,7 @@ import {
   signin,
   getUser,
   updateUser,
+  updateUserPassword,
   deleteUser,
   getPaymentCardByUserId,
   updateGiftCardUser,
@@ -18,6 +19,9 @@ router.route("/").get(getAllUsers);
 
 router.route("/payments").get(getPaymentCardByUserId);
 router.route("/confirm/:code").get(() => {});
+router.route("/changePassword/:id").put(updateUserPassword);
+
+router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 router.route("/signin").post(signin);
 router.route("/signup").post(signup);
 

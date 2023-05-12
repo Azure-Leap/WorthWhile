@@ -16,11 +16,7 @@ const style = {
   p: 4,
 };
 
-const BasicModal = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+const BasicModal = ({ open, handleClose, handleOpen }: any) => {
   return (
     <Box>
       <Button onClick={handleOpen} sx={{ color: "white" }}>

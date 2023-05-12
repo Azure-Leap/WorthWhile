@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "@/context/authContext";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -7,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import dynamic from "next/dynamic";
+import axios from "axios";
 
 const Avatar = dynamic(() => import("react-avatar-edit"), {
   ssr: false,
@@ -25,12 +27,14 @@ const style = {
 };
 
 const ImportImage = ({ setAvatarUrl }: any) => {
+  const { user, setUserData } = useContext(AuthContext);
+
   const [open, setOpen] = React.useState(false);
+  const [img, setImg] = useState("");
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [src, setSrc] = useState(null);
   const [preview, setPreview] = useState("");
 
   const onClose = () => {
@@ -40,9 +44,33 @@ const ImportImage = ({ setAvatarUrl }: any) => {
     setPreview(view);
   };
 
-  // useEffect(() => {
-  //   console.log(preview);
-  // }, [preview]);
+  useEffect(() => {
+    if (user) {
+      setImg(user.profileImg);
+    }
+  }, [user]);
+
+  const onFileLoad = async (file: any) => {
+    const form = new FormData();
+    form.append("zurag", file);
+    const uploadedFile = await axios.post(
+      "http://localhost:8888/zuragUploadHiinee",
+      form
+    );
+
+    if (uploadedFile) {
+      const update = {
+        ...user,
+        profileImg: uploadedFile?.data?.path,
+      };
+
+      const updateProfileImg = await axios.put(
+        `http://localhost:8888/users/${user._id}`,
+        update
+      );
+      setUserData(updateProfileImg);
+    }
+  };
 
   return (
     <div className="absolute left-0 top-6">
@@ -54,41 +82,107 @@ const ImportImage = ({ setAvatarUrl }: any) => {
       >
         <PhotoCamera sx={{ width: 20 }} />
       </IconButton>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Change Avatar
-          </Typography>
-          <Box sx={{ marginTop: 5, marginBottom: 5 }}>
-            <Avatar
-              width={330}
-              height={300}
-              onCrop={onCrop}
-              onClose={onClose}
-            />
-            {/* <img src={preview} alt="Alt" /> */}
-          </Box>
-          <Stack direction="row" spacing={2}>
-            <Button variant="outlined">Delete</Button>
-            <Button
-              sx={{ color: "white" }}
-              variant="contained"
-              onClick={() => {
-                setAvatarUrl(preview);
-                console.log(preview);
-                handleClose();
+      {img === "" ? (
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ borderBottom: 1, borderColor: "gray" }}
+            >
+              Change Avatar
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: 1,
+                marginBottom: 2,
               }}
             >
-              Save
-            </Button>
-          </Stack>
-        </Box>
-      </Modal>
+              <Box
+                sx={{
+                  width: 275,
+                  height: 300,
+                  marginTop: 1,
+                  marginBottom: 6,
+                }}
+              >
+                <img src={user?.profileImg} alt="userImg" />
+              </Box>
+            </Box>
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ justifyContent: "center" }}
+            >
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={() => {
+                  handleClose();
+                  setImg("");
+                }}
+              >
+                Delete
+              </Button>
+              <Button
+                sx={{ color: "white" }}
+                variant="contained"
+                onClick={() => {
+                  handleClose();
+                }}
+              >
+                Save
+              </Button>
+            </Stack>
+          </Box>
+        </Modal>
+      ) : (
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Change Avatar
+            </Typography>
+            <Box sx={{ marginTop: 5, marginBottom: 5 }}>
+              <Avatar
+                width={330}
+                height={300}
+                onCrop={onCrop}
+                onClose={onClose}
+                onFileLoad={onFileLoad}
+              />
+            </Box>
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ justifyContent: "center" }}
+            >
+              <Button
+                sx={{ color: "white" }}
+                variant="contained"
+                onClick={() => {
+                  setAvatarUrl(preview);
+                  handleClose();
+                }}
+              >
+                Add
+              </Button>
+            </Stack>
+          </Box>
+        </Modal>
+      )}
     </div>
   );
 };

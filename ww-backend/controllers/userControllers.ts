@@ -56,8 +56,64 @@ export const updateUser = async (
     if (!user) {
       res.status(400).json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
     }
+
+    // let updatedUserInput = user;
+
+    // if (req?.body?.newPassword) {
+    //   const compare = await bcrypt.compare(req.body.oldPassword, user.password);
+    //   if (!compare) {
+    //     throw new Error("Pass buruu bna");
+    //   }
+    //   const hashedPassword = bcrypt.hashSync(
+    //     req.body.newPassword.toString(),
+    //     10
+    //   );
+    //   updatedUserInput.password = hashedPassword;
+    // }
+
     res.status(200).json({
-      message: `${id} IDтай хэрэглэгчийн мэдээлэл шинэчлэгдлээ`,
+      message: `Таны мэдээлэл шинэчлэгдлээ`,
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUserPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  if (!id) {
+    res.status(400).json({ message: `ID хоосон байна` });
+  }
+  try {
+    const user = (await User.findById(id)) as any;
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+    }
+
+    if (req?.body?.newPassword) {
+      const compare = await bcrypt.compare(req.body.oldPassword, user.password);
+      if (!compare) {
+        throw new Error("Huuchin Pass buruu bna");
+      }
+
+      const hashedPassword = bcrypt.hashSync(
+        req.body.newPassword.toString(),
+        10
+      );
+      user.password = hashedPassword;
+      await user.save();
+    }
+
+    res.status(200).json({
+      message: `Таны мэдээлэл шинэчлэгдлээ`,
       user,
     });
   } catch (error) {

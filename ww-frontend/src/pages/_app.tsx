@@ -9,7 +9,7 @@ import AlertComponent from "@/components/Alert";
 import Layout from "@/components/layout";
 import OrderComponent from "@/components/Order";
 import { green, purple } from "@mui/material/colors";
-import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
 
 const lato = Montserrat({
   subsets: ["latin"],
@@ -31,6 +31,7 @@ const theme = createTheme({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  // useEffect(() => localStorage.removeItem("user"));
   return (
     <main className={`${lato.className}`}>
       <ThemeProvider theme={theme}>

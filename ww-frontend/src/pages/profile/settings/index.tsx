@@ -4,44 +4,43 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { AuthContext } from "@/context/authContext";
 import axios from "axios";
+import { AlertContext } from "@/context/alertContext";
+import PasswordModal from "./passwordModal";
 
 const Settings = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUserData } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [isChanged, setChanged] = useState(false);
+  const { setMessage, setStatus } = useContext(AlertContext);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     if (user) {
       setUserName(user.userName);
       setEmail(user.email);
-      setNumber(user.phoneNumber);
+      setPhoneNumber(user.phoneNumber);
     }
   }, [user]);
-
-  // useEffect(() => {
-  //   if (!user) return;
-  //   if (user && userName !== "" && number !== "" && email !== "") {
-  //     const changed =
-  //       user?.userName !== userName ||
-  //       user?.number !== number ||
-  //       user?.email !== email;
-
-  //     setChanged(changed);
-  //   }
-  // }, [userName, number, email]);
 
   const update = async () => {
     try {
       const res = await axios.put(`http://localhost:8888/users/${user._id}`, {
         userName,
         email,
-        number,
+        phoneNumber,
       });
-      setUser(res.data.user);
+      setUserData(res.data.updatedUser);
+      console.log(res);
+      setMessage(res.data.message);
+      setStatus("success");
     } catch (error) {
-      console.log("Error", error);
+      setStatus("error");
+      setMessage("Алдаа!");
     }
   };
 
@@ -89,12 +88,26 @@ const Settings = () => {
             id="number"
             label="Number"
             name="number"
-            value={number}
+            value={phoneNumber}
             onChange={(e) => {
-              setNumber(e.target.value);
+              setPhoneNumber(e.target.value);
               setChanged(true);
             }}
           />
+          <TextField
+            margin="normal"
+            fullWidth
+            disabled
+            id="outlined-disabled"
+            label="Password"
+            defaultValue="*************"
+          />
+          <PasswordModal
+            open={open}
+            handleClose={handleClose}
+            handleOpen={handleOpen}
+          />
+
           {isChanged === true && (
             <Button
               sx={{

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   FiChevronLeft,
   FiChevronRight,
@@ -10,6 +10,7 @@ import { BiRocket } from "react-icons/bi";
 import axios from "axios";
 import BusinessLayout from "@/components/BusinessLayout";
 import ServiceModal from "@/components/Modals/ServiceModal";
+import { AuthContext } from "@/context/authContext";
 
 const TableWithPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,14 +18,18 @@ const TableWithPagination = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [services, setServices] = useState<any>();
   const [isOpen, setIsOpen] = useState(false);
+  const { businessUser, setBusinessUser } = useContext(AuthContext);
+
+  const id = businessUser?._id;
 
   const handleIsOpen = (): any => {
     setIsOpen(!isOpen);
   };
+
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8888/business/services?businessId=643e5b818cf9d3011baabb59`
+        `http://localhost:8888/business/services?businessId=${businessUser?._id}`
       )
       .then((res) => {
         setServices(res.data.services);
@@ -32,10 +37,10 @@ const TableWithPagination = () => {
       .catch((err) => {
         console.log("err", err);
       });
-  }, []);
+  }, [id]);
 
-  const editHandler = () => {
-    console.log("GGGG");
+  const editHandler = (row: any) => {
+    console.log("ene bol target===>", row);
   };
 
   const filteredData = services?.filter((row: any) =>
@@ -102,7 +107,7 @@ const TableWithPagination = () => {
       </div>
       <table className="table-fixed w-10/12 rounded shadow m-auto">
         <thead className="border">
-          <tr className="text-sm">
+          <tr className="text-sm bg-gray-200">
             <th className=" w-1/12">№</th>
             <th className=" w-1/3">Name</th>
             <th className=" w-1/6">Category</th>
@@ -114,7 +119,7 @@ const TableWithPagination = () => {
         </thead>
         <tbody>
           {filteredData?.map((row: any, id: number) => (
-            <tr key={row._id} className="text-center text-xs">
+            <tr key={row._id} className="text-center text-xs ">
               <td className="border px-4 py-2">{id + 1}</td>
               <td className="border px-4 py-2">{row.serviceName}</td>
               <td className="border px-4 py-2">{row.categoryId.catType}</td>
@@ -122,7 +127,12 @@ const TableWithPagination = () => {
               <td className="border px-4 py-2">{row.description}</td>
               <td className="border px-4 py-2">{row.duration}</td>
               <td className="border text-lg flex justify-evenly">
-                <FiEdit color="green" onClick={editHandler} />
+                <FiEdit
+                  color="green"
+                  onClick={() => {
+                    editHandler(row);
+                  }}
+                />
                 <FiTrash2 color="red" />
               </td>
             </tr>
