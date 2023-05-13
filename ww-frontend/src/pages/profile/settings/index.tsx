@@ -34,7 +34,7 @@ const Settings = () => {
         email,
         phoneNumber,
       });
-      setUserData(res.data.updatedUser);
+      setUserData(res.data.user);
       console.log(res);
       setMessage(res.data.message);
       setStatus("success");

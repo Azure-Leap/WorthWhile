@@ -56,21 +56,6 @@ export const updateUser = async (
     if (!user) {
       res.status(400).json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
     }
-
-    // let updatedUserInput = user;
-
-    // if (req?.body?.newPassword) {
-    //   const compare = await bcrypt.compare(req.body.oldPassword, user.password);
-    //   if (!compare) {
-    //     throw new Error("Pass buruu bna");
-    //   }
-    //   const hashedPassword = bcrypt.hashSync(
-    //     req.body.newPassword.toString(),
-    //     10
-    //   );
-    //   updatedUserInput.password = hashedPassword;
-    // }
-
     res.status(200).json({
       message: `Таны мэдээлэл шинэчлэгдлээ`,
       user,

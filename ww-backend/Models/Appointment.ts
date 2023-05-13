@@ -4,11 +4,9 @@ import { IAppointment } from "../interfaces";
 const AppointmentSchema = new Schema<IAppointment>({
   services: [
     {
-      serverId: {
-        type: mongoose.Types.ObjectId,
-        ref: "Services",
-        required: true,
-      },
+      type: mongoose.Types.ObjectId,
+      ref: "Services",
+      required: true,
     },
   ],
   userId: {
