@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "@/context/authContext";
+import { AlertContext } from "@/context/alertContext";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -28,6 +29,7 @@ const style = {
 
 const ImportImage = ({ setAvatarUrl }: any) => {
   const { user, setUserData } = useContext(AuthContext);
+  const { setMessage, setStatus } = useContext(AlertContext);
 
   const [open, setOpen] = React.useState(false);
   const [img, setImg] = useState("");
@@ -53,22 +55,23 @@ const ImportImage = ({ setAvatarUrl }: any) => {
   const onFileLoad = async (file: any) => {
     const form = new FormData();
     form.append("zurag", file);
-    const uploadedFile = await axios.post(
-      "http://localhost:8888/zuragUploadHiinee",
+    const res = await axios.post(
+      `http://localhost:8888/zuragUploadHiinee`,
       form
     );
+    // setUserData(res.f
 
-    if (uploadedFile) {
-      const update = {
+    if (res) {
+      const updateUser = {
         ...user,
-        profileImg: uploadedFile?.data?.path,
+        profileImg: res?.data?.path,
       };
 
-      const updateProfileImg = await axios.put(
+      const res2 = await axios.put(
         `http://localhost:8888/users/${user._id}`,
-        update
+        updateUser
       );
-      setUserData(updateProfileImg);
+      setUserData(res2.data.user);
     }
   };
 
@@ -82,7 +85,7 @@ const ImportImage = ({ setAvatarUrl }: any) => {
       >
         <PhotoCamera sx={{ width: 20 }} />
       </IconButton>
-      {img === "" ? (
+      {/* {img === "" ? (
         <Modal
           open={open}
           onClose={handleClose}
@@ -144,45 +147,40 @@ const ImportImage = ({ setAvatarUrl }: any) => {
             </Stack>
           </Box>
         </Modal>
-      ) : (
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Change Avatar
-            </Typography>
-            <Box sx={{ marginTop: 5, marginBottom: 5 }}>
-              <Avatar
-                width={330}
-                height={300}
-                onCrop={onCrop}
-                onClose={onClose}
-                onFileLoad={onFileLoad}
-              />
-            </Box>
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{ justifyContent: "center" }}
-            >
-              <Button
-                sx={{ color: "white" }}
-                variant="contained"
-                onClick={() => {
-                  setAvatarUrl(preview);
-                  handleClose();
-                }}
-              >
-                Add
-              </Button>
-            </Stack>
+      ) : ( */}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Change Avatar
+          </Typography>
+          <Box sx={{ marginTop: 5, marginBottom: 5 }}>
+            <Avatar
+              width={330}
+              height={300}
+              onCrop={onCrop}
+              onClose={onClose}
+              onFileLoad={onFileLoad}
+            />
           </Box>
-        </Modal>
-      )}
+          <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
+            <Button
+              sx={{ color: "white", bgcolor: "lime" }}
+              onClick={() => {
+                setAvatarUrl(preview);
+                handleClose();
+              }}
+            >
+              Add
+            </Button>
+          </Stack>
+        </Box>
+      </Modal>
+      {/* )} */}
     </div>
   );
 };

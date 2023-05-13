@@ -16,8 +16,8 @@ import paymentRoute from "./Routes/paymentRoute";
 import logger from "./middlewares/logger";
 import error from "./middlewares/error";
 import { cloudinary } from "./utils/cloudinary";
-import { sendEmail } from "./utils/sendEmail";
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
+import { sendEmail } from "./utils/sendEmail";
 
 const multer = require("multer");
 

@@ -1,31 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-
+import { AlertContext } from "@/context/alertContext";
 interface Props {
   isOpen: boolean;
   handleIsOpen: any;
+  editData: any;
 }
 
-const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
+const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen, editData }) => {
   const [serviceName, setName] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [servicePrice, setPrice] = useState<any>();
+  const [price, setPrice] = useState<any>();
   const [serviceImg, setImageURL] = useState("");
   const [duration, setServiceDuration] = useState<any>();
   const [description, setDescription] = useState<any>();
   const [businessId, setBusinessId] = useState<string>();
   const [catList, setCatList] = useState<any>([]);
+  const [isMin, setIsMin] = useState(false);
+  const { setMessage, setStatus } = useContext(AlertContext);
 
   const handleSubmit = () => {
-    addService();
+    editData ? updateService() : addService();
     handleIsOpen();
   };
+
+  useEffect(() => {
+    if (editData) {
+      setName(editData.serviceName);
+      setCategoryId(editData.categoryId._id);
+      setPrice(editData.servicePrice.price);
+      setIsMin(editData.servicePrice.isMin);
+      setImageURL(editData.categoryId._id);
+      setServiceDuration(editData.duration);
+      setDescription(editData.description);
+    }
+  }, [editData]);
 
   useEffect(() => {
     axios
       .get(`http://localhost:8888/categories/`)
       .then((res) => {
-        console.log("RESPONSE====>", res.data.cats);
         setCatList(res.data.cats);
       })
       .catch((err) => {
@@ -46,13 +60,44 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
         businessId,
         serviceName,
         serviceImg,
-        servicePrice,
+        price,
+        isMin,
         duration,
         description,
       });
       console.log(res.data);
+      setMessage(res.data.message);
+      setStatus("success");
     } catch (error: any) {
       console.log(error);
+      setStatus("error");
+      setMessage(error.data.message);
+    }
+  };
+
+  const updateService = async () => {
+    console.log(editData?._id);
+    try {
+      const res = await axios.put(
+        `http://localhost:8888/services/${editData?._id}`,
+        {
+          categoryId,
+          businessId,
+          servicePrice: { isMin, price },
+          serviceName,
+          serviceImg,
+          duration,
+          description,
+        }
+      );
+      console.log(res.data);
+      setMessage(res.data.message);
+      setStatus("success");
+    } catch (error: any) {
+      console.log(error);
+      setStatus("error");
+      console.log("Aldaa==>", error);
+      // setMessage(error.data.message);
     }
   };
 
@@ -61,9 +106,9 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center gap-2 justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg p-6">
-        <h2 className="text-xl font-bold mb-4">Add new service:</h2>
+        <h2 className="text-xl font-bold mb-4">Add new service</h2>
         <h5>Үйлчилгээний нэр:</h5>
         <input
           type="text"
@@ -92,7 +137,7 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
         <h5>Үйлчилгээний тариф:</h5>
         <input
           type="number"
-          value={servicePrice}
+          value={price}
           min="1000"
           step="1"
           onChange={(e) => {
@@ -101,6 +146,18 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen }) => {
           className="border rounded-lg px-3 py-2 w-full mb-4"
           placeholder="Price"
         />
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            className="form-checkbox h-4 w-4"
+            checked={isMin}
+            onChange={() => {
+              setIsMin(!isMin);
+            }}
+          />
+          <span className="ml-3 text-sm">Доод үнэ эсэх</span>
+        </div>
+
         <h5>Үйлчилгээний зураг URL:</h5>
         <input
           type="text"
