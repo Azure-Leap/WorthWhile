@@ -20,8 +20,7 @@ const style = {
 };
 
 export default function PasswordModal({ handleOpen, handleClose, open }: any) {
-  const { user, setUserData } = useContext(AuthContext);
-  console.log(user?.password);
+  const { user } = useContext(AuthContext);
   const { setMessage, setStatus } = useContext(AlertContext);
 
   const [oldPassword, setOldPassword] = useState("");
@@ -59,7 +58,7 @@ export default function PasswordModal({ handleOpen, handleClose, open }: any) {
         }
       );
       // setUserData(res.data.user);
-      console.log(res);
+
       setMessage(res.data.message);
       setStatus("success");
       handleClose();

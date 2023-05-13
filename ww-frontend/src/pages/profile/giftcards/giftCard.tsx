@@ -1,31 +1,77 @@
 import React from "react";
-
+import Image from "next/image";
+import { Box } from "@mui/material";
+import { Tangerine } from "@next/font/google";
 interface IGiftCard {
   price: number;
   amount: number;
   cardNumber: number;
 }
 
-const GiftCard = ({ apps }: { apps: IGiftCard[] }) => {
+const tangerine = Tangerine({
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+const GiftCard = ({ apps }: any) => {
   return (
     <div className="ml-5 mt-2 ">
       <div>
         <h1 className="text-2xl ">Gift Cards</h1>
       </div>
       <div>
-        {apps.map((app: IGiftCard, i: number) => (
-          <div
+        {apps.map((app: any, i: number) => (
+          <Box
             key={i}
-            className="flex my-10 border-gray-300 border-2 rounded-xl p-5 min-w-full shadow-xl "
+            sx={{
+              width: "340px",
+              height: "215px",
+              objectFit: "contain",
+              borderRadius: "10px",
+              overflow: "hidden",
+              position: "relative",
+              margin: "30px 0",
+            }}
           >
-            <div className="border-r-2 w-96">
-              <h1 className="text-2xl font-bold">{app.price}</h1>
-              <div className="flex my-2">
-                <h3 className="pl-2">{app.amount}</h3>
-              </div>
-            </div>
-            <div className="pl-5 flex items-center">{app.cardNumber}</div>
-          </div>
+            <Image
+              width={2000}
+              height={2000}
+              alt="zurag"
+              src={app?.image}
+              className="h-full w-full"
+              priority
+            />
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                right: "50%",
+                transform: "translate(50% ,-50%)",
+              }}
+            >
+              <p
+                className={`${tangerine.className}`}
+                style={{
+                  fontSize: "40px",
+                  color: "rgb(163 68 113)",
+                  textAlign: "center",
+                }}
+              >
+                {app.businessId?.businessName}
+              </p>
+              <p
+                className={`${tangerine.className}`}
+                style={{
+                  zoom: 5,
+                  color: "rgb(163 68 113)",
+                  textAlign: "center",
+                  lineHeight: "10px",
+                }}
+              >
+                {app.amount},000
+              </p>
+            </Box>
+          </Box>
         ))}
       </div>
     </div>

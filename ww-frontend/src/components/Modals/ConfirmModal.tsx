@@ -222,7 +222,7 @@ const ConfirmModal = () => {
                       textAlign: "center",
                     }}
                   >
-                    {giftcard.businessId.businessName}
+                    {giftcard.businessId?.businessName}
                   </p>
                   <p
                     className={`${tangerine.className}`}

@@ -30,18 +30,9 @@ function classNames(...classes: any) {
 }
 
 export default function TailWindNavBar({ setAvatarUrl }: any) {
-  // const [isUserSignedIn, setIsUserSignedIn] = useState(false);
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
   const { user, setUserData } = useContext(AuthContext);
-
-  // useEffect(() => {
-  //   const prevUser = localStorage.getItem("user");
-  //   if (prevUser) {
-  //     setUser(JSON.parse(prevUser));
-  //     setIsUserSignedIn(true);
-  //   }
-  // }, []);
 
   return (
     <>
@@ -176,7 +167,6 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                                 )}
                                 onClick={() => {
                                   setUserData(null);
-                                  // localStorage.removeItem("user");
                                 }}
                               >
                                 Sign out

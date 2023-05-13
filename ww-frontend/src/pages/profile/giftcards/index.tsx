@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SideLayout from "@/components/SideLayout";
 import EmptyGiftCard from "./empty";
 import GiftCard from "./giftCard";
+import { AuthContext } from "@/context/authContext";
 
 interface IGiftCard {
   price: number;
@@ -10,22 +11,12 @@ interface IGiftCard {
 }
 
 export default function App() {
-  const [apps, setApps] = useState<IGiftCard[]>([
-    {
-      price: 10,
-      amount: 11,
-      cardNumber: 11,
-    },
-    {
-      price: 10,
-      amount: 11,
-      cardNumber: 11,
-    },
-  ]);
+  const { user } = useContext(AuthContext);
+  const giftcards = user?.giftCards;
 
   return (
     <SideLayout>
-      {apps.length ? <GiftCard apps={apps} /> : <EmptyGiftCard />}
+      {giftcards?.length ? <GiftCard apps={giftcards} /> : <EmptyGiftCard />}
     </SideLayout>
   );
 }
