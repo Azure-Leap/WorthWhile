@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   FiChevronLeft,
   FiChevronRight,
@@ -11,6 +11,7 @@ import axios from "axios";
 import BusinessLayout from "@/components/BusinessLayout";
 import ServiceModal from "@/components/Modals/ServiceModal";
 import { AuthContext } from "@/context/authContext";
+import { AlertContext } from "@/context/alertContext";
 
 const TableWithPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,14 +19,19 @@ const TableWithPagination = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [services, setServices] = useState<any>();
   const [isOpen, setIsOpen] = useState(false);
+  const [editData, setEditData] = useState();
   const { businessUser, setBusinessUser } = useContext(AuthContext);
+  const { setMessage, setStatus } = useContext(AlertContext);
 
   const id = businessUser?._id;
 
   const handleIsOpen = (): any => {
     setIsOpen(!isOpen);
   };
-
+  const editHandler = (row: any) => {
+    setEditData(row);
+    setIsOpen(!isOpen);
+  };
   useEffect(() => {
     axios
       .get(
@@ -39,8 +45,18 @@ const TableWithPagination = () => {
       });
   }, [id]);
 
-  const editHandler = (row: any) => {
-    console.log("ene bol target===>", row);
+  const deleteHandler = (row: any) => {
+    axios
+      .delete(`http://localhost:8888/services/${row?._id}`)
+      .then((res) => {
+        setMessage(res.data.message);
+        setStatus("success");
+      })
+      .catch((err) => {
+        console.log("err", err);
+        setMessage(err);
+        setStatus("error");
+      });
   };
 
   const filteredData = services?.filter((row: any) =>
@@ -49,7 +65,6 @@ const TableWithPagination = () => {
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = services?.slice(indexOfFirstRow, indexOfLastRow);
-
   const totalPages = Math.ceil(services?.length / rowsPerPage);
 
   const handleClick = (pageNumber: number) => {
@@ -103,7 +118,11 @@ const TableWithPagination = () => {
           <BiRocket className="w-5 h-5 mr-2" />
           Service
         </button>
-        <ServiceModal isOpen={isOpen} handleIsOpen={handleIsOpen} />
+        <ServiceModal
+          isOpen={isOpen}
+          handleIsOpen={handleIsOpen}
+          editData={editData}
+        />
       </div>
       <table className="table-fixed w-10/12 rounded shadow m-auto">
         <thead className="border">
@@ -112,6 +131,8 @@ const TableWithPagination = () => {
             <th className=" w-1/3">Name</th>
             <th className=" w-1/6">Category</th>
             <th className=" w-1/6">Image</th>
+            <th className=" w-1/6">Price</th>
+            <th className=" w-1/6">IsMinPrice</th>
             <th className=" w-2/3">Description</th>
             <th className=" w-1/6">Duration</th>
             <th className=" w-1/6">Action</th>
@@ -124,16 +145,27 @@ const TableWithPagination = () => {
               <td className="border px-4 py-2">{row.serviceName}</td>
               <td className="border px-4 py-2">{row.categoryId.catType}</td>
               <td className="border px-4 py-2">Zurag</td>
+              <td className="border px-4 py-2">{row.servicePrice.price}</td>
+              <td className="border px-4 py-2">
+                {row.servicePrice.isMin ? "Тийм" : "Үгүй"}
+              </td>
               <td className="border px-4 py-2">{row.description}</td>
               <td className="border px-4 py-2">{row.duration}</td>
-              <td className="border text-lg flex justify-evenly">
+              <td className="border text-lg flex justify-evenly ">
                 <FiEdit
                   color="green"
+                  className="cursor-pointer"
                   onClick={() => {
                     editHandler(row);
                   }}
                 />
-                <FiTrash2 color="red" />
+                <FiTrash2
+                  color="red"
+                  className="cursor-pointer"
+                  onClick={() => {
+                    deleteHandler(row);
+                  }}
+                />
               </td>
             </tr>
           ))}
