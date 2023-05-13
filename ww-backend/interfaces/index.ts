@@ -11,7 +11,8 @@ interface IUser {
 interface IService {
   categoryId: String;
   serviceName: String;
-  servicePrice: Number;
+  price: Number;
+  isMin: boolean;
   serviceImg: [String];
   description?: String;
   duration: Number;

@@ -1,7 +1,6 @@
 import HomeCard from "@/components/Card";
-import Link from "next/link";
 import SearchComponent from "@/components/General/search";
-import TailWindNavBar from "@/components/TailwindNavBar";
+import { useState } from "react";
 export interface IItem {
   title: string;
   BgURL: string;
@@ -31,9 +30,10 @@ const categories: IItem[] = [
 ];
 
 export default function Index() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
-      {/* <TailWindNavBar /> */}
       <div
         className="h-1/6 bg-cover bg-center text-white flex flex-col justify-evenly items-center"
         style={{
@@ -41,7 +41,7 @@ export default function Index() {
         }}
       >
         <p className="text-3xl">Discover your beauty</p>
-        <SearchComponent />
+        <SearchComponent setIsOpen={setIsOpen} />
       </div>
       <div className="w-full h-full flex justify-center items-center ">
         {categories?.map((el, idx) => {

@@ -61,9 +61,10 @@ export const createService = async (
       businessId,
       serviceName,
       serviceImg,
-      servicePrice,
       duration,
       description,
+      price,
+      isMin,
     }: IService = req.body;
 
     const service = await Service.create({
@@ -71,7 +72,7 @@ export const createService = async (
       businessId,
       serviceName,
       serviceImg,
-      servicePrice,
+      servicePrice: { price, isMin },
       duration,
       description,
     });
@@ -88,6 +89,8 @@ export const updateService = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
+  console.log("reqBody===>", req.body);
+
   if (!id) {
     res.status(400).json({ message: `ID хоосон байна` });
   }
@@ -95,6 +98,8 @@ export const updateService = async (
     const service = await Service.findByIdAndUpdate(id, req.body, {
       new: true,
     });
+    console.log("reqBody===>", req.body);
+
     if (!service) {
       res.status(400).json({ message: `${id} ID-тэй Үйлчилгээ олдсонгүй.` });
     }

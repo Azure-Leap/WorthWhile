@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoSearch, IoLocationSharp } from "react-icons/io5";
 
-const SearchComponent = ({ onChangeText, search }: any) => {
+const SearchComponent = ({ onChangeText, search, setIsOpen }: any) => {
   return (
     <div className="bg-white py-1 px-4 rounded-full shadow-md flex items-center justify-between">
       <div className="relative w-full">
