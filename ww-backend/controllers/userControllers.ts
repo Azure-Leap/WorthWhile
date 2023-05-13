@@ -246,6 +246,34 @@ export const updateGiftCardUser = async (
   }
 };
 
+export const getFavoritesUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ message: `ID хоосон байна` });
+  }
+  try {
+    const user = await User.findById(id).populate({
+      path: "favorites",
+    });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+    }
+    const favorites = user.favorites;
+    res.status(200).json({
+      message: `${id} IDтай хэрэглэгчийн дуртай салонууд олдлоо`,
+      favorites,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const addFavoritesUser = async (
   req: Request,
   res: Response,
@@ -298,14 +326,14 @@ export const removeFavoritesUser = async (
     const idx = user.favorites.indexOf(favoriteId);
     if (idx < 0)
       return res.status(200).json({
-        message: `${id} IDтай хэрэглэгчийн мэдээлэл олдсонгүй`,
+        message: `${id} IDтай мэдээлэл олдсонгүй`,
         user,
       });
 
     user.favorites.splice(idx, 1);
     await user?.save();
     res.status(200).json({
-      message: `${id} IDтай хэрэглэгчийн мэдээлэл шинэчлэгдлээ`,
+      message: `${id} IDтай мэдээлэл шинэчлэгдлээ`,
       user,
     });
   } catch (error) {

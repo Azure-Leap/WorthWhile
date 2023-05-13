@@ -75,7 +75,6 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
           ${business.address.street} street`}
             </Typography>
           </Box>
-          {console.log("UU", user)}
           {user &&
             (user?.favorites?.includes(business._id) ? (
               <FavoriteIcon
@@ -92,21 +91,6 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
                 onClick={() => handleAdd(business._id)}
               />
             ))}
-          {/* {isFavorite ? (
-            <FavoriteIcon
-              sx={{ zoom: 1.8, color: "#DC3535" }}
-              onClick={() => setFavorite(false)}
-            />
-          ) : (
-            <FavoriteBorderIcon
-              sx={{
-                zoom: 1.8,
-                color: "#C3C2C2",
-                "&:hover": { color: "#DC3535" },
-              }}
-              onClick={() => setFavorite(true)}
-            />
-          )} */}
         </Box>
         <Box>
           {["SERVICES", "REVIEWS", "GIFT CARDS"].map((el, i) => (

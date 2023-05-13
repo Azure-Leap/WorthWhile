@@ -46,7 +46,7 @@ const Sidebar = ({ business, staffs }: any) => {
             </Typography>
           </Box>
           <Box sx={{ padding: "20px" }}>
-            <Typography sx={{ fontSize: "12px" }}>
+            <Typography sx={{ fontSize: "14px" }}>
               {business.description}
             </Typography>
           </Box>

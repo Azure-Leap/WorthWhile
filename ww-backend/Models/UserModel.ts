@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 const UserSchema = new Schema({
   userName: { type: String, required: true },
@@ -14,7 +14,7 @@ const UserSchema = new Schema({
       "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
   },
   phoneNumber: { type: String, required: true },
-  favorites: [Object],
+  favorites: [{ type: Types.ObjectId, ref: "Business", required: true }],
   giftCards: [Object],
   isVerify: { type: Boolean, default: false },
 });

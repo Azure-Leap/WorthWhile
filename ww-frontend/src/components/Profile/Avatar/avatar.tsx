@@ -12,7 +12,6 @@ export default function ImageAvatars() {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       setName(user.userName);
       setAvatarUrl(user.profileImg);
     }

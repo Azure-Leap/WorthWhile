@@ -11,6 +11,7 @@ import {
   updateGiftCardUser,
   removeFavoritesUser,
   addFavoritesUser,
+  getFavoritesUser,
 } from "../controllers/userControllers";
 
 const router = Router();
@@ -29,6 +30,7 @@ router.route("/giftcard/:id").post(updateGiftCardUser);
 
 router.route("/favorites/:id").post(addFavoritesUser);
 router.route("/favorites/:id").put(removeFavoritesUser);
+router.route("/favorites/:id").get(getFavoritesUser);
 
 router.route("/:id").get(getUser).put(updateUser).delete(deleteUser); // /:id path deerh huseltuudiig hamgiin suuld bichne. Uchir ni /payments zereg path-iig :id gej uzeed code aldaa zaaj bna !!!!
 
