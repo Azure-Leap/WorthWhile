@@ -29,7 +29,7 @@ const BasicModal = ({ open, handleClose, handleOpen }: any) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CardDetail />
+          <CardDetail handleClose={handleClose} />
         </Box>
       </Modal>
     </Box>

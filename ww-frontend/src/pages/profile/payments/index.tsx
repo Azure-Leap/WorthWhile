@@ -1,22 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SideLayout from "@/components/SideLayout";
 import EmptyPayment from "./empty/empty";
 import Payment from "./payment";
-
-interface IPayment {
-  paymentType: String;
-}
+import axios from "axios";
+import { AuthContext } from "@/context/authContext";
 
 export default function App() {
-  const [apps, setApps] = useState<IPayment[]>([
-    // {
-    //   paymentType: "Payment",
-    // },
-  ]);
+  const { user } = useContext(AuthContext);
+  const [payments, setPayments] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8888/users/payments?userId=${user?._id}`)
+      .then((res) => {
+        setPayments(res.data.paymentCards);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, []);
 
   return (
     <SideLayout>
-      {apps.length ? <Payment apps={apps} /> : <EmptyPayment />}
+      {payments.length ? <Payment payments={payments} /> : <EmptyPayment />}
       <div>
         <h4>PAYMENT HISTORY</h4>
         <div className="my-10">
