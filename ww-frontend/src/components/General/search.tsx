@@ -3,7 +3,7 @@ import { IoSearch, IoLocationSharp } from "react-icons/io5";
 
 const SearchComponent = ({ onChangeText, search, setIsOpen }: any) => {
   return (
-    <div className="bg-white py-1 px-4 rounded-full shadow-md flex items-center justify-between">
+    <div className="bg-white py-1 px-2 rounded-xl shadow-md flex items-center justify-between">
       <div className="relative w-full">
         <input
           onChange={onChangeText}
@@ -26,9 +26,6 @@ const SearchComponent = ({ onChangeText, search, setIsOpen }: any) => {
           <IoLocationSharp className="w-5 h-5 text-gray-700" />
         </div>
       </div>
-      <button className="ml-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-6 rounded-3xl">
-        Search
-      </button>
     </div>
   );
 };

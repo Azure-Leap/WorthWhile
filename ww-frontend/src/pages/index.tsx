@@ -1,6 +1,7 @@
-import HomeCard from "@/components/Card";
-import SearchComponent from "@/components/General/search";
 import { useState } from "react";
+import HomeCard from "@/components/Card";
+import HomeSearch from "@/components/General/homeSearch";
+import HomeModal from "@/components/Modals/HomeModal";
 export interface IItem {
   title: string;
   BgURL: string;
@@ -41,13 +42,14 @@ export default function Index() {
         }}
       >
         <p className="text-3xl">Discover your beauty</p>
-        <SearchComponent setIsOpen={setIsOpen} />
+        <HomeSearch setIsOpen={setIsOpen} />
       </div>
       <div className="w-full h-full flex justify-center items-center ">
         {categories?.map((el, idx) => {
           return <HomeCard key={idx} item={el} />;
         })}
       </div>
+      <HomeModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 }
