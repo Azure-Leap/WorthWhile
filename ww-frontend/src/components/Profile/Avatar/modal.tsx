@@ -59,7 +59,6 @@ const ImportImage = ({ setAvatarUrl }: any) => {
       `http://localhost:8888/zuragUploadHiinee`,
       form
     );
-    // setUserData(res.f
 
     if (res) {
       const updateUser = {

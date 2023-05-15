@@ -1,30 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface IPayment {
   paymentType: String;
 }
 
-const Payment = ({ apps }: { apps: IPayment[] }) => {
+const Payment = ({ payments }: any) => {
+  const [paymentCard, setPaymentCard] = useState(null);
+
   return (
     <div className="ml-5 mt-2 ">
       <div>
         <h1 className="text-2xl ">Payments</h1>
       </div>
       <div>
-        {apps.map((app: IPayment, i: number) => (
-          <div
+        {payments.map((payment: any, i: number) => (
+          <button
             key={i}
-            className="flex my-10 border-gray-300 border-2 rounded-xl p-5 min-w-full shadow-xl "
+            onClick={() => setPaymentCard(payment)}
+            style={{
+              zoom: "0.5",
+              marginRight: "50px",
+              height: "200px",
+              width: "350px",
+              borderRadius: "10px",
+              border:
+                paymentCard == payment ? "5px solid rgb(6 182 212)" : "none",
+              backgroundImage:
+                payment.bankName == "Golomt bank"
+                  ? "linear-gradient(to right top, #84BAE9, #164E80)"
+                  : payment.bankName == "Khaan bank"
+                  ? "linear-gradient(to right top, #E5493E, #630F09)"
+                  : payment.bankName == "Khas bank"
+                  ? "linear-gradient(to right top, #ADDE34, #506D06)"
+                  : "linear-gradient(to right top, #D8D8D6, #727270)",
+              boxShadow:
+                paymentCard == payment
+                  ? "0 0 15px 1px rgba(0, 0, 0, 0.5)"
+                  : "none",
+              boxSizing: "content-box",
+            }}
           >
-            <div className="border-r-2 w-96">
-              <h1 className="text-2xl font-bold">{app.paymentType}</h1>
-              {/* <div className="flex my-2">
-                <h3 className="pl-2">{app.amount}</h3>
+            <div style={{ display: "flex" }}>
+              <div style={{ padding: "12px" }}>
+                <img
+                  style={{ width: "50px" }}
+                  src="https://i.imgur.com/PEKNCj9.png"
+                />
+              </div>
+              <div style={{ alignSelf: "center", color: "white" }}>
+                <span>{payment.bankName}</span>
               </div>
             </div>
-            <div className="pl-5 flex items-center">{app.cardNumber}</div> */}
+            <div style={{ padding: "0px 15px" }}>
+              <div style={{ fontSize: "20px", color: "#fff" }}>
+                <span>{payment.cardNumber.substring(0, 4)}</span>{" "}
+                <span>{payment.cardNumber.substring(4, 8)}</span>{" "}
+                <span>{payment.cardNumber.substring(8, 12)}</span>{" "}
+                <span>{payment.cardNumber.substring(12, 16)}</span>
+              </div>
+              <div
+                style={{
+                  fontSize: "15px",
+                  padding: "4px 0px",
+                  color: "#fff",
+                }}
+              >
+                <span>{payment.expiredDate}</span>
+              </div>
+              <div
+                style={{
+                  fontSize: "15px",
+                  padding: "4px 0px",
+                  color: "#fff",
+                }}
+              >
+                <span>{payment.ownerName}</span>
+              </div>
             </div>
-          </div>
+          </button>
         ))}
       </div>
     </div>
