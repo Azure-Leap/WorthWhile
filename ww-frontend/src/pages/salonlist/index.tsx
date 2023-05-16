@@ -1,7 +1,7 @@
-import SearchComponent from "@/components/General/search";
 import SalonCard from "@/components/SalonCard";
 import React, { useEffect, useState } from "react";
-import { FiCalendar, FiChevronDown } from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
+import { BsFilter } from "react-icons/bs";
 import axios from "axios";
 import ListNavbar from "@/components/ListNavBar";
 
@@ -51,22 +51,25 @@ const SalonList = () => {
   return (
     <>
       <ListNavbar onChangeText={onChangeText} search={search} />
-      <div className="h-1/4 p-5">
-        {/* <SearchComponent onChangeText={onChangeText} search={search} /> */}
-        <div className="bg-white inline-flex items-center rounded px-2 py-1">
-          <FiCalendar className="mr-1" />
-          Dates
+      <div className="h-24"></div>
+      <div className="xl:w-10/12 m-auto">
+        <p className="text-3xl font-semibold mt-10 border-b border-gray-300 pb-5">
+          Best salons in Ulaanbaatar
+        </p>
+        <div className="flex gap-2 my-5">
+          <div className="inline-flex items-center rounded px-2 py-1 border bg-gray-100 text-sm cursor-pointer">
+            <BsFilter className="mr-1" size={15} />
+            Filters
+          </div>
+          <div className="inline-flex justify-center items-center rounded px-2 py-1 border bg-gray-100 text-sm cursor-pointer">
+            <p>Sort by: Reccommended</p>
+          </div>
         </div>
-        <div className="bg-white inline-flex justify-center items-center rounded px-2 py-1">
-          <FiChevronDown size={20} className="mr-1" />
-          <p>Best matches</p>
+        <div className="">
+          {list?.map((el, idx) => (
+            <SalonCard key={idx} businessData={el} />
+          ))}
         </div>
-      </div>
-      <div className="bg-gray-200 h-full text-lg text-center p-4">
-        Best Haircut in Ulaanbaatar
-        {list?.map((el, idx) => (
-          <SalonCard key={idx} businessData={el} />
-        ))}
       </div>
     </>
   );

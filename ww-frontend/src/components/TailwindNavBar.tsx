@@ -49,7 +49,7 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-              <div className="relative flex h-16 items-center justify-between">
+              <div className="relative flex h-20 items-center justify-between">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                   {/* Mobile menu button*/}
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -97,7 +97,7 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                 <div className="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <Link
                     href="/business/auth"
-                    className="bg-white text-xs py-2 rounded-md px-5 hidden sm:block"
+                    className="bg-white text-xs py-2 rounded-md px-4 hidden sm:block hover:bg-gray-100"
                   >
                     БИЗНЕС НЭМЭХ
                   </Link>

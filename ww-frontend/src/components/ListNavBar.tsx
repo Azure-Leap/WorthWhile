@@ -57,7 +57,7 @@ export default function ListNavbar({
                     )}
                   </Disclosure.Button>
                 </div>
-                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
                     <img
                       className="block h-8 w-auto lg:hidden"
@@ -94,7 +94,7 @@ export default function ListNavbar({
                 <div className="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <Link
                     href="/business/auth"
-                    className="bg-white text-xs py-2 rounded-md px-5 hidden sm:block"
+                    className="bg-white text-xs py-2 rounded-md px-4 hidden sm:block hover:bg-gray-100"
                   >
                     БИЗНЕС НЭМЭХ
                   </Link>

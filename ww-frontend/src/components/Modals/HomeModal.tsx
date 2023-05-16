@@ -74,7 +74,15 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-5">
       <div className="bg-white rounded-md p-3 w-full md:w-3/6">
-        <div className="relative w-full border-2 border-b-gray-500">
+        <div className="relative w-full border-b border-gray-200 flex items-center">
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          >
+            <FiArrowLeft className="w-6 h-6" />
+          </div>
           <input
             autoFocus
             onChange={handleSearchChange}
@@ -83,14 +91,6 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
             placeholder="Find a service or salon"
             className=" py-2 pl-10 pr-3 text-gray-700 placeholder-gray-400 placeholder:text-sm focus:outline-none w-full"
           />
-          <div
-            className="absolute inset-y-0 left-0 flex items-center cursor-pointer"
-            onClick={() => {
-              setIsOpen(false);
-            }}
-          >
-            <FiArrowLeft className="w-6 h-6" />
-          </div>
         </div>
         {filteredResults?.map((item, idx) => (
           <div className="flex items-center gap-2 my-1">
@@ -118,7 +118,7 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
             </span>
           ))}
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-12">
           <button className="w-5/12 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-md text-sm">
             Search
           </button>

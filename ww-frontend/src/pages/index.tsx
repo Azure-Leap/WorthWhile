@@ -15,12 +15,12 @@ const categories: IItem[] = [
       "https://images.unsplash.com/photo-1614838000027-76439aa4aedc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzJ8fGhhaXIlMjBjdXR8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
   },
   {
-    title: "Nail",
+    title: "Nails",
     BgURL:
       "https://images.unsplash.com/photo-1632345031435-8727f6897d53?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmFpbCUyMHNhbG9ufGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
   },
   {
-    title: "Skin",
+    title: "Skin Care",
     BgURL:
       "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8ZmFjaWFsfGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
   },
@@ -28,6 +28,16 @@ const categories: IItem[] = [
     title: "Makeup",
     BgURL:
       "https://images.unsplash.com/photo-1613966802194-d46a163af70d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFrZXVwJTIwYXJ0aXN0fGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+  {
+    title: "Spa & Massage",
+    BgURL:
+      "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3BhJTIwbWFzc2FnZXxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60",
+  },
+  {
+    title: "Brows & Lashes",
+    BgURL:
+      "https://images.unsplash.com/photo-1542833807-ad5af0977050?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTB8fGxhc2hlcyUyMG1ha2V1cHxlbnwwfDB8MHx8&auto=format&fit=crop&w=500&q=60",
   },
 ];
 
@@ -37,15 +47,15 @@ export default function Index() {
   return (
     <Layout>
       <div
-        className="h-1/6 bg-cover bg-center text-white flex flex-col justify-evenly items-center"
+        className="h-fit bg-cover bg-center text-white flex flex-col justify-evenly items-center"
         style={{
           backgroundImage: `url(https://images.unsplash.com/photo-1504221507732-5246c045949b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)`,
         }}
       >
-        <p className="text-3xl">Discover your beauty</p>
+        <p className="text-3xl p-7">Discover your beauty</p>
         <HomeSearch setIsOpen={setIsOpen} />
       </div>
-      <div className="w-full h-full flex justify-center items-center ">
+      <div className=" mt-28 w-10/12 m-auto grid grid-cols-3">
         {categories?.map((el, idx) => {
           return <HomeCard key={idx} item={el} />;
         })}
