@@ -3,6 +3,7 @@ import SalonCard from "@/components/SalonCard";
 import React, { useEffect, useState } from "react";
 import { FiCalendar, FiChevronDown } from "react-icons/fi";
 import axios from "axios";
+import ListNavbar from "@/components/ListNavBar";
 
 export interface IBusiness {
   _id: String;
@@ -49,8 +50,9 @@ const SalonList = () => {
 
   return (
     <>
-      <div className="bg-cyan-300 h-1/4 p-5">
-        <SearchComponent onChangeText={onChangeText} search={search} />
+      <ListNavbar onChangeText={onChangeText} search={search} />
+      <div className="h-1/4 p-5">
+        {/* <SearchComponent onChangeText={onChangeText} search={search} /> */}
         <div className="bg-white inline-flex items-center rounded px-2 py-1">
           <FiCalendar className="mr-1" />
           Dates

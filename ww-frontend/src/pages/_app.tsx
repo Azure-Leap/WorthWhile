@@ -6,10 +6,8 @@ import AuthProvider from "@/context/authContext";
 import AlertProvider from "@/context/alertContext";
 import OrderProvider from "@/context/orderContext";
 import AlertComponent from "@/components/Alert";
-import Layout from "@/components/layout";
 import OrderComponent from "@/components/Order";
 import { green, purple } from "@mui/material/colors";
-import { useEffect } from "react";
 
 const lato = Montserrat({
   subsets: ["latin"],
@@ -38,11 +36,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <AlertProvider>
           <AuthProvider>
             <OrderProvider>
-              <Layout>
-                <AlertComponent />
-                <Component {...pageProps} />
-                <OrderComponent />
-              </Layout>
+              <AlertComponent />
+              <Component {...pageProps} />
+              <OrderComponent />
             </OrderProvider>
           </AuthProvider>
         </AlertProvider>

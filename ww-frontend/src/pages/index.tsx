@@ -2,6 +2,7 @@ import { useState } from "react";
 import HomeCard from "@/components/Card";
 import HomeSearch from "@/components/General/homeSearch";
 import HomeModal from "@/components/Modals/HomeModal";
+import Layout from "@/components/layout";
 export interface IItem {
   title: string;
   BgURL: string;
@@ -34,7 +35,7 @@ export default function Index() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <Layout>
       <div
         className="h-1/6 bg-cover bg-center text-white flex flex-col justify-evenly items-center"
         style={{
@@ -50,6 +51,6 @@ export default function Index() {
         })}
       </div>
       <HomeModal isOpen={isOpen} setIsOpen={setIsOpen} />
-    </>
+    </Layout>
   );
 }
