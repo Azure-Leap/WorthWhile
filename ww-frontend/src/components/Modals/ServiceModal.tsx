@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AlertContext } from "@/context/alertContext";
+import { BASE_URL } from "@/variables";
 interface Props {
   isOpen: boolean;
   handleIsOpen: any;
@@ -38,7 +39,7 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen, editData }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8888/categories/`)
+      .get(`${BASE_URL}/categories/`)
       .then((res) => {
         setCatList(res.data.cats);
       })
@@ -55,7 +56,7 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen, editData }) => {
 
   const addService = async () => {
     try {
-      const res = await axios.post("http://localhost:8888/services", {
+      const res = await axios.post(`${BASE_URL}/services`, {
         categoryId,
         businessId,
         serviceName,
@@ -78,18 +79,15 @@ const ServiceModal: React.FC<Props> = ({ isOpen, handleIsOpen, editData }) => {
   const updateService = async () => {
     console.log(editData?._id);
     try {
-      const res = await axios.put(
-        `http://localhost:8888/services/${editData?._id}`,
-        {
-          categoryId,
-          businessId,
-          servicePrice: { isMin, price },
-          serviceName,
-          serviceImg,
-          duration,
-          description,
-        }
-      );
+      const res = await axios.put(`${BASE_URL}/services/${editData?._id}`, {
+        categoryId,
+        businessId,
+        servicePrice: { isMin, price },
+        serviceName,
+        serviceImg,
+        duration,
+        description,
+      });
       console.log(res.data);
       setMessage(res.data.message);
       setStatus("success");

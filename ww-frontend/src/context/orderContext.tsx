@@ -1,6 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 import dayjs from "dayjs";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 
 export const OrderContext = createContext<any>(null);
 
@@ -105,12 +106,12 @@ const OrderProvider = ({ children }: any) => {
 
   useEffect(() => {
     const getAllServices = async () => {
-      const res = await axios.get(`http://localhost:8888/services`);
+      const res = await axios.get(`${BASE_URL}/services`);
       setAllServices(res.data.services);
     };
     getAllServices();
     const getAllStaffs = async () => {
-      const res = await axios.get(`http://localhost:8888/staffs`);
+      const res = await axios.get(`${BASE_URL}/staffs`);
       setAllStaffs(res.data.staffs);
     };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FiArrowLeft, FiSearch } from "react-icons/fi";
+import { BASE_URL } from "@/variables";
 interface Props {
   isOpen: boolean;
   setIsOpen: any;
@@ -13,7 +14,7 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
   const [staffList, setStaffList] = useState<any>([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:8888/categories/`)
+      .get(`${BASE_URL}/categories/`)
       .then((res) => {
         console.log("miodal==>", res.data.cats);
         setCatList(res.data.cats);
@@ -22,7 +23,7 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
         console.log("err", err);
       });
     axios
-      .get(`http://localhost:8888/business/`)
+      .get(`h${BASE_URL}/business/`)
       .then((res) => {
         setBusinessList(res.data.business);
       })
@@ -30,7 +31,7 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
         console.log("err", err);
       });
     axios
-      .get(`http://localhost:8888/staffs/`)
+      .get(`${BASE_URL}/staffs/`)
       .then((res) => {
         setStaffList(res.data.staffs);
       })
@@ -38,7 +39,7 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
         console.log("err", err);
       });
     axios
-      .get(`http://localhost:8888/services/`)
+      .get(`${BASE_URL}/services/`)
       .then((res) => {
         setServiceList(res.data.services);
       })

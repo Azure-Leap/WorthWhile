@@ -3,6 +3,7 @@ import SideLayout from "@/components/SideLayout";
 import EmptyPayment from "./empty/empty";
 import Payment from "./payment";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 import { AuthContext } from "@/context/authContext";
 
 export default function App() {
@@ -11,7 +12,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8888/users/payments?userId=${user?._id}`)
+      .get(`${BASE_URL}/users/payments?userId=${user?._id}`)
       .then((res) => {
         setPayments(res.data.paymentCards);
       })

@@ -7,8 +7,8 @@ import AddCardIcon from "@mui/icons-material/AddCard";
 import { OrderContext } from "@/context/orderContext";
 import { AuthContext } from "@/context/authContext";
 import dayjs from "dayjs";
-import { UpdateContext } from "@/context/updateContext";
 import { AlertContext } from "@/context/alertContext";
+import { BASE_URL } from "@/variables";
 
 const PaymentModal = () => {
   const [payments, setPayments] = useState([]);
@@ -37,7 +37,7 @@ const PaymentModal = () => {
 
   const createAppointment = async () => {
     try {
-      const res = await axios.post(`http://localhost:8888/appointments`, {
+      const res = await axios.post(`${BASE_URL}/appointments`, {
         services: selectedServices,
         userId: user._id,
         totalPrice,
@@ -52,12 +52,9 @@ const PaymentModal = () => {
   const addOrderToStaff = async () => {
     console.log(staffer);
     try {
-      const res = await axios.put(
-        `http://localhost:8888/staffs/order/${staffer._id}`,
-        {
-          order: dayjs(dateNumber).format("YYYY-MM-DD HH:mm"),
-        }
-      );
+      const res = await axios.put(`${BASE_URL}/staffs/order/${staffer._id}`, {
+        order: dayjs(dateNumber).format("YYYY-MM-DD HH:mm"),
+      });
       const updatedStaff = res.data.staff;
     } catch (err) {
       console.log("addOrderToStaff err", err);
@@ -68,7 +65,7 @@ const PaymentModal = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8888/users/payments?userId=${user?._id}`)
+      .get(`${BASE_URL}/users/payments?userId=${user?._id}`)
       .then((res) => {
         setPayments(res.data.paymentCards);
         setPaymentCard(res.data.paymentCards[0]);

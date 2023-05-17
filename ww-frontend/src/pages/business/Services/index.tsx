@@ -12,6 +12,7 @@ import BusinessLayout from "@/components/BusinessLayout";
 import ServiceModal from "@/components/Modals/ServiceModal";
 import { AuthContext } from "@/context/authContext";
 import { AlertContext } from "@/context/alertContext";
+import { BASE_URL } from "@/variables";
 
 const TableWithPagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,9 +35,7 @@ const TableWithPagination = () => {
   };
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:8888/business/services?businessId=${businessUser?._id}`
-      )
+      .get(`${BASE_URL}/business/services?businessId=${businessUser?._id}`)
       .then((res) => {
         setServices(res.data.services);
       })
@@ -47,7 +46,7 @@ const TableWithPagination = () => {
 
   const deleteHandler = (row: any) => {
     axios
-      .delete(`http://localhost:8888/services/${row?._id}`)
+      .delete(`${BASE_URL}/services/${row?._id}`)
       .then((res) => {
         setMessage(res.data.message);
         setStatus("success");
