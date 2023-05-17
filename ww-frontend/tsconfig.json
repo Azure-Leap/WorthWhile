@@ -30,7 +30,8 @@
     "src/components/Profile/avatar.js",
     "src/components/Profile/Avatar/avatar.tsx",
     "src/components/Profile/Avatar/modal.tsx",
-    "src/pages/test/index.js"
+    "src/pages/test/index.js",
+    "src/pages/business/Appointments/index.jsx"
   ],
   "exclude": ["node_modules"]
 }

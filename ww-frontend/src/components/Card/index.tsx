@@ -8,12 +8,9 @@ interface Props {
 
 const HomeCard = ({ item }: Props) => {
   return (
-    <Link
-      href="/salonlist"
-      className="w-full h-full flex justify-center mt-64 flex-wrap "
-    >
+    <Link href="/salonlist" className="w-full py-[20px] px-[20px]">
       <div
-        className="h-32  w-10/12 bg-cover bg-center opacity-70 rounded-lg text-white text-xl font-medium flex justify-center items-center shadow"
+        className="h-32 w-full  bg-cover bg-center opacity-70 rounded-lg text-white text-xl font-medium flex justify-center items-center shadow text-center"
         style={{
           backgroundImage: `url(${item.BgURL})`,
         }}

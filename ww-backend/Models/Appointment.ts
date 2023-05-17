@@ -5,10 +5,11 @@ const AppointmentSchema = new Schema<IAppointment>({
   services: [
     {
       type: mongoose.Types.ObjectId,
-      ref: "Services",
+      ref: "Service",
       required: true,
     },
   ],
+
   userId: {
     type: mongoose.Types.ObjectId,
     userId: {
@@ -21,6 +22,6 @@ const AppointmentSchema = new Schema<IAppointment>({
   },
 });
 
-const Appointment = model("Appointment", AppointmentSchema);
+const Appointment: any = model("Appointment", AppointmentSchema);
 
 export default Appointment;

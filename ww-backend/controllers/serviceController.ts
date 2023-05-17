@@ -9,11 +9,9 @@ export const getAllServices = async (
 ) => {
   try {
     const { filter } = req.body;
-    //filter: {
-    //   businessId: "bbb",
-    //   categoryId: "kk",
-    // }
-    const services = await Service.find({ filter }).populate("categoryId");
+    const services = await Service.find({ filter })
+      .populate("categoryId")
+      .populate("businessId");
     if (!services) {
       res
         .status(200)
