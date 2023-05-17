@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { BsFilter } from "react-icons/bs";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 import ListNavbar from "@/components/ListNavBar";
 
 export interface IBusiness {
@@ -34,7 +35,7 @@ const SalonList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8888/business/")
+      .get(`${BASE_URL}/business/`)
       .then((res) => {
         setBusinessData(res.data.business);
       })

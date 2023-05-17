@@ -1,47 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import Service from "../Service";
-import axios from "axios";
 import Link from "next/link";
-import { UpdateContext } from "@/context/updateContext";
 import { OrderContext } from "@/context/orderContext";
 
 const SalonCard = ({ businessData }: any) => {
   const { allStaffs, allServices } = useContext(OrderContext);
+
   const servicesByBus = allServices?.filter(
-    (el: any) => el.businessId === businessData._id
+    (el: any) => el.businessId._id === businessData._id
   );
+
   const staffsByBus = allStaffs?.filter(
     (el: any) => el.businessId === businessData._id
   );
 
-  // useEffect(() => {
-  //   // const fetchData = async () => {
-  //   //   const staffers = await updateStaffs(businessData._id);
-  //   //   setStaffs(staffers);
-  //   // };
-  //   // fetchData();
-  //   console.log("saloncard useEff", service);
-  //   axios
-  //     .get(
-  //       `http://localhost:8888/business/services?businessId=${businessData._id}`
-  //     )
-  //     .then((res) => {
-  //       setServicesData(res.data.services);
-  //     })
-  //     .catch((err) => {
-  //       console.log("err", err);
-  //     });
-  //   axios
-  //     .get(
-  //       `http://localhost:8888/business/staffs?businessId=${businessData._id}`
-  //     )
-  //     .then((res) => {
-  //       setStaffs(res.data.staffs);
-  //     })
-  //     .catch((err) => {
-  //       console.log("err", err);
-  //     });
-  // }, []);
   return (
     <div className="w-full h-fit flex gap-3 mb-4 ">
       <Link

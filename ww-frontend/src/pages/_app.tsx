@@ -31,7 +31,7 @@ const theme = createTheme({
 export default function App({ Component, pageProps }: AppProps) {
   // useEffect(() => localStorage.removeItem("user"));
   return (
-    <main className={`${lato.className}`}>
+    <main className={lato.className}>
       <ThemeProvider theme={theme}>
         <AlertProvider>
           <AuthProvider>

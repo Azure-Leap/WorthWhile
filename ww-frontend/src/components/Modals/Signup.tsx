@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 import {
   Avatar,
   Button,
@@ -74,7 +75,7 @@ export default function SignUp({ setIsSign, setOpen }: any) {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:8888/users/signup", {
+      const res = await axios.post(`${BASE_URL}/users/signup`, {
         userName,
         email,
         password,

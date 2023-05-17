@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 import { AuthContext } from "@/context/authContext";
 import { AlertContext } from "@/context/alertContext";
 
@@ -51,7 +52,7 @@ export default function PasswordModal({ handleOpen, handleClose, open }: any) {
     }
     try {
       const res = await axios.put(
-        `http://localhost:8888/users/changePassword/${user._id}`,
+        `${BASE_URL}/users/changePassword/${user._id}`,
         {
           newPassword,
           oldPassword,

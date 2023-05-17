@@ -8,6 +8,7 @@ import EmailAuth from "./email";
 import PasswordAuth from "./password";
 import { FiArrowLeft } from "react-icons/fi";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 
 const BusinessSignUp = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +25,7 @@ const BusinessSignUp = () => {
 
   const signup = async () => {
     try {
-      const res = await axios.post("http://localhost:8888/business/signup", {
+      const res = await axios.post(`${BASE_URL}/business/signup`, {
         businessName,
         email,
         phoneNumber,
