@@ -9,10 +9,11 @@ import {
 import { BiRocket } from "react-icons/bi";
 import axios from "axios";
 import BusinessLayout from "@/components/BusinessLayout";
-import ServiceModal from "@/components/Modals/ServiceModal";
+import StaffModal from "@/components/Modals/StaffModal";
 import { AuthContext } from "@/context/authContext";
 import { AlertContext } from "@/context/alertContext";
 import { BASE_URL } from "@/variables";
+import Image from "next/image";
 
 const Staff = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -119,7 +120,7 @@ const Staff = () => {
             <BiRocket className="w-5 h-5 mr-2" />
             Service
           </button>
-          <ServiceModal
+          <StaffModal
             isOpen={isOpen}
             handleIsOpen={handleIsOpen}
             editData={editData}
@@ -129,11 +130,11 @@ const Staff = () => {
           <thead className="border">
             <tr className="text-sm bg-gray-200">
               <th className=" w-1/12">№</th>
-              <th className=" w-1/3">Ажилтны нэр</th>
+              <th className=" w-1/6">Ажилтны нэр</th>
               <th className=" w-1/6">Ажилтны зураг</th>
               <th className=" w-1/6">Ажилтны тайлбар</th>
-              <th className=" w-2/3">Ажилтны захиалга</th>
-              <th className=" w-2/3">Action</th>
+              <th className=" w-1/6">Ажилтны захиалга</th>
+              <th className=" w-1/6">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -141,24 +142,35 @@ const Staff = () => {
               <tr key={row._id} className="text-center text-xs ">
                 <td className="border px-4 py-2">{id + 1}</td>
                 <td className="border px-4 py-2">{row.stafferName}</td>
-                <td className="border px-4 py-2">{row.staffImg}</td>
+                <td className="border px-4 py-2 flex justify-center">
+                  <Image
+                    src={row.staffImg}
+                    width={100}
+                    height={100}
+                    alt="Staff image"
+                  />
+                </td>
                 <td className="border px-4 py-2">{row.about}</td>
                 <td className="border px-4 py-2">{row.orders}</td>
-                <td className="border text-lg flex justify-evenly ">
-                  <FiEdit
-                    color="green"
-                    className="cursor-pointer"
-                    onClick={() => {
-                      editHandler(row);
-                    }}
-                  />
-                  <FiTrash2
-                    color="red"
-                    className="cursor-pointer"
-                    onClick={() => {
-                      deleteHandler(row);
-                    }}
-                  />
+                <td className="border text-lg flex justify-evenly items-center">
+                  <span>
+                    <FiEdit
+                      color="green"
+                      className="cursor-pointer"
+                      onClick={() => {
+                        editHandler(row);
+                      }}
+                    />
+                  </span>
+                  <span>
+                    <FiTrash2
+                      color="red"
+                      className="cursor-pointer"
+                      onClick={() => {
+                        deleteHandler(row);
+                      }}
+                    />
+                  </span>
                 </td>
               </tr>
             ))}
