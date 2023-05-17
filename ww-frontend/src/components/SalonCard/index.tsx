@@ -43,13 +43,13 @@ const SalonCard = ({ businessData }: any) => {
   //     });
   // }, []);
   return (
-    <div className="w-full bg-white h-fit flex gap-3 mb-4">
+    <div className="w-full h-fit flex gap-3 mb-4 ">
       <Link
         href={`/details/${businessData._id}`}
         style={{
-          minWidth: "40%",
-          maxWidth: "40%",
-          height: "400px",
+          minWidth: "35%",
+          maxWidth: "35%",
+          height: "300px",
           objectFit: "cover",
         }}
       >
@@ -60,8 +60,8 @@ const SalonCard = ({ businessData }: any) => {
           style={{ width: "100%", height: "100%" }}
         />
       </Link>
-      <div className="w-[60%] text-start p-2">
-        <h1 className="text-2xl">{businessData.businessName}</h1>
+      <div className="w-full text-start pl-4">
+        <h1 className="text-2xl font-semibold">{businessData.businessName}</h1>
         <p className="text-sm text-gray-600 my-1">
           {`${businessData.address.district} дүүрэг, 3-р хороо, ${businessData.address.street} гудамж, ${businessData.businessName}`}
         </p>

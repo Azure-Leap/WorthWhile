@@ -1,4 +1,6 @@
-import * as React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AlertContext } from "@/context/alertContext";
+import { AuthContext } from "@/context/authContext";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -14,29 +16,59 @@ import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import axios from "axios";
 
-const CardDetail = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+const CardDetail = ({ handleClose }: any) => {
+  const { user, setUserData } = useContext(AuthContext);
+  const { setMessage, setStatus } = useContext(AlertContext);
+
+  // const [userId, setUserId] = localStorage.getItem("user", JSON.stringify(data));
+  const [ownerName, setOwnerName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiredDate, setExpiredDate] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [bankName, setBankName] = useState("");
+
+  const changeOwnerName = (e: any) => {
+    setOwnerName(e.target.value);
   };
 
-  const [bank, setBank] = React.useState("");
+  const changeCardNumber = (e: any) => {
+    setCardNumber(e.target.value);
+  };
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setBank(event.target.value as string);
+  const changeExpiredDate = (e: any) => {
+    setExpiredDate(e.target.value);
+  };
+
+  const changeCvv = (e: any) => {
+    setCvv(e.target.value);
+  };
+
+  const changeBank = (event: SelectChangeEvent) => {
+    setBankName(event.target.value as string);
   };
 
   const addPayment = async () => {
     try {
-      const res = await axios.post("");
+      const res = await axios.post(`http://localhost:8888/payments`, {
+        userId: user._id,
+        ownerName,
+        cardNumber,
+        expiredDate,
+        cvv,
+        bankName,
+      });
+      // setUserData(res.data.user);
+      console.log(res);
+      setMessage(res.data.message);
+      setStatus("success");
+      handleClose();
     } catch (error) {
-      console.log("Error", error);
+      setStatus("error");
+      setMessage("err", error);
+      console.log("aldaa", error);
     }
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -50,7 +82,7 @@ const CardDetail = () => {
         <Typography component="h1" variant="h5">
           Add Your Payment Card
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -60,6 +92,8 @@ const CardDetail = () => {
                 label="Name"
                 name="name"
                 autoComplete="name"
+                value={ownerName}
+                onChange={changeOwnerName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -70,13 +104,13 @@ const CardDetail = () => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={bank}
+                  value={bankName}
                   label="Select bank"
-                  onChange={handleChange}
+                  onChange={changeBank}
                 >
-                  <MenuItem value={"Хаан банк"}>Хаан банк</MenuItem>
-                  <MenuItem value={"Голомт банк"}>Голомт банк</MenuItem>
-                  <MenuItem value={"Хас банк"}>Хас банк</MenuItem>
+                  <MenuItem value={"Khaan bank"}>Хаан банк</MenuItem>
+                  <MenuItem value={"Golomt bank"}>Голомт банк</MenuItem>
+                  <MenuItem value={"Khas bank"}>Хас банк</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -88,6 +122,8 @@ const CardDetail = () => {
                 label="Card Number"
                 name="card-number"
                 autoComplete="card-number"
+                value={cardNumber}
+                onChange={changeCardNumber}
                 inputProps={{ maxLength: 16 }}
               />
             </Grid>
@@ -99,6 +135,8 @@ const CardDetail = () => {
                 label="Expires(MM/YY)"
                 name="expires"
                 autoComplete="expires"
+                value={expiredDate}
+                onChange={changeExpiredDate}
               />
             </Grid>
             <Grid item xs={12}>
@@ -110,6 +148,8 @@ const CardDetail = () => {
                 type="cvv"
                 id="cvv"
                 autoComplete="cvv"
+                value={cvv}
+                onChange={changeCvv}
                 inputProps={{ maxLength: 3 }}
               />
             </Grid>
@@ -121,7 +161,6 @@ const CardDetail = () => {
             </Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             sx={{
@@ -133,7 +172,9 @@ const CardDetail = () => {
                 bgcolor: "green",
               },
             }}
-            onClick={addPayment}
+            onClick={() => {
+              addPayment();
+            }}
           >
             Add Cart
           </Button>

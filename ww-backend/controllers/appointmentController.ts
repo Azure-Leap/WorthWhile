@@ -8,7 +8,7 @@ export const getAllAppointments = async (
   next: NextFunction
 ) => {
   try {
-    const appointments = await Appointment.find();
+    const appointments = await Appointment.find().populate("services");
     if (!appointments) {
       res.status(400).json({ message: "Уулзалт хоосон байна." });
     }

@@ -1,34 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { IoSearch, IoLocationSharp } from "react-icons/io5";
 
-const SearchComponent = ({ onChangeText, search, setIsOpen }: any) => {
+const SearchComponent = ({ onChangeText, search }: any) => {
   return (
-    <div className="bg-white py-1 px-4 rounded-full shadow-md flex items-center justify-between">
-      <div className="relative w-full">
+    <div className="border border-gray-600 py-1 px-2 rounded-lg flex items-center justify-between">
+      <div className="relative w-full border-r border-gray-600">
         <input
           onChange={onChangeText}
           type="text"
           value={search}
           placeholder="Find a service or salon"
-          className=" py-2 pl-10 pr-3 text-gray-700 placeholder-gray-400 appearance-none focus:outline-none focus:border-transparent"
+          className=" py-2 pl-8 pr-3 text-gray-400 placeholder-gray-400 placeholder:text-sm placeholder:font-medium appearance-none focus:outline-none focus:border-transparent bg-transparent text-sm font-medium"
         />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-          <IoSearch className="w-5 h-5 text-gray-400" />
+        <div className="absolute inset-y-0 left-0 flex items-center pl-1">
+          <IoSearch className="w-4 h-4 text-gray-400" />
         </div>
       </div>
       <div className="relative ml-4 w-full">
         <input
           type="text"
           placeholder="Select a location"
-          className="w-72 py-2 pl-10 pr-3 text-gray-700 placeholder-gray-400 appearance-none focus:outline-none focus:border-transparent"
+          className="py-2 pl-8 pr-3 text-gray-400 placeholder-gray-400 appearance-none focus:outline-none focus:border-transparent bg-transparent placeholder:text-sm placeholder:font-medium text-sm font-medium"
         />
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-          <IoLocationSharp className="w-5 h-5 text-gray-700" />
+        <div className="absolute inset-y-0 left-0 flex items-center pl-1">
+          <IoLocationSharp className="w-4 h-4 text-gray-400" />
         </div>
       </div>
-      <button className="ml-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-6 rounded-3xl">
-        Search
-      </button>
     </div>
   );
 };

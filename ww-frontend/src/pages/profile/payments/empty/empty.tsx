@@ -35,20 +35,6 @@ const EmptyPayment = () => {
           add button
         </Button>
       </div>
-      <div>
-        <h4>PAYMENT HISTORY</h4>
-        <div className="my-10">
-          <img
-            src="/image/profile/receipts.png"
-            alt="review"
-            className="w-1/6 h-1/6 mx-auto"
-          />
-          <h2 className="text-xl text-center my-5 ">Your Receipts</h2>
-          <p className=" text-xl text-center text-gray-700">
-            Your completed transactions will appear here
-          </p>
-        </div>
-      </div>
       <BasicModal
         open={open}
         handleClose={handleClose}

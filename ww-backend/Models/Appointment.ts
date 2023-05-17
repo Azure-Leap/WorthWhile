@@ -9,6 +9,7 @@ const AppointmentSchema = new Schema({
       required: true,
     },
   ],
+
   userId: {
     type: mongoose.Types.ObjectId,
     ref: "User",
@@ -19,6 +20,6 @@ const AppointmentSchema = new Schema({
   startDate: Date,
 });
 
-const Appointment = model("Appointment", AppointmentSchema);
+const Appointment: any = model("Appointment", AppointmentSchema);
 
 export default Appointment;
