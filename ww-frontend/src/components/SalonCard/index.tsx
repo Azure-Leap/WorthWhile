@@ -1,34 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Service from "../Service";
 import axios from "axios";
 import Link from "next/link";
+import { UpdateContext } from "@/context/updateContext";
+import { OrderContext } from "@/context/orderContext";
 
 const SalonCard = ({ businessData }: any) => {
-  const [servicesData, setServicesData] = useState([]);
-  const [staffs, setStaffs] = useState([]);
-  useEffect(() => {
-    axios
-      .get(
-        `http://localhost:8888/business/services?businessId=${businessData._id}`
-      )
-      .then((res) => {
-        setServicesData(res.data.services);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-    axios
-      .get(
-        `http://localhost:8888/business/staffs?businessId=${businessData._id}`
-      )
-      .then((res) => {
-        setStaffs(res.data.staffs);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  }, []);
+  const { allStaffs, allServices } = useContext(OrderContext);
+  const servicesByBus = allServices?.filter(
+    (el: any) => el.businessId === businessData._id
+  );
+  const staffsByBus = allStaffs?.filter(
+    (el: any) => el.businessId === businessData._id
+  );
 
+  // useEffect(() => {
+  //   // const fetchData = async () => {
+  //   //   const staffers = await updateStaffs(businessData._id);
+  //   //   setStaffs(staffers);
+  //   // };
+  //   // fetchData();
+  //   console.log("saloncard useEff", service);
+  //   axios
+  //     .get(
+  //       `http://localhost:8888/business/services?businessId=${businessData._id}`
+  //     )
+  //     .then((res) => {
+  //       setServicesData(res.data.services);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err", err);
+  //     });
+  //   axios
+  //     .get(
+  //       `http://localhost:8888/business/staffs?businessId=${businessData._id}`
+  //     )
+  //     .then((res) => {
+  //       setStaffs(res.data.staffs);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err", err);
+  //     });
+  // }, []);
   return (
     <div className="w-full bg-white h-fit flex gap-3 mb-4">
       <Link
@@ -53,15 +66,17 @@ const SalonCard = ({ businessData }: any) => {
           {`${businessData.address.district} дүүрэг, 3-р хороо, ${businessData.address.street} гудамж, ${businessData.businessName}`}
         </p>
 
-        {servicesData.map((el: any, i) => (
-          <Service
-            key={i}
-            business={businessData}
-            service={el}
-            staffs={staffs}
-            services={servicesData}
-          />
-        ))}
+        {servicesByBus?.map((el: any, i: number) => {
+          return (
+            <Service
+              key={i}
+              business={businessData}
+              service={el}
+              staffs={staffsByBus}
+              services={servicesByBus}
+            />
+          );
+        })}
       </div>
     </div>
   );

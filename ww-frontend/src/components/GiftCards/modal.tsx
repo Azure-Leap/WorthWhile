@@ -41,14 +41,18 @@ const GiftCardPaymentModal = ({ open, setOpen, selectedGiftCard }: any) => {
   }, []);
 
   const addGiftcard = async () => {
-    const res = await axios.post(
-      `http://localhost:8888/users/giftcard/${user?._id}`,
-      {
-        giftCard: { ...selectedGiftCard, isUsed: false },
-      }
-    );
-    const updatedUser = res.data.user;
-    setUserData(updatedUser);
+    try {
+      const res = await axios.post(
+        `http://localhost:8888/users/giftcard/${user?._id}`,
+        {
+          giftCard: { ...selectedGiftCard, isUsed: false },
+        }
+      );
+      const updatedUser = res.data.user;
+      setUserData(updatedUser);
+    } catch (err) {
+      console.log("addGiftCard err", err);
+    }
   };
 
   return (

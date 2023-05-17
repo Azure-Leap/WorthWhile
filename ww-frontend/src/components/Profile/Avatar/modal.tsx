@@ -55,13 +55,11 @@ const ImportImage = ({ setAvatarUrl }: any) => {
   const onFileLoad = async (file: any) => {
     const form = new FormData();
     form.append("zurag", file);
-    const res = await axios.post(
-      `http://localhost:8888/zuragUploadHiinee`,
-      form
-    );
-    // setUserData(res.f
-
-    if (res) {
+    try {
+      const res = await axios.post(
+        `http://localhost:8888/zuragUploadHiinee`,
+        form
+      );
       const updateUser = {
         ...user,
         profileImg: res?.data?.path,
@@ -72,6 +70,8 @@ const ImportImage = ({ setAvatarUrl }: any) => {
         updateUser
       );
       setUserData(res2.data.user);
+    } catch (err) {
+      console.log("err", err);
     }
   };
 

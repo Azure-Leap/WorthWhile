@@ -20,19 +20,21 @@ const BookModal = () => {
     selectedServices,
     setSelectedServices,
     service,
-    staffer,
-    setDateNumber,
+    setService,
     dateNumber,
+    setDateNumber,
     times,
     dateS,
     changeDate,
     day,
     setDay,
+    staffer,
     setStaffer,
+    setSelectedGiftcard,
   } = useContext(OrderContext);
   const [index, setIndex] = useState(0);
 
-  const duration = selectedServices.reduce((total: any, el: any) => {
+  const totalDuration = selectedServices.reduce((total: any, el: any) => {
     return total + el.duration;
   }, 0);
   const totalPrice = selectedServices.reduce((total: any, el: any) => {
@@ -64,9 +66,9 @@ const BookModal = () => {
             onClick={() => {
               setOpen(false);
               setStaffer(null);
-              setDateNumber(null);
-              setDay(dateS[0]);
               setSelectedServices([]);
+              setService(null);
+              setSelectedGiftcard(null);
             }}
             sx={{
               position: "absolute",
@@ -322,7 +324,7 @@ const BookModal = () => {
                 </Typography>
               </Box>
               <Typography sx={{ fontSize: "14px", color: "grey" }}>
-                {duration}min
+                {totalDuration}min
               </Typography>
             </Box>
             <Button

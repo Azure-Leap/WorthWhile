@@ -15,14 +15,12 @@ const tangerine = Tangerine({
 });
 
 const ConfirmModal = () => {
-  const [giftcard, setGiftcard] = useState(null);
-  const [selectedGiftcard, setSelectedGiftCard] = useState(null);
   const {
     setOpen,
     setModal,
     dateNumber,
     selectedServices,
-    services,
+    setService,
     business,
     staffer,
     setStaffer,
@@ -30,6 +28,8 @@ const ConfirmModal = () => {
     setDay,
     setSelectedServices,
     dateS,
+    setSelectedGiftcard,
+    selectedGiftcard,
   } = useContext(OrderContext);
   const { user } = useContext(AuthContext);
 
@@ -42,7 +42,7 @@ const ConfirmModal = () => {
   }, 0);
   const startTime = dayjs(dateNumber).format("HH:mm A");
   const endTime = dayjs(dateNumber + duration * 60 * 1000).format("HH:mm A");
-  const duratn = `${Math.floor(duration / 60)}h ${duration % 60}min`;
+  const totalDuration = `${Math.floor(duration / 60)}h ${duration % 60}min`;
   const totalPrice = selectedServices.reduce((total: any, el: any) => {
     return total + el.servicePrice.price;
   }, 0);
@@ -75,9 +75,9 @@ const ConfirmModal = () => {
               setOpen(false);
               setModal("BookModal");
               setStaffer(null);
-              setDateNumber(null);
-              setDay(dateS[0]);
               setSelectedServices([]);
+              setService(null);
+              setSelectedGiftcard(null);
             }}
             sx={{
               position: "absolute",
@@ -94,7 +94,7 @@ const ConfirmModal = () => {
       >{`${weekday}, ${month} ${day} ${year}`}</Typography>
       <Typography
         sx={{ fontSize: "20px", textAlign: "center" }}
-      >{`${startTime} - ${endTime} (${duratn})`}</Typography>
+      >{`${startTime} - ${endTime} (${totalDuration})`}</Typography>
       <Typography
         sx={{
           textAlign: "center",
@@ -156,7 +156,7 @@ const ConfirmModal = () => {
         </Box>
       </Box>
       <Box sx={{ marginTop: "30px" }}>
-        <Typography sx={{ fontSize: "20px" }}>Choose Gift Card</Typography>
+        <Typography sx={{ fontSize: "20px" }}>Use Gift Card</Typography>
         {user.giftCards.length === 0 ? (
           <Box
             sx={{
@@ -179,65 +179,91 @@ const ConfirmModal = () => {
             </Typography>
           </Box>
         ) : (
-          <Box
-            sx={{
-              margin: "20px 0",
-              display: "flex",
-            }}
-          >
-            {user.giftCards.map((giftcard: any, i: any) => (
-              <Box
-                key={i}
-                sx={{
-                  width: "340px",
-                  height: "215px",
-                  objectFit: "contain",
-                  borderRadius: "10px",
-                  overflow: "hidden",
-                  position: "relative",
-                  zoom: 0.7,
-                  marginRight: "40px",
-                }}
-              >
-                <Image
-                  width={2000}
-                  height={2000}
-                  alt="zurag"
-                  src={giftcard?.image}
-                  className="h-full w-full"
-                />
+          <Box>
+            <Box
+              sx={{
+                marginTop: "20px",
+                display: "flex",
+                flexWrap: "wrap",
+              }}
+            >
+              {user.giftCards.map((giftcard: any, i: any) => (
                 <Box
+                  onClick={() => {
+                    if (selectedGiftcard == giftcard) {
+                      setSelectedGiftcard(null);
+                    } else {
+                      setSelectedGiftcard(giftcard);
+                    }
+                  }}
+                  key={i}
                   sx={{
-                    position: "absolute",
-                    top: "50%",
-                    right: "50%",
-                    transform: "translate(50% ,-50%)",
+                    marginBottom: "30px",
+                    cursor: "pointer",
+                    width: "340px",
+                    height: "215px",
+                    objectFit: "contain",
+                    borderRadius: "10px",
+                    overflow: "hidden",
+                    position: "relative",
+                    zoom: 0.7,
+                    marginRight: "40px",
+                    boxShadow:
+                      selectedGiftcard == giftcard
+                        ? "0 0 15px 1px rgba(0, 0, 0, 0.5)"
+                        : "none",
+                    border:
+                      selectedGiftcard == giftcard
+                        ? "5px solid rgb(6 182 212)"
+                        : "none",
                   }}
                 >
-                  <p
-                    className={`${tangerine.className}`}
-                    style={{
-                      fontSize: "40px",
-                      color: "rgb(163 68 113)",
-                      textAlign: "center",
+                  <Image
+                    width={2000}
+                    height={2000}
+                    alt="zurag"
+                    src={giftcard?.image}
+                    className="h-full w-full"
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      right: "50%",
+                      transform: "translate(50% ,-50%)",
                     }}
                   >
-                    {giftcard.businessId?.businessName}
-                  </p>
-                  <p
-                    className={`${tangerine.className}`}
-                    style={{
-                      zoom: 5,
-                      color: "rgb(163 68 113)",
-                      textAlign: "center",
-                      lineHeight: "10px",
-                    }}
-                  >
-                    {giftcard.amount},000
-                  </p>
+                    <p
+                      className={`${tangerine.className}`}
+                      style={{
+                        fontSize: "40px",
+                        color: "rgb(163 68 113)",
+                        textAlign: "center",
+                      }}
+                    >
+                      {giftcard.businessId?.businessName}
+                    </p>
+                    <p
+                      className={`${tangerine.className}`}
+                      style={{
+                        zoom: 5,
+                        color: "rgb(163 68 113)",
+                        textAlign: "center",
+                        lineHeight: "10px",
+                      }}
+                    >
+                      {giftcard.amount},000
+                    </p>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
+              ))}
+            </Box>
+            <Typography
+              sx={{ fontSize: "12px", color: "grey", marginBottom: "20px" }}
+            >
+              Та сонгосон бэлгийн картаа зөвхөн нэг удаагийн захиалгад ашиглах
+              боломжтойг анхаарна уу!
+            </Typography>
           </Box>
         )}
       </Box>
@@ -246,19 +272,49 @@ const ConfirmModal = () => {
           width: "100%",
           position: "sticky",
           bottom: 0,
-          right: 0,
+          left: 0,
           backgroundColor: "white",
           paddingBottom: "3rem",
         }}
       >
         <hr style={{ borderTop: "1px solid #E6E5E5" }} />
-        <Box sx={{ textAlign: "end", padding: "20px 0" }}>
-          <Typography sx={{ fontSize: "14px", color: "grey" }}>
-            Total to pay
-          </Typography>
-          <Typography sx={{ fontSize: "30px", fontWeight: "medium" }}>
-            {isMinPrice ? "₮" + totalPrice + "+" : "₮" + totalPrice}
-          </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: selectedGiftcard ? "space-between" : "end",
+            alignItems: "center",
+          }}
+        >
+          <Box sx={{ display: selectedGiftcard ? "block" : "none" }}>
+            <Typography sx={{ fontSize: "14px", color: "grey" }}>
+              Total Price - Giftcard Amount
+            </Typography>
+            <Typography sx={{ fontSize: "14px", color: "grey" }}>
+              {totalPrice} - {selectedGiftcard?.amount}000
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: "end", padding: "20px 0" }}>
+            <Typography sx={{ fontSize: "14px", color: "grey" }}>
+              Total to pay
+            </Typography>
+            <Typography sx={{ fontSize: "30px", fontWeight: "medium" }}>
+              {selectedGiftcard
+                ? isMinPrice
+                  ? `₮${
+                      totalPrice - selectedGiftcard.amount * 1000 > 0
+                        ? totalPrice - selectedGiftcard.amount * 1000
+                        : 0
+                    }+`
+                  : `₮${
+                      totalPrice - selectedGiftcard.amount * 1000 > 0
+                        ? totalPrice - selectedGiftcard.amount * 1000
+                        : 0
+                    }`
+                : isMinPrice
+                ? "₮" + totalPrice + "+"
+                : "₮" + totalPrice}
+            </Typography>
+          </Box>
         </Box>
         <Button
           className="bg-cyan-500"

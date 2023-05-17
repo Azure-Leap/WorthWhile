@@ -9,7 +9,7 @@ import AlertComponent from "@/components/Alert";
 import Layout from "@/components/layout";
 import OrderComponent from "@/components/Order";
 import { green, purple } from "@mui/material/colors";
-import { useEffect } from "react";
+import UpdateProvider from "@/context/updateContext";
 
 const lato = Montserrat({
   subsets: ["latin"],
@@ -37,13 +37,15 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <AlertProvider>
           <AuthProvider>
-            <OrderProvider>
-              <Layout>
-                <AlertComponent />
-                <Component {...pageProps} />
-                <OrderComponent />
-              </Layout>
-            </OrderProvider>
+            <UpdateProvider>
+              <OrderProvider>
+                <Layout>
+                  <AlertComponent />
+                  <Component {...pageProps} />
+                  <OrderComponent />
+                </Layout>
+              </OrderProvider>
+            </UpdateProvider>
           </AuthProvider>
         </AlertProvider>
       </ThemeProvider>

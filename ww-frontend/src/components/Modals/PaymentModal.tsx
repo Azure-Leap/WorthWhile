@@ -6,14 +6,65 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import { OrderContext } from "@/context/orderContext";
 import { AuthContext } from "@/context/authContext";
+import dayjs from "dayjs";
+import { UpdateContext } from "@/context/updateContext";
+import { AlertContext } from "@/context/alertContext";
 
 const PaymentModal = () => {
   const [payments, setPayments] = useState([]);
-  const [giftcards, setGiftcards] = useState([]);
   const [paymentCard, setPaymentCard] = useState(null);
-  const [giftCard, setGiftCard] = useState(null);
-  const { setOpen, setModal } = useContext(OrderContext);
+  const {
+    setOpen,
+    setModal,
+    setService,
+    setSelectedGiftcard,
+    selectedServices,
+    dateNumber,
+    staffer,
+    setStaffer,
+    staffs,
+    setSelectedServices,
+  } = useContext(OrderContext);
   const { user } = useContext(AuthContext);
+  const { setMessage, setStatus } = useContext(AlertContext);
+
+  const totalDuration = selectedServices.reduce((total: any, el: any) => {
+    return total + el.duration;
+  }, 0);
+  const totalPrice = selectedServices.reduce((total: any, el: any) => {
+    return total + el.servicePrice.price;
+  }, 0);
+
+  const createAppointment = async () => {
+    try {
+      const res = await axios.post(`http://localhost:8888/appointments`, {
+        services: selectedServices,
+        userId: user._id,
+        totalPrice,
+        totalDuration,
+        startDate: dateNumber,
+      });
+      const appointment = res.data.appointment;
+    } catch (err) {
+      console.log("createAppointment err", err);
+    }
+  };
+  const addOrderToStaff = async () => {
+    console.log(staffer);
+    try {
+      const res = await axios.put(
+        `http://localhost:8888/staffs/order/${staffer._id}`,
+        {
+          order: dayjs(dateNumber).format("YYYY-MM-DD HH:mm"),
+        }
+      );
+      const updatedStaff = res.data.staff;
+    } catch (err) {
+      console.log("addOrderToStaff err", err);
+    } finally {
+      setService(null);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -25,6 +76,16 @@ const PaymentModal = () => {
       .catch((err) => {
         console.log("err", err);
       });
+
+    if (!staffer) {
+      const isAvailable = (staff: any) => {
+        return !staff.orders.includes(
+          dayjs(dateNumber).format("YYYY-MM-DD HH:mm")
+        );
+      };
+      const availableStaffs = staffs.filter(isAvailable);
+      setStaffer(availableStaffs[0]);
+    }
   }, []);
 
   return (
@@ -32,7 +93,9 @@ const PaymentModal = () => {
       <Box sx={{ position: "relative", marginTop: "-15px" }}>
         <button>
           <ArrowBackIosIcon
-            onClick={() => setModal("ConfirmModal")}
+            onClick={() => {
+              setModal("ConfirmModal");
+            }}
             sx={{ position: "absolute", top: "5px", left: "-20px" }}
           />
         </button>
@@ -50,6 +113,10 @@ const PaymentModal = () => {
           onClick={() => {
             setOpen(false);
             setModal("BookModal");
+            setService(null);
+            setSelectedGiftcard(null);
+            setStaffer(null);
+            setSelectedServices([]);
           }}
         >
           <CloseIcon
@@ -158,6 +225,20 @@ const PaymentModal = () => {
               }}
             >
               <Button
+                onClick={() => {
+                  createAppointment();
+                  addOrderToStaff();
+
+                  setSelectedServices([]);
+                  setStaffer(null);
+
+                  setOpen(false);
+                  setModal("BookModal");
+
+                  setMessage("Amjilttai zahiallaa");
+                  setStatus("success");
+                  // removeGiftcard();
+                }}
                 className="bg-cyan-500"
                 variant="contained"
                 sx={{

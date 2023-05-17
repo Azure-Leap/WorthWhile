@@ -8,7 +8,7 @@ export const getAllStaffs = async (
   next: NextFunction
 ) => {
   try {
-    const staffs: any = await Staffer.find().populate("businessId");
+    const staffs: any = await Staffer.find();
 
     if (!staffs) {
       res.status(200).json({ message: "Үсчдийн мэдээлэл хоосон байна." });
@@ -99,6 +99,31 @@ export const deleteStaff = async (
       res.status(400).json({ message: `${id} ID-тэй үсчин олдсонгүй.` });
     }
     res.status(200).json({ message: `${id} IDтэй үсчин устгагдлаа`, staff });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addOrder = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ message: `ID хоосон байна` });
+  }
+  try {
+    const staff = await Staffer.findById(id);
+    if (!staff) {
+      return res.status(400).json({ message: `${id} ID-тэй үсчин олдсонгүй.` });
+    }
+    staff.orders.push(req.body.order);
+    await staff?.save();
+    res.status(200).json({
+      message: `${id} IDтай үсчний мэдээлэл шинэчлэгдлээ`,
+      staff,
+    });
   } catch (error) {
     next(error);
   }

@@ -18,28 +18,35 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
 
   const { user, setUserData } = useContext(AuthContext);
 
-  const handleAdd = async (id: string) => {
-    const res = await axios.post(
-      `http://localhost:8888/users/favorites/${user?._id}`,
-      {
-        favoriteId: id,
-      }
-    );
+  const addFavorite = async (id: string) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:8888/users/favorites/${user?._id}`,
+        {
+          favoriteId: id,
+        }
+      );
 
-    const updatedUser = res.data.user;
-    setUserData(updatedUser);
-    console.log("ADD", res);
+      const updatedUser = res.data.user;
+      setUserData(updatedUser);
+    } catch (err) {
+      console.log("addFavorite err", err);
+    }
   };
-  const handleRemove = async (id: string) => {
-    const res = await axios.put(
-      `http://localhost:8888/users/favorites/${user?._id}`,
-      {
-        favoriteId: id,
-      }
-    );
-    const updatedUser = res.data.user;
-    setUserData(updatedUser);
-    console.log("REM", id);
+
+  const removeFavorite = async (id: string) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:8888/users/favorites/${user?._id}`,
+        {
+          favoriteId: id,
+        }
+      );
+      const updatedUser = res.data.user;
+      setUserData(updatedUser);
+    } catch (err) {
+      console.log("removeFavorite err", err);
+    }
   };
 
   return (
@@ -79,7 +86,7 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
             (user?.favorites?.includes(business._id) ? (
               <FavoriteIcon
                 sx={{ zoom: 1.8, color: "#DC3535" }}
-                onClick={() => handleRemove(business._id)}
+                onClick={() => removeFavorite(business._id)}
               />
             ) : (
               <FavoriteBorderIcon
@@ -88,7 +95,7 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
                   color: "#C3C2C2",
                   "&:hover": { color: "#DC3535" },
                 }}
-                onClick={() => handleAdd(business._id)}
+                onClick={() => addFavorite(business._id)}
               />
             ))}
         </Box>
