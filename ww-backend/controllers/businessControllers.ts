@@ -5,6 +5,8 @@ import Business from "../Models/BusinesModel";
 import Staffer from "../Models/StaffModel";
 import Service from "../Models/ServiceModel";
 import GiftCard from "../Models/GiftCardModel";
+import Appointment from "../Models/Appointment";
+import path from "path";
 
 const getAllBusiness = async (
   req: Request,
@@ -205,6 +207,34 @@ export const getGiftCardsByBusinessId = async (
       res.status(200).json({ message: "Картуудын мэдээлэл хоосон байна." });
     }
     res.status(200).json({ message: "Картуудын мэдээлэл олдлоо.", giftCards });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const AppointmentByBusinessId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { businessId } = req.query;
+    console.log(businessId);
+    const serviceDoc = await Service.findOne({
+      businessId,
+    });
+    const appointments = await Appointment.find({
+      services: { $in: serviceDoc?._id },
+    }).populate("services");
+
+    // []
+    if (appointments && appointments.length === 0) {
+      res.status(200).json({ message: "Захиалгын мэдээлэл хоосон байна." });
+      return;
+    }
+    res
+      .status(200)
+      .json({ message: "Захиалгын мэдээлэл олдлоо.", appointments });
   } catch (error) {
     next(error);
   }
