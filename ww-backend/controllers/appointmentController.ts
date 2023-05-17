@@ -45,13 +45,14 @@ export const createAppointment = async (
   next: NextFunction
 ) => {
   try {
-    const { services, userId, totalPrice, startTime }: IAppointment = req.body;
+    const { services, userId, totalPrice, totalDuration, startDate } = req.body;
 
     const appointment = await Appointment.create({
       services,
       userId,
       totalPrice,
-      startTime,
+      totalDuration,
+      startDate,
     });
     res.status(201).json({ message: "Амжилттай бүртгэгдлээ.", appointment });
   } catch (error) {

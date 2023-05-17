@@ -30,6 +30,7 @@ const ChooseStaffer = () => {
           onClick={() => {
             setOpen(false);
             setModal("BookModal");
+            setStaffer(null);
           }}
           sx={{ position: "absolute", top: "5px", right: "-15px" }}
         />

@@ -14,7 +14,7 @@ const UserSchema = new Schema({
       "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
   },
   phoneNumber: { type: String, required: true },
-  favorites: [{ type: Types.ObjectId, ref: "Business", required: true }],
+  favorites: [{ type: Types.ObjectId, ref: "Business" }],
   giftCards: [Object],
   isVerify: { type: Boolean, default: false },
 });

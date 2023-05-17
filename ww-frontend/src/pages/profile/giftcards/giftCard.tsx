@@ -20,59 +20,60 @@ const GiftCard = ({ apps }: any) => {
         <h1 className="text-2xl ">Gift Cards</h1>
       </div>
       <div>
-        {apps.map((app: any, i: number) => (
-          <Box
-            key={i}
-            sx={{
-              width: "340px",
-              height: "215px",
-              objectFit: "contain",
-              borderRadius: "10px",
-              overflow: "hidden",
-              position: "relative",
-              margin: "30px 0",
-            }}
-          >
-            <Image
-              width={2000}
-              height={2000}
-              alt="zurag"
-              src={app?.image}
-              className="h-full w-full"
-              priority
-            />
+        {apps &&
+          apps.map((app: any, i: number) => (
             <Box
+              key={i}
               sx={{
-                position: "absolute",
-                top: "50%",
-                right: "50%",
-                transform: "translate(50% ,-50%)",
+                width: "340px",
+                height: "215px",
+                objectFit: "contain",
+                borderRadius: "10px",
+                overflow: "hidden",
+                position: "relative",
+                margin: "30px 0",
               }}
             >
-              <p
-                className={`${tangerine.className}`}
-                style={{
-                  fontSize: "40px",
-                  color: "rgb(163 68 113)",
-                  textAlign: "center",
+              <Image
+                width={2000}
+                height={2000}
+                alt="zurag"
+                src={app?.image}
+                className="h-full w-full"
+                priority
+              />
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  right: "50%",
+                  transform: "translate(50% ,-50%)",
                 }}
               >
-                {app.businessId?.businessName}
-              </p>
-              <p
-                className={`${tangerine.className}`}
-                style={{
-                  zoom: 5,
-                  color: "rgb(163 68 113)",
-                  textAlign: "center",
-                  lineHeight: "10px",
-                }}
-              >
-                {app.amount},000
-              </p>
+                <p
+                  className={`${tangerine.className}`}
+                  style={{
+                    fontSize: "40px",
+                    color: "rgb(163 68 113)",
+                    textAlign: "center",
+                  }}
+                >
+                  {app.businessId?.businessName}
+                </p>
+                <p
+                  className={`${tangerine.className}`}
+                  style={{
+                    zoom: 5,
+                    color: "rgb(163 68 113)",
+                    textAlign: "center",
+                    lineHeight: "10px",
+                  }}
+                >
+                  {app.amount},000
+                </p>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
       </div>
     </div>
   );

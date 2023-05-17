@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from "mongoose";
 import { IAppointment } from "../interfaces";
 
-const AppointmentSchema = new Schema<IAppointment>({
+const AppointmentSchema = new Schema({
   services: [
     {
       type: mongoose.Types.ObjectId,
@@ -12,14 +12,12 @@ const AppointmentSchema = new Schema<IAppointment>({
 
   userId: {
     type: mongoose.Types.ObjectId,
-    userId: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    totaPrice: Number,
-    startTime: Date,
+    ref: "User",
+    required: true,
   },
+  totalPrice: Number,
+  totalDuration: Number,
+  startDate: Date,
 });
 
 const Appointment: any = model("Appointment", AppointmentSchema);

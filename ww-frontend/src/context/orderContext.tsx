@@ -1,21 +1,25 @@
 import { useState, createContext, useEffect } from "react";
 import dayjs from "dayjs";
+import axios from "axios";
 
 export const OrderContext = createContext<any>(null);
 
 const OrderProvider = ({ children }: any) => {
-  const [services, setServices] = useState([]);
-  const [selectedServices, setSelectedServices] = useState([]);
-  const [service, setService] = useState(null);
-  const [staffs, setStaffs] = useState([]) as any;
-  const [staffer, setStaffer] = useState(null) as any;
+  const [services, setServices] = useState([]); //tuhain salonii buh uilchilgeenvvd
+  const [selectedServices, setSelectedServices] = useState([]); //uilchluulegchiin songoson uilchilgeenuud
+  const [service, setService] = useState(null); //anhnii book towch darj songoson uilchilgee
+  const [allServices, setAllServices] = useState(null); //Services collectionii buh uilchilgee
+  const [allStaffs, setAllStaffs] = useState([]) as any; //Staffs collectionii buh uschin
+  const [staffs, setStaffs] = useState([]) as any; //tuhain salonii uschid
+  const [staffer, setStaffer] = useState(null) as any; //uilchluulegchiin songoson uschin
   const [business, setBusiness] = useState<any>(null);
-  const [dateNumber, setDateNumber] = useState(null);
+  const [dateNumber, setDateNumber] = useState(null); //songogdson tsag number helbereer
   const [day, setDay] = useState<any>(null);
   const [modal, setModal] = useState("BookModal");
   const [open, setOpen] = useState(false);
-  const [times, setTimes] = useState([]);
+  const [times, setTimes] = useState([]); //
   const [dateS, setDates] = useState<any>([]);
+  const [selectedGiftcard, setSelectedGiftcard] = useState(null);
 
   const getTimes = (date: Date, start: any, end: any) => {
     const arr: any = [];
@@ -29,14 +33,11 @@ const OrderProvider = ({ children }: any) => {
       const resultFormat = dayjs(result).format("YYYY-MM-DD HH:mm");
 
       if (staffer) {
-        console.log("staffer songogdson", staffer.stafferName);
-        console.log("SO", staffer.orders);
-        console.log("result", resultFormat);
         if (!staffer.orders.includes(resultFormat)) {
           arr.push(result);
         }
       } else {
-        staffs.map((staff: any) => {
+        staffs?.map((staff: any) => {
           if (!staff.orders.includes(resultFormat) && !arr.includes(result)) {
             arr.push(result);
           }
@@ -102,6 +103,20 @@ const OrderProvider = ({ children }: any) => {
     changeDateByStaffer(dateNumber);
   }, [staffer]);
 
+  useEffect(() => {
+    const getAllServices = async () => {
+      const res = await axios.get(`http://localhost:8888/services`);
+      setAllServices(res.data.services);
+    };
+    getAllServices();
+    const getAllStaffs = async () => {
+      const res = await axios.get(`http://localhost:8888/staffs`);
+      setAllStaffs(res.data.staffs);
+    };
+
+    getAllStaffs();
+  }, [service]);
+
   return (
     <OrderContext.Provider
       value={{
@@ -128,6 +143,12 @@ const OrderProvider = ({ children }: any) => {
         setService,
         selectedServices,
         setSelectedServices,
+        selectedGiftcard,
+        setSelectedGiftcard,
+        allServices,
+        setAllServices,
+        allStaffs,
+        setAllStaffs,
       }}
     >
       {children}

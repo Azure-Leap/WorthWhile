@@ -11,8 +11,8 @@ const Appointments = () => {
   const { businessUser, setBusinessUser } = useContext(AuthContext);
   const { setMessage, setStatus } = useContext(AlertContext);
 
-  console.log("BusinessUser===>", businessUser._id);
-  const id = businessUser?._id;
+  // console.log("BusinessUser===>", businessUser._id);
+  // const id = businessUser?._id;
 
   const [appointments, setAppointments] = useState();
   useEffect(() => {
@@ -27,7 +27,8 @@ const Appointments = () => {
       .catch((err) => {
         console.log("err", err);
       });
-  }, [id]);
+  }, [businessUser]);
+
   return (
     <BusinessLayout>
       <div>

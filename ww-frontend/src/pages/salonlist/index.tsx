@@ -10,8 +10,10 @@ export interface IBusiness {
   businessName: String;
   email: String;
   password: String;
+  phoneNumber: String;
+  profileImg: String;
   businessHours: [
-    { day: Number; startTime: Number; endTime: Number; isRestDay: Boolean }
+    { name: String; startTime: String; endTime: String; isOpen: Boolean }
   ];
   address: {
     city: String;

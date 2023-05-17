@@ -13,7 +13,7 @@ const Payment = ({ payments }: any) => {
         <h1 className="text-2xl ">Payments</h1>
       </div>
       <div>
-        {payments.map((payment: any, i: number) => (
+        {payments?.map((payment: any, i: number) => (
           <button
             key={i}
             onClick={() => setPaymentCard(payment)}
