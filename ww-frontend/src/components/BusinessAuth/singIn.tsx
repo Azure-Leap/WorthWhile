@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 import { AuthContext } from "../../context/authContext";
 import { AlertContext } from "../../context/alertContext";
 import { useRouter } from "next/router";
@@ -18,7 +19,7 @@ const BusinessSignIn = ({ setIsSignIn }: any) => {
 
   const signin = async () => {
     try {
-      const res = await axios.post("http://localhost:8888/business/signin", {
+      const res = await axios.post(`${BASE_URL}/business/signin`, {
         email,
         password,
       });

@@ -3,6 +3,7 @@ import SideLayout from "@/components/SideLayout";
 import EmptyFavourite from "./empty";
 import Favourite from "./favourite";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 import { AuthContext } from "@/context/authContext";
 
 interface IFavourite {
@@ -16,9 +17,7 @@ export default function App() {
   const { user } = useContext(AuthContext);
   const getFavs = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:8888/users/favorites/${user._id}`
-      );
+      const res = await axios.get(`${BASE_URL}/users/favorites/${user._id}`);
       setFavorites(res.data.favorites);
     } catch (err) {
       console.log("error uuslee", err);

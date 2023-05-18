@@ -5,6 +5,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "axios";
 import { AuthContext } from "@/context/authContext";
 import { AlertContext } from "@/context/alertContext";
+import { BASE_URL } from "@/variables";
+
 const events = [{ title: "Meeting", start: new Date() }];
 
 const Appointments = () => {
@@ -18,7 +20,7 @@ const Appointments = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8888/business/appointments?businessId=644aad567ede9d3d3d42de83`
+        `${BASE_URL}/business/appointments?businessId=644aad567ede9d3d3d42de83`
       )
       .then((res) => {
         console.log("App data==>", res.data);

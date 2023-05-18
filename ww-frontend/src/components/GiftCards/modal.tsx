@@ -4,6 +4,7 @@ import { AuthContext } from "@/context/authContext";
 import CloseIcon from "@mui/icons-material/Close";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 
 const style = {
   position: "absolute",
@@ -30,7 +31,7 @@ const GiftCardPaymentModal = ({ open, setOpen, selectedGiftCard }: any) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8888/users/payments?userId=${user?._id}`)
+      .get(`${BASE_URL}/users/payments?userId=${user?._id}`)
       .then((res) => {
         setPayments(res.data.paymentCards);
         setPaymentCard(res.data.paymentCards[0]);
@@ -42,12 +43,9 @@ const GiftCardPaymentModal = ({ open, setOpen, selectedGiftCard }: any) => {
 
   const addGiftcard = async () => {
     try {
-      const res = await axios.post(
-        `http://localhost:8888/users/giftcard/${user?._id}`,
-        {
-          giftCard: { ...selectedGiftCard, isUsed: false },
-        }
-      );
+      const res = await axios.post(`${BASE_URL}/users/giftcard/${user?._id}`, {
+        giftCard: { ...selectedGiftCard, isUsed: false },
+      });
       const updatedUser = res.data.user;
       setUserData(updatedUser);
     } catch (err) {

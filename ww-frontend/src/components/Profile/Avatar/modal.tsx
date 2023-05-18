@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { AuthContext } from "@/context/authContext";
-import { AlertContext } from "@/context/alertContext";
+import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -9,7 +8,9 @@ import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import dynamic from "next/dynamic";
-import axios from "axios";
+import { BASE_URL } from "@/variables";
+import { AuthContext } from "@/context/authContext";
+import { AlertContext } from "@/context/alertContext";
 
 const Avatar = dynamic(() => import("react-avatar-edit"), {
   ssr: false,
@@ -56,19 +57,13 @@ const ImportImage = ({ setAvatarUrl }: any) => {
     const form = new FormData();
     form.append("zurag", file);
     try {
-      const res = await axios.post(
-        `http://localhost:8888/zuragUploadHiinee`,
-        form
-      );
+      const res = await axios.post(`${BASE_URL}/zuragUploadHiinee`, form);
       const updateUser = {
         ...user,
         profileImg: res?.data?.path,
       };
 
-      const res2 = await axios.put(
-        `http://localhost:8888/users/${user._id}`,
-        updateUser
-      );
+      const res2 = await axios.put(`${BASE_URL}/users/${user._id}`, updateUser);
       setUserData(res2.data.user);
     } catch (err) {
       console.log("err", err);

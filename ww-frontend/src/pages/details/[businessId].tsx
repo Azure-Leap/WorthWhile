@@ -9,6 +9,7 @@ import GiftCard from "@/components/GiftCards/card";
 import GiftCardPaymentModal from "@/components/GiftCards/modal";
 import axios from "axios";
 import { AuthContext } from "@/context/authContext";
+import { BASE_URL } from "@/variables";
 
 const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
   const [isFavorite, setFavorite] = useState<Boolean>(false);
@@ -20,12 +21,9 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
 
   const addFavorite = async (id: string) => {
     try {
-      const res = await axios.post(
-        `http://localhost:8888/users/favorites/${user?._id}`,
-        {
-          favoriteId: id,
-        }
-      );
+      const res = await axios.post(`${BASE_URL}/users/favorites/${user?._id}`, {
+        favoriteId: id,
+      });
 
       const updatedUser = res.data.user;
       setUserData(updatedUser);
@@ -36,12 +34,9 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
 
   const removeFavorite = async (id: string) => {
     try {
-      const res = await axios.put(
-        `http://localhost:8888/users/favorites/${user?._id}`,
-        {
-          favoriteId: id,
-        }
-      );
+      const res = await axios.put(`${BASE_URL}/users/favorites/${user?._id}`, {
+        favoriteId: id,
+      });
       const updatedUser = res.data.user;
       setUserData(updatedUser);
     } catch (err) {
@@ -182,18 +177,18 @@ const SalonDetail = ({ business, staffs, services, giftCards }: any) => {
 };
 
 export async function getServerSideProps({ query }: any) {
-  const res = await fetch(`http://localhost:8888/business/${query.businessId}`);
+  const res = await fetch(`${BASE_URL}/business/${query.businessId}`);
   const data = await res.json();
   const res2 = await fetch(
-    `http://localhost:8888/business/staffs?businessId=${query.businessId}`
+    `${BASE_URL}/business/staffs?businessId=${query.businessId}`
   );
   const data2 = await res2.json();
   const res3 = await fetch(
-    `http://localhost:8888/business/services?businessId=${query.businessId}`
+    `${BASE_URL}/business/services?businessId=${query.businessId}`
   );
   const data3 = await res3.json();
   const res4 = await fetch(
-    `http://localhost:8888/business/giftcards?businessId=${query.businessId}`
+    `${BASE_URL}/business/giftcards?businessId=${query.businessId}`
   );
   const data4 = await res4.json();
 

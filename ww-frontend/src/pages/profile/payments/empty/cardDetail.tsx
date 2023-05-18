@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 
 const CardDetail = ({ handleClose }: any) => {
   const { user, setUserData } = useContext(AuthContext);
@@ -49,7 +50,7 @@ const CardDetail = ({ handleClose }: any) => {
 
   const addPayment = async () => {
     try {
-      const res = await axios.post(`http://localhost:8888/payments`, {
+      const res = await axios.post(`${BASE_URL}/payments`, {
         userId: user._id,
         ownerName,
         cardNumber,

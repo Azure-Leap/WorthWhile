@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { AuthContext } from "@/context/authContext";
 import axios from "axios";
+import { BASE_URL } from "@/variables";
 import { AlertContext } from "@/context/alertContext";
 import PasswordModal from "./passwordModal";
 
@@ -29,7 +30,7 @@ const Settings = () => {
 
   const update = async () => {
     try {
-      const res = await axios.put(`http://localhost:8888/users/${user._id}`, {
+      const res = await axios.put(`${BASE_URL}/users/${user._id}`, {
         userName,
         email,
         phoneNumber,
