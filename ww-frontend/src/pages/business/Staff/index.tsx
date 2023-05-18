@@ -49,7 +49,7 @@ const Staff = () => {
 
   const deleteHandler = (row: any) => {
     axios
-      .delete(`http://localhost:8888/services/${row?._id}`)
+      .delete(`http://localhost:8888/staffs/${row?._id}`)
       .then((res) => {
         setMessage(res.data.message);
         setStatus("success");

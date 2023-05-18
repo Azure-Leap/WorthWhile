@@ -9,14 +9,9 @@ interface Props {
 
 const StaffModal: React.FC<Props> = ({ isOpen, handleIsOpen, editData }) => {
   const [stafferName, setNameStafferName] = useState("");
-  const [categoryId, setCategoryId] = useState("");
-  const [price, setPrice] = useState<any>();
   const [staffImg, setStaffImg] = useState("");
-  const [duration, setServiceDuration] = useState<any>();
   const [about, setAbout] = useState<any>();
   const [businessId, setBusinessId] = useState<string>();
-  const [catList, setCatList] = useState<any>([]);
-  const [isMin, setIsMin] = useState(false);
   const { setMessage, setStatus } = useContext(AlertContext);
 
   const handleSubmit = () => {
@@ -27,25 +22,10 @@ const StaffModal: React.FC<Props> = ({ isOpen, handleIsOpen, editData }) => {
   useEffect(() => {
     if (editData) {
       setNameStafferName(editData.stafferName);
-      setCategoryId(editData.categoryId._id);
-      setPrice(editData.servicePrice.price);
-      setIsMin(editData.servicePrice.isMin);
-      setStaffImg(editData.categoryId._id);
-      setServiceDuration(editData.duration);
+      setStaffImg(editData.staffImg);
       setAbout(editData.about);
     }
   }, [editData]);
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8888/categories/`)
-      .then((res) => {
-        setCatList(res.data.cats);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  }, []);
 
   useEffect(() => {
     const localBusiness: any = localStorage.getItem("business");
@@ -55,14 +35,10 @@ const StaffModal: React.FC<Props> = ({ isOpen, handleIsOpen, editData }) => {
 
   const addService = async () => {
     try {
-      const res = await axios.post("http://localhost:8888/services", {
-        categoryId,
+      const res = await axios.post("http://localhost:8888/staffs", {
         businessId,
         stafferName,
         staffImg,
-        price,
-        isMin,
-        duration,
         about,
       });
       console.log(res.data);
@@ -79,14 +55,11 @@ const StaffModal: React.FC<Props> = ({ isOpen, handleIsOpen, editData }) => {
     console.log(editData?._id);
     try {
       const res = await axios.put(
-        `http://localhost:8888/services/${editData?._id}`,
+        `http://localhost:8888/staffs/${editData?._id}`,
         {
-          categoryId,
           businessId,
-          servicePrice: { isMin, price },
           stafferName,
           staffImg,
-          duration,
           about,
         }
       );
