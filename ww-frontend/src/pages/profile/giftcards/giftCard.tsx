@@ -2,11 +2,6 @@ import React from "react";
 import Image from "next/image";
 import { Box } from "@mui/material";
 import { Tangerine } from "@next/font/google";
-interface IGiftCard {
-  price: number;
-  amount: number;
-  cardNumber: number;
-}
 
 const tangerine = Tangerine({
   weight: ["400"],
@@ -15,11 +10,11 @@ const tangerine = Tangerine({
 
 const GiftCard = ({ apps }: any) => {
   return (
-    <div className="ml-5 mt-2 ">
+    <div className="ml-5 mt-2">
       <div>
         <h1 className="text-2xl ">Gift Cards</h1>
       </div>
-      <div>
+      <div className="w-96">
         {apps &&
           apps.map((app: any, i: number) => (
             <Box

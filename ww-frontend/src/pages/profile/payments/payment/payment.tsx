@@ -1,11 +1,18 @@
 import React, { useState } from "react";
+import AddCardModal from "../empty/modal";
+import DeleteModal from "./modal";
+import Button from "@mui/material/Button";
 
-interface IPayment {
-  paymentType: String;
-}
-
-const Payment = ({ payments }: any) => {
+const Payment = ({ payments, setPayments }: any) => {
   const [paymentCard, setPaymentCard] = useState(null);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [open2, setOpen2] = React.useState(false);
+  const handleOpen2 = () => setOpen2(true);
+  const handleClose2 = () => setOpen2(false);
 
   return (
     <div className="ml-5 mt-2 ">
@@ -20,7 +27,9 @@ const Payment = ({ payments }: any) => {
             style={{
               zoom: "0.5",
               marginRight: "50px",
-              height: "200px",
+              marginTop: "20px",
+              marginBottom: "20px",
+              height: "210px",
               width: "350px",
               borderRadius: "10px",
               border:
@@ -40,6 +49,17 @@ const Payment = ({ payments }: any) => {
               boxSizing: "content-box",
             }}
           >
+            <Button
+              sx={{
+                color: "black",
+                font: "20px",
+                display: "block",
+                marginLeft: "auto",
+              }}
+              onClick={handleOpen2}
+            >
+              X
+            </Button>
             <div style={{ display: "flex" }}>
               <div style={{ padding: "12px" }}>
                 <img
@@ -80,6 +100,37 @@ const Payment = ({ payments }: any) => {
           </button>
         ))}
       </div>
+      <Button
+        sx={{
+          color: "white",
+          bgcolor: "lime",
+          display: "block",
+          // margin: "auto",
+          marginLeft: "100px",
+          marginTop: "10px",
+          marginBottom: "20px",
+          width: 150,
+          ":hover": {
+            bgcolor: "green",
+          },
+        }}
+        onClick={handleOpen}
+      >
+        add more card
+      </Button>
+
+      <AddCardModal
+        open={open}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
+      />
+      <DeleteModal
+        open={open2}
+        handleClose={handleClose2}
+        handleOpen={handleOpen2}
+        payment={paymentCard}
+        setPayments={setPayments}
+      />
     </div>
   );
 };

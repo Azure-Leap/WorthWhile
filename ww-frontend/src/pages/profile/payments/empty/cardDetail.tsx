@@ -58,7 +58,6 @@ const CardDetail = ({ handleClose }: any) => {
         cvv,
         bankName,
       });
-      // setUserData(res.data.user);
       console.log(res);
       setMessage(res.data.message);
       setStatus("success");

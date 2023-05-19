@@ -1,7 +1,7 @@
 import React from "react";
 import SideLayout from "@/components/SideLayout";
 import Button from "@mui/material/Button";
-import BasicModal from "./modal";
+import AddCardModal from "./modal";
 
 const EmptyPayment = () => {
   const [open, setOpen] = React.useState(false);
@@ -32,10 +32,11 @@ const EmptyPayment = () => {
           }}
           onClick={handleOpen}
         >
-          add button
+          add card
         </Button>
       </div>
-      <BasicModal
+      <AddCardModal
+        hidden
         open={open}
         handleClose={handleClose}
         handleOpen={handleOpen}
