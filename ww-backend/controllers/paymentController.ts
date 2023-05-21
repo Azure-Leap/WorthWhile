@@ -103,9 +103,7 @@ export const deletePaymentCard = async (
     if (!paymentCard) {
       res.status(400).json({ message: `${id} ID-тэй Карт олдсонгүй.` });
     }
-    res
-      .status(200)
-      .json({ message: `${id} IDтэй Карт устгагдлаа`, paymentCard });
+    res.status(200).json({ message: `Карт устгагдлаа`, paymentCard });
   } catch (error) {
     next(error);
   }

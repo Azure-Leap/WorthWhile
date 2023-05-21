@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import SideLayout from "@/components/SideLayout";
 import EmptyPayment from "./empty/empty";
-import Payment from "./payment";
+import Payment from "./payment/payment";
 import axios from "axios";
 import { BASE_URL } from "@/variables";
 import { AuthContext } from "@/context/authContext";
@@ -19,11 +19,15 @@ export default function App() {
       .catch((err) => {
         console.log("err", err);
       });
-  }, []);
+  }, [user, payments]);
 
   return (
     <SideLayout>
-      {payments.length ? <Payment payments={payments} /> : <EmptyPayment />}
+      {payments?.length ? (
+        <Payment setPayments={setPayments} payments={payments} />
+      ) : (
+        <EmptyPayment />
+      )}
       <div>
         <h4>PAYMENT HISTORY</h4>
         <div className="my-10">

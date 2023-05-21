@@ -48,7 +48,7 @@ const Staff = () => {
 
   const deleteHandler = (row: any) => {
     axios
-      .delete(`${BASE_URL}/services/${row?._id}`)
+      .delete(`${BASE_URL}/staffs/${row?._id}`)
       .then((res) => {
         setMessage(res.data.message);
         setStatus("success");

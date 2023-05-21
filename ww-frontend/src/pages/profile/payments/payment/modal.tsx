@@ -1,8 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
-import CardDetail from "./cardDetail";
+import DeleteCard from "./deleteCard";
 
 const style = {
   position: "absolute" as "absolute",
@@ -16,7 +15,13 @@ const style = {
   p: 4,
 };
 
-const AddCardModal = ({ open, handleClose, handleOpen }: any) => {
+const DeleteModal = ({
+  open,
+  handleClose,
+  handleOpen,
+  payment,
+  setPayments,
+}: any) => {
   return (
     <Modal
       open={open}
@@ -25,10 +30,14 @@ const AddCardModal = ({ open, handleClose, handleOpen }: any) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <CardDetail handleClose={handleClose} />
+        <DeleteCard
+          handleClose={handleClose}
+          payment={payment}
+          setPayments={setPayments}
+        />
       </Box>
     </Modal>
   );
 };
 
-export default AddCardModal;
+export default DeleteModal;
