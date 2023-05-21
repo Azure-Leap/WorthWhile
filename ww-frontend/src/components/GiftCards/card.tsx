@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import Image from "next/image";
 import { Tangerine } from "@next/font/google";
+import { AuthContext } from "@/context/authContext";
+import { AlertContext } from "@/context/alertContext";
 
 const tangerine = Tangerine({
   weight: ["400"],
@@ -9,6 +11,8 @@ const tangerine = Tangerine({
 });
 
 const GiftCard = ({ giftcard, setOpen, setSelectedGiftCard }: any) => {
+  const { user } = useContext(AuthContext);
+  const { setMessage, setStatus } = useContext(AlertContext);
   return (
     <Box>
       <Box
@@ -67,18 +71,27 @@ const GiftCard = ({ giftcard, setOpen, setSelectedGiftCard }: any) => {
           justifyContent: "space-around",
         }}
       >
-        <Typography>₮{giftcard.price},000</Typography>
+        <Typography sx={{ color: "grey" }}>₮{giftcard.price},000</Typography>
         <Button
-          onClick={() => {
-            setSelectedGiftCard(giftcard);
-            setOpen(true);
-          }}
+          onClick={
+            user
+              ? () => {
+                  setSelectedGiftCard(giftcard);
+                  setOpen(true);
+                }
+              : () => {
+                  setStatus("error");
+                  setMessage("Та эхлээд нэвтэрнэ үү1");
+                }
+          }
           variant="outlined"
           sx={{
             textTransform: "none",
             margin: "10px 0",
             borderRadius: "15px",
             padding: "0 10px",
+            fontSize: "14px",
+            width: "60px",
           }}
         >
           Buy

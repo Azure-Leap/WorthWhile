@@ -106,13 +106,21 @@ const OrderProvider = ({ children }: any) => {
 
   useEffect(() => {
     const getAllServices = async () => {
-      const res = await axios.get(`${BASE_URL}/services`);
-      setAllServices(res.data.services);
+      try {
+        const res = await axios.get(`${BASE_URL}/services`);
+        setAllServices(res.data.services);
+      } catch (err) {
+        console.log("OrderContext getAllServices err", err);
+      }
     };
     getAllServices();
     const getAllStaffs = async () => {
-      const res = await axios.get(`${BASE_URL}/staffs`);
-      setAllStaffs(res.data.staffs);
+      try {
+        const res = await axios.get(`${BASE_URL}/staffs`);
+        setAllStaffs(res.data.staffs);
+      } catch (err) {
+        console.log("OrderContext getAllStaffs err", err);
+      }
     };
 
     getAllStaffs();

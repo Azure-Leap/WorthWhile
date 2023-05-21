@@ -12,6 +12,8 @@ import {
   removeFavoritesUser,
   addFavoritesUser,
   getFavoritesUser,
+  removeGiftcardUser,
+  getAppointmentsByUserId,
 } from "../controllers/userControllers";
 
 const router = Router();
@@ -19,6 +21,7 @@ const router = Router();
 router.route("/").get(getAllUsers);
 
 router.route("/payments").get(getPaymentCardByUserId);
+router.route("/appointments").get(getAppointmentsByUserId);
 router.route("/confirm/:code").get(() => {});
 router.route("/changePassword/:id").put(updateUserPassword);
 
@@ -27,6 +30,7 @@ router.route("/signin").post(signin);
 router.route("/signup").post(signup);
 
 router.route("/giftcard/:id").post(updateGiftCardUser);
+router.route("/giftcard/:id").put(removeGiftcardUser);
 
 router.route("/favorites/:id").post(addFavoritesUser);
 router.route("/favorites/:id").put(removeFavoritesUser);

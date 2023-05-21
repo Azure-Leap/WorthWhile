@@ -31,7 +31,8 @@
     "src/components/Profile/Avatar/avatar.tsx",
     "src/components/Profile/Avatar/modal.tsx",
     "src/pages/test/index.js",
-    "src/pages/business/Appointments/index.jsx"
+    "src/pages/business/Appointments/index.jsx",
+    "src/components/icons/svg/hair.tsx"
   ],
   "exclude": ["node_modules"]
 }

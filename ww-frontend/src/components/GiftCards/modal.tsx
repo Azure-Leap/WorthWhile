@@ -44,7 +44,7 @@ const GiftCardPaymentModal = ({ open, setOpen, selectedGiftCard }: any) => {
   const addGiftcard = async () => {
     try {
       const res = await axios.post(`${BASE_URL}/users/giftcard/${user?._id}`, {
-        giftCard: { ...selectedGiftCard, isUsed: false },
+        giftCard: selectedGiftCard,
       });
       const updatedUser = res.data.user;
       setUserData(updatedUser);
