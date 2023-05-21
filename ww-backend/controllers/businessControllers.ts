@@ -6,7 +6,7 @@ import Staffer from "../Models/StaffModel";
 import Service from "../Models/ServiceModel";
 import GiftCard from "../Models/GiftCardModel";
 import Appointment from "../Models/Appointment";
-import path from "path";
+import Review from "../Models/ReviewModel";
 
 const getAllBusiness = async (
   req: Request,
@@ -203,15 +203,44 @@ export const getGiftCardsByBusinessId = async (
       "businessId"
     );
 
-    if (!giftCards) {
-      res.status(200).json({ message: "Картуудын мэдээлэл хоосон байна." });
+    if (giftCards.length === 0) {
+      res
+        .status(200)
+        .json({ message: "Картуудын мэдээлэл хоосон байна.", giftCards });
     }
     res.status(200).json({ message: "Картуудын мэдээлэл олдлоо.", giftCards });
   } catch (error) {
     next(error);
   }
 };
+export const getReviewsByBusinessId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { businessId } = req.query;
 
+    const reviews: any = await Review.find({}).populate({
+      path: "appointmentId",
+    });
+    const filteredReviews = reviews.filter(
+      (review: any) => review.appointmentId.businessId.toString() === businessId
+    );
+
+    if (filteredReviews.length === 0) {
+      return res
+        .status(200)
+        .json({ message: "Сэтгэгдэл олдсонгүй", reviews: filteredReviews });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Сэтгэгдлүүд олдлоо", reviews: filteredReviews });
+  } catch (error) {
+    return next(error);
+  }
+};
 export const AppointmentByBusinessId = async (
   req: Request,
   res: Response,

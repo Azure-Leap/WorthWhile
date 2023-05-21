@@ -8,6 +8,7 @@ import OrderProvider from "@/context/orderContext";
 import AlertComponent from "@/components/Alert";
 import OrderComponent from "@/components/Order";
 import { green, purple } from "@mui/material/colors";
+import NavProvider from "@/context/navContext";
 
 const lato = Montserrat({
   subsets: ["latin"],
@@ -34,13 +35,15 @@ export default function App({ Component, pageProps }: AppProps) {
     <main className={lato.className}>
       <ThemeProvider theme={theme}>
         <AlertProvider>
-          <AuthProvider>
-            <OrderProvider>
-              <AlertComponent />
-              <Component {...pageProps} />
-              <OrderComponent />
-            </OrderProvider>
-          </AuthProvider>
+          <NavProvider>
+            <AuthProvider>
+              <OrderProvider>
+                <AlertComponent />
+                <Component {...pageProps} />
+                <OrderComponent />
+              </OrderProvider>
+            </AuthProvider>
+          </NavProvider>
         </AlertProvider>
       </ThemeProvider>
     </main>

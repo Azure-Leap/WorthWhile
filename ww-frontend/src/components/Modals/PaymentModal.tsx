@@ -24,8 +24,11 @@ const PaymentModal = () => {
     setStaffer,
     staffs,
     setSelectedServices,
+    selectedGiftcard,
+    business,
+    setBusiness,
   } = useContext(OrderContext);
-  const { user } = useContext(AuthContext);
+  const { user, setUserData } = useContext(AuthContext);
   const { setMessage, setStatus } = useContext(AlertContext);
 
   const totalDuration = selectedServices.reduce((total: any, el: any) => {
@@ -43,14 +46,19 @@ const PaymentModal = () => {
         totalPrice,
         totalDuration,
         startDate: dateNumber,
+        businessId: business._id,
+        stafferId: staffer._id,
       });
       const appointment = res.data.appointment;
     } catch (err) {
       console.log("createAppointment err", err);
+    } finally {
+      setStaffer(null);
+      setSelectedServices(null);
+      setBusiness(null);
     }
   };
   const addOrderToStaff = async () => {
-    console.log(staffer);
     try {
       const res = await axios.put(`${BASE_URL}/staffs/order/${staffer._id}`, {
         order: dayjs(dateNumber).format("YYYY-MM-DD HH:mm"),
@@ -60,6 +68,20 @@ const PaymentModal = () => {
       console.log("addOrderToStaff err", err);
     } finally {
       setService(null);
+    }
+  };
+  const removeGiftcard = async () => {
+    if (selectedGiftcard) {
+      try {
+        const res = await axios.put(`${BASE_URL}/users/giftcard/${user._id}`, {
+          giftcardId: selectedGiftcard._id,
+        });
+        setUserData(res.data.user);
+      } catch (err) {
+        console.log("removeGiftcard err", err);
+      } finally {
+        setSelectedGiftcard(null);
+      }
     }
   };
 
@@ -225,16 +247,13 @@ const PaymentModal = () => {
                 onClick={() => {
                   createAppointment();
                   addOrderToStaff();
-
-                  setSelectedServices([]);
-                  setStaffer(null);
+                  removeGiftcard();
 
                   setOpen(false);
                   setModal("BookModal");
 
                   setMessage("Amjilttai zahiallaa");
                   setStatus("success");
-                  // removeGiftcard();
                 }}
                 className="bg-cyan-500"
                 variant="contained"

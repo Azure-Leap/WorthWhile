@@ -2,15 +2,10 @@ import mongoose, { Schema, model } from "mongoose";
 import { IReview } from "../interfaces";
 
 const ReviewSchema = new Schema({
-  userId: {
+  appointmentId: {
     type: mongoose.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  businessId: {
-    type: mongoose.Types.ObjectId,
-    ref: "Business",
-    required: true,
+    ref: "Appointment",
+    unique: true,
   },
   reviewDate: Date,
   rating: Number,

@@ -9,7 +9,7 @@ export default function Layout({ children }: any) {
     <>
       <TailWindNavBar />
       <main className="h-screen"> {children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

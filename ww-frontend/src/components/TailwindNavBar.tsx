@@ -7,6 +7,8 @@ import { FiArrowRight } from "react-icons/fi";
 import Signin from "./Modals/Signin";
 import Signup from "./Modals/Signup";
 import { AuthContext } from "@/context/authContext";
+import Logo from "./logo";
+import { useRouter } from "next/router";
 
 const navigation = [
   { name: "Home", href: "/", current: false },
@@ -29,14 +31,21 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function TailWindNavBar({ setAvatarUrl }: any) {
+export default function TailWindNavBar() {
   const [open, setOpen] = useState<Boolean>(false);
   const [isSign, setIsSign] = useState<Boolean>(true);
   const { user, setUserData } = useContext(AuthContext);
+  const router = useRouter();
+  const { pathname } = router;
 
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-900">
+      <Disclosure
+        as="nav"
+        className={`${pathname === "/" ? "bg-white" : "bg-cyan-600"} ${
+          pathname === "/salonlist" ? "fixed" : ""
+        } w-full`}
+      >
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -54,16 +63,9 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center">
-                    <img
-                      className="block h-8 w-auto lg:hidden"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                      alt="Your Company"
-                    />
-                    <img
-                      className="hidden h-8 w-auto lg:block"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                      alt="Your Company"
-                    />
+                    <div className="hidden h-8 w-auto lg:block">
+                      <Logo color={pathname === "/" ? "#312e81" : "white"} />
+                    </div>
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
                     <div className="flex space-x-4">
@@ -74,7 +76,15 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                           className={classNames(
                             item.current
                               ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              : `${
+                                  pathname === "/"
+                                    ? "text-indigo-900"
+                                    : "text-white"
+                                } hover:bg-gray-100 ${
+                                  pathname === "/"
+                                    ? "hover:text-indigo-950"
+                                    : "hover:text-cyan-800"
+                                } `,
                             "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
@@ -88,34 +98,65 @@ export default function TailWindNavBar({ setAvatarUrl }: any) {
                 <div className="absolute inset-y-0 right-0 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <Link
                     href="/business/auth"
-                    className="bg-white text-xs py-2 rounded-md px-4 hidden sm:block hover:bg-gray-100"
+                    style={{ paddingTop: "10px", paddingBottom: "10px" }}
+                    className={` text-xs rounded-md px-4 hidden sm:block   font-medium  border-[1px] ${
+                      pathname === "/"
+                        ? "border-cyan-700 hover:border-white"
+                        : "border-white"
+                    } ${
+                      pathname === "/" ? "hover:bg-cyan-500" : "hover:bg-white"
+                    } ${pathname === "/" ? "text-cyan-800" : "text-white"} ${
+                      pathname === "/"
+                        ? "hover:text-white"
+                        : "hover:text-cyan-800"
+                    } ${pathname === "/" ? "bg-white" : "bg-cyan-600"}`}
                   >
                     БИЗНЕС НЭМЭХ
                   </Link>
                   <button
                     type="button"
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className={`rounded-full p-1 text-slate-300 ${
+                      user ? "ml-3" : "none"
+                    } ${
+                      pathname === "/" ? "border-cyan-700" : "border-white"
+                    } ${pathname === "/" ? "bg-cyan-500" : "bg-white"} ${
+                      pathname === "/"
+                        ? "hover:text-white"
+                        : "hover:text-cyan-800"
+                    }`}
                   >
                     <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <BellIcon className="h-7 w-7" aria-hidden="true" />
                   </button>
 
                   {/* Profile dropdown */}
                   {!user ? (
                     <button
                       onClick={() => setOpen(true)}
-                      className="text-sm text-gray-300 py-2 px-3 hover:bg-gray-700 hover:text-white hover:rounded-md hover:px-3 hover:py-2 flex gap-1 items-center"
+                      className={`text-sm py-2 px-3 rounded-md   hover:rounded-md hover:px-3 hover:py-2 flex gap-1 items-center font-medium border-[1px] ${
+                        pathname === "/"
+                          ? "border-cyan-700 hover:border-white"
+                          : "border-white"
+                      } ${pathname === "/" ? "bg-white" : "bg-cyan-600"} ${
+                        pathname === "/"
+                          ? "hover:text-white"
+                          : "hover:text-cyan-800"
+                      } ${
+                        pathname === "/"
+                          ? "hover:bg-cyan-500"
+                          : "hover:bg-white"
+                      } ${pathname === "/" ? "text-cyan-800" : "text-white"}`}
                     >
                       Log in
                       <FiArrowRight size={15} />
                     </button>
                   ) : (
-                    <Menu as="div" className="relative ml-3">
+                    <Menu as="div" className="relative ">
                       <div>
-                        <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <Menu.Button className="flex rounded-full bg-gray-800 text-sm ">
                           <span className="sr-only">Open user menu</span>
                           <img
-                            className="h-8 w-8 rounded-full"
+                            className="h-10 w-10 rounded-full"
                             src={user?.profileImg}
                             alt="userImg"
                           />

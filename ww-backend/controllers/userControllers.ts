@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import User from "../Models/UserModel";
 import PaymentCard from "../Models/PaymentCard";
 import { sendEmail } from "../utils/sendEmail";
+import Appointment from "../Models/Appointment";
 
 export const getAllUsers = async (
   req: Request,
@@ -231,6 +232,46 @@ export const updateGiftCardUser = async (
   }
 };
 
+export const removeGiftcardUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.log("remGiftcard");
+  const { id } = req.params;
+  const { giftcardId } = req.body;
+  console.log("giftcardId", giftcardId);
+  if (!id) {
+    return res.status(400).json({ message: `ID хоосон байна` });
+  }
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: `${id} ID-тэй хэрэглэгч олдсонгүй.` });
+    }
+    const idx = user.giftCards.findIndex(
+      (giftcard) => giftcard._id === giftcardId
+    );
+    if (idx < 0)
+      return res.status(200).json({
+        message: `Бэлгийн картын мэдээлэл олдсонгүй`,
+        user,
+      });
+
+    user.giftCards.splice(idx, 1);
+    await user?.save();
+    res.status(200).json({
+      message: `${id} IDтай мэдээлэл шинэчлэгдлээ`,
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getFavoritesUser = async (
   req: Request,
   res: Response,
@@ -322,6 +363,30 @@ export const removeFavoritesUser = async (
       user,
     });
   } catch (error) {
+    next(error);
+  }
+};
+
+export const getAppointmentsByUserId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { userId } = req.query;
+    const appointments = await Appointment.find({ userId })
+      .populate("services")
+      .populate("stafferId");
+    if (!appointments) {
+      return res
+        .status(200)
+        .json({ message: "Захиалгын мэдээлэл хоосон байна." });
+    }
+    res
+      .status(200)
+      .json({ message: "Захиалгуудын мэдээлэл олдлоо.", appointments });
+  } catch (error) {
+    console.log("ERR", error);
     next(error);
   }
 };

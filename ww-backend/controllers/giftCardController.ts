@@ -107,7 +107,7 @@ export const deleteGiftCard = async (
     }
     res
       .status(200)
-      .json({ message: `${id}-тай урамшуулалын карт олдлоо.`, giftCard });
+      .json({ message: `${id}-тай урамшуулалын карт устлаа.`, giftCard });
   } catch (error) {
     next(error);
   }

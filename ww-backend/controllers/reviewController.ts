@@ -44,13 +44,13 @@ export const createReview = async (
   next: NextFunction
 ) => {
   try {
-    const { appointmentId, reviewDate, rating, text }: IReview = req.body;
+    const { reviewDate, rating, text, appointmentId } = req.body;
 
     const review = await Review.create({
-      appointmentId,
       reviewDate,
       rating,
       text,
+      appointmentId,
     });
 
     res.status(200).json({ message: "Амжилттай бүртгэгдлээ", review });

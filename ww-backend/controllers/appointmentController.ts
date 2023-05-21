@@ -8,7 +8,9 @@ export const getAllAppointments = async (
   next: NextFunction
 ) => {
   try {
-    const appointments = await Appointment.find().populate("services");
+    const appointments = await Appointment.find()
+      .populate("services")
+      .populate("stafferId");
     if (!appointments) {
       res.status(400).json({ message: "Уулзалт хоосон байна." });
     }
@@ -45,7 +47,15 @@ export const createAppointment = async (
   next: NextFunction
 ) => {
   try {
-    const { services, userId, totalPrice, totalDuration, startDate } = req.body;
+    const {
+      services,
+      userId,
+      totalPrice,
+      totalDuration,
+      startDate,
+      businessId,
+      stafferId,
+    } = req.body;
 
     const appointment = await Appointment.create({
       services,
@@ -53,6 +63,8 @@ export const createAppointment = async (
       totalPrice,
       totalDuration,
       startDate,
+      businessId,
+      stafferId,
     });
     res.status(201).json({ message: "Амжилттай бүртгэгдлээ.", appointment });
   } catch (error) {

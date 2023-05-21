@@ -16,14 +16,13 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
     axios
       .get(`${BASE_URL}/categories/`)
       .then((res) => {
-        console.log("miodal==>", res.data.cats);
         setCatList(res.data.cats);
       })
       .catch((err) => {
         console.log("err", err);
       });
     axios
-      .get(`h${BASE_URL}/business/`)
+      .get(`${BASE_URL}/business/`)
       .then((res) => {
         setBusinessList(res.data.business);
       })

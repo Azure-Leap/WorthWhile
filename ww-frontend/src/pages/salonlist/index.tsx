@@ -5,6 +5,7 @@ import { BsFilter } from "react-icons/bs";
 import axios from "axios";
 import { BASE_URL } from "@/variables";
 import ListNavbar from "@/components/ListNavBar";
+import Layout from "@/components/layout";
 
 export interface IBusiness {
   _id: String;
@@ -52,8 +53,7 @@ const SalonList = () => {
         );
 
   return (
-    <>
-      <ListNavbar onChangeText={onChangeText} search={search} />
+    <Layout>
       <div className="h-24"></div>
       <div className="xl:w-10/12 m-auto">
         <p className="text-3xl font-semibold mt-10 border-b border-gray-300 pb-5">
@@ -74,7 +74,7 @@ const SalonList = () => {
           ))}
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
