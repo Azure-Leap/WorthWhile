@@ -1,31 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SideLayout from "@/components/SideLayout";
 import EmptyReviews from "./empty";
 import Reviews from "./reviews";
-
-interface IReviews {
-  businessName: string;
-  serviceName: string;
-  reviewDate: Date;
-  rating: number;
-  text: string;
-  // replies: [object];
-}
+import { AuthContext } from "@/context/authContext";
+import axios from "axios";
+import { BASE_URL } from "@/variables";
 
 export default function App() {
-  const [apps, setApps] = useState<IReviews[]>([
-    // {
-    //   businessName: "",
-    //   serviceName: "",
-    //   reviewDate: new Date(),
-    //   rating: 3,
-    //   text: "",
-    // },
-  ]);
+  const { user } = useContext(AuthContext);
+  const [reviews, setReviews] = useState([]);
+
+  const getReviews = async () => {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/users/appointments?userId=${user?._id}`
+      );
+      setReviews(res.data.reviews);
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+  user && getReviews();
 
   return (
     <SideLayout>
-      {apps.length ? <Reviews apps={apps} /> : <EmptyReviews />}
+      {reviews?.length ? <Reviews reviews={reviews} /> : <EmptyReviews />}
     </SideLayout>
   );
 }
