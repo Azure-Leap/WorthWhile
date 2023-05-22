@@ -8,8 +8,8 @@ export default function Layout({ children }: any) {
   return (
     <>
       <TailWindNavBar />
-      <main className="h-screen"> {children}</main>
-      {/* <Footer /> */}
+      <main className=""> {children}</main>
+      <Footer />
     </>
   );
 }

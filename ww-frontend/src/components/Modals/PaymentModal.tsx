@@ -9,6 +9,7 @@ import { AuthContext } from "@/context/authContext";
 import dayjs from "dayjs";
 import { AlertContext } from "@/context/alertContext";
 import { BASE_URL } from "@/variables";
+import AddCardModal from "@/pages/profile/payments/empty/modal";
 
 const PaymentModal = () => {
   const [payments, setPayments] = useState([]);
@@ -28,8 +29,13 @@ const PaymentModal = () => {
     business,
     setBusiness,
   } = useContext(OrderContext);
+
   const { user, setUserData } = useContext(AuthContext);
   const { setMessage, setStatus } = useContext(AlertContext);
+
+  const [open, setOpen2] = React.useState(false);
+  const handleOpen = () => setOpen2(true);
+  const handleClose = () => setOpen2(false);
 
   const totalDuration = selectedServices.reduce((total: any, el: any) => {
     return total + el.duration;
@@ -162,7 +168,13 @@ const PaymentModal = () => {
             }}
           >
             <AddCardIcon sx={{ fontSize: "100px", color: "#E6E5E5" }} />
-            <Button>Add Payment Card</Button>
+            <Button onClick={handleOpen}>Add Payment Card</Button>
+
+            <AddCardModal
+              open={open}
+              handleClose={handleClose}
+              handleOpen={handleOpen}
+            />
           </Box>
         ) : (
           <Box>
@@ -234,6 +246,7 @@ const PaymentModal = () => {
                 </div>
               </button>
             ))}
+
             <Box
               sx={{
                 width: "100%",

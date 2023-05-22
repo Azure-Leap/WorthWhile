@@ -29,7 +29,7 @@ const Payment = ({ payments, setPayments }: any) => {
               marginRight: "50px",
               marginTop: "20px",
               marginBottom: "20px",
-              height: "210px",
+              height: "220px",
               width: "350px",
               borderRadius: "10px",
               border:
@@ -60,6 +60,7 @@ const Payment = ({ payments, setPayments }: any) => {
             >
               X
             </Button>
+
             <div style={{ display: "flex" }}>
               <div style={{ padding: "12px" }}>
                 <img
