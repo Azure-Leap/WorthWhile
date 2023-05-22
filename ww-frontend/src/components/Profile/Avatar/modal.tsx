@@ -164,7 +164,7 @@ const ImportImage = ({ setAvatarUrl }: any) => {
           </Box>
           <Stack direction="row" spacing={2} sx={{ justifyContent: "center" }}>
             <Button
-              sx={{ color: "white", bgcolor: "lime" }}
+              sx={{ color: "white", bgcolor: "#06b6d4" }}
               onClick={() => {
                 setAvatarUrl(preview);
                 handleClose();

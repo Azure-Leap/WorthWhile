@@ -179,10 +179,10 @@ const CardDetail = ({ handleClose }: any) => {
             sx={{
               mt: 3,
               mb: 2,
-              bgcolor: "lime",
+              bgcolor: "#06b6d4",
               color: "white",
               ":hover": {
-                bgcolor: "green",
+                bgcolor: "#06b6d4 ",
               },
             }}
             onClick={() => {

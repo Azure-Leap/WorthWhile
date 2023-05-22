@@ -9,6 +9,7 @@ import AlertComponent from "@/components/Alert";
 import OrderComponent from "@/components/Order";
 import { green, purple } from "@mui/material/colors";
 import NavProvider from "@/context/navContext";
+import { useEffect } from "react";
 
 const lato = Montserrat({
   subsets: ["latin"],
