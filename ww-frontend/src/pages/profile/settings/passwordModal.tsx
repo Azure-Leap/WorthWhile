@@ -117,9 +117,9 @@ export default function PasswordModal({ handleOpen, handleClose, open }: any) {
               mt: 3,
               mb: 2,
               color: "white",
-              bgcolor: "lime",
+              bgcolor: "#06b6d4",
               ":hover": {
-                bgcolor: "green",
+                bgcolor: "#06b6d4",
               },
             }}
             fullWidth

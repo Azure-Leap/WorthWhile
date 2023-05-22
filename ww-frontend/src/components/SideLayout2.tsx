@@ -7,12 +7,12 @@ const SideLayout2 = ({ children }: any) => {
   return (
     <>
       <Layout>
-        <div className="w-10/12">
+        <div className="w-11/12">
           <div className="flex justify-center my-5 px-5 pb-10">
             <ProSidebarProvider>
               <Side2 />
             </ProSidebarProvider>
-            <div className="px-10 max-w-lg">{children}</div>
+            <div className="px-10 max-w-5xl">{children}</div>
           </div>
         </div>
       </Layout>

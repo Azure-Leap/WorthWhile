@@ -104,15 +104,15 @@ const Payment = ({ payments, setPayments }: any) => {
       <Button
         sx={{
           color: "white",
-          bgcolor: "lime",
+          bgcolor: "#06b6d4",
           display: "block",
           // margin: "auto",
           marginLeft: "100px",
-          marginTop: "10px",
+          marginTop: "30px",
           marginBottom: "20px",
           width: 150,
           ":hover": {
-            bgcolor: "green",
+            bgcolor: "#06b6d4",
           },
         }}
         onClick={handleOpen}
