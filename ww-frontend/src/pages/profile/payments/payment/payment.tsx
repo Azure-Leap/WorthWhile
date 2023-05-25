@@ -32,8 +32,8 @@ const Payment = ({ payments, setPayments }: any) => {
               height: "220px",
               width: "350px",
               borderRadius: "10px",
-              border:
-                paymentCard == payment ? "5px solid rgb(6 182 212)" : "none",
+              // border:
+              //   paymentCard == payment ? "5px solid rgb(6 182 212)" : "none",
               backgroundImage:
                 payment.bankName == "Golomt bank"
                   ? "linear-gradient(to right top, #84BAE9, #164E80)"
@@ -42,11 +42,12 @@ const Payment = ({ payments, setPayments }: any) => {
                   : payment.bankName == "Khas bank"
                   ? "linear-gradient(to right top, #ADDE34, #506D06)"
                   : "linear-gradient(to right top, #D8D8D6, #727270)",
-              boxShadow:
-                paymentCard == payment
-                  ? "0 0 15px 1px rgba(0, 0, 0, 0.5)"
-                  : "none",
+              // boxShadow:
+              //   paymentCard == payment
+              //     ? "0 0 15px 1px rgba(0, 0, 0, 0.5)"
+              //     : "none",
               boxSizing: "content-box",
+              cursor: "default",
             }}
           >
             <Button

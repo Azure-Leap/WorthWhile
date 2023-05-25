@@ -28,7 +28,7 @@ export default function App() {
       ) : (
         <EmptyPayment />
       )}
-      <div>
+      <div className="ml-5">
         <h4>PAYMENT HISTORY</h4>
         <div className="my-10">
           <img
