@@ -63,7 +63,19 @@ const ReviewCard = ({ review }: any) => {
   }, []);
 
   return (
-    <div className="py-[20px] border-b-[1px] text-[12px]">
+    <div className="py-[20px] border-b-[1px] text-[12px] relative">
+      <CloseRoundedIcon
+        sx={{
+          position: "absolute",
+          right: 0,
+          top: "5px",
+          "&:hover": { transform: "rotate(90deg)" },
+          transition: "transform 0.3s ease-in-out",
+          fontSize: "18px",
+          display:
+            user._id === review.appointmentId.userId._id ? "block" : "none",
+        }}
+      />
       <div>
         <div className="flex justify-between">
           <Rating
@@ -76,20 +88,17 @@ const ReviewCard = ({ review }: any) => {
             }
             icon={<StarRoundedIcon style={{ fontSize: "30px" }} />}
           />
-          <div className="flex">
-            <div className="flex items-center">
-              <p style={{ color: "grey" }}>
-                {review?.appointmentId.userId?.userName}{" "}
-              </p>
-              <FiberManualRecordIcon
-                style={{ fontSize: "5px", margin: "0 2px", color: "grey" }}
-              />
-              <p style={{ color: "grey" }}>
-                {" "}
-                {dayjs(review?.createdAt).format("MMMM D, YYYY")}
-              </p>
-            </div>
-            <button className="p-[10px] border-[1px] rounded-[5px]">X</button>
+          <div className="flex items-center">
+            <p style={{ color: "grey" }}>
+              {review?.appointmentId.userId?.userName}{" "}
+            </p>
+            <FiberManualRecordIcon
+              style={{ fontSize: "5px", margin: "0 2px", color: "grey" }}
+            />
+            <p style={{ color: "grey" }}>
+              {" "}
+              {dayjs(review?.createdAt).format("MMMM D, YYYY")}
+            </p>
           </div>
         </div>
         <p>{serviceNameArr?.join(", ")}</p>

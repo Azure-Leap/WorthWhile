@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Rating } from "@mui/material";
+import { Rating, Box, Select, FormControl, MenuItem } from "@mui/material";
 import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { ReviewContext } from "@/context/reviewContext";
 import ReviewCard from "./card";
@@ -7,12 +7,20 @@ import SpeakerNotesOffOutlinedIcon from "@mui/icons-material/SpeakerNotesOffOutl
 
 const Reviews = ({ business }: any) => {
   const { appointments, reviews } = useContext(ReviewContext);
+  const [selectedAppointment, setSelectedAppointment] = useState("");
   const arr = appointments?.filter((el: any) => el.businessId == business._id);
+  console.log("arr", arr);
 
   const value =
     reviews.reduce((total: any, el: any) => {
       return total + el.rating;
     }, 0) / reviews.length;
+
+  const handleChange = (event: any) => {
+    console.log(event.target.value);
+    setSelectedAppointment(event.target.value);
+  };
+
   return (
     <>
       <div className=" grid sm:grid-cols-5 grid-cols-1 items-center pb-[30px]">
@@ -78,23 +86,44 @@ const Reviews = ({ business }: any) => {
           </div>
         </div>
       </div>
-      <div
-        className={`w-full grid grid-cols-5 gap-[5px] pb-[30px] border-b-[1px] ${
-          arr?.length > 0 ? "block" : "hidden"
-        }`}
-      >
+      <div className={`${arr?.length > 0 ? "block" : "hidden"}`}>
+        <Box sx={{ width: 180, marginBottom: "10px" }}>
+          <FormControl fullWidth sx={{ position: "relative" }}>
+            <p className="text-[12px]">Please select an appointment</p>
+            <Select
+              value={selectedAppointment}
+              onChange={handleChange}
+              sx={{ height: "25px", fontSize: "12px" }}
+            >
+              {arr?.map((el: any) => {
+                const serviceNameArr = el.services?.map(
+                  (el: any) => el.serviceName
+                );
+                return (
+                  <MenuItem value={el._id} sx={{ fontSize: "14px" }}>
+                    {serviceNameArr.join(", ")}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+        </Box>
         <div className="col-span-4">
-          <input
-            className="w-full rounded-md border-[1px] border-cyan-700 h-[30px] p-2 text-[14px]"
-            type="text"
+          <textarea
+            className="w-full rounded-[4px] border-[1px] border-cyan-700 h-[100px] p-2 text-[14px] outline-cyan-500"
             placeholder="Write a review..."
           />
         </div>
-        <button className="col-span-1 bg-cyan-500 rounded-md text-white text-[14px] font-medium">
+        <button
+          className={`col-span-1 bg-cyan-500 rounded-[4px] text-white text-[14px] py-[5px] px-[10px] font-medium ${
+            selectedAppointment ? "opacity-100" : "opacity-50"
+          }`}
+          disabled={selectedAppointment ? false : true}
+        >
           SUBMIT
         </button>
-        <p className="col-span-5 text-[12px]">Please select an appointment</p>
       </div>
+
       {reviews.length ? (
         <div>
           {reviews?.map((review: any, i: any) => {
