@@ -8,7 +8,7 @@ export default function Layout({ children }: any) {
   return (
     <>
       <TailWindNavBar />
-      <main className=""> {children}</main>
+      <main className="min-h-screen max-h-max"> {children}</main>
       <Footer />
     </>
   );

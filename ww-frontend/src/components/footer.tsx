@@ -9,18 +9,16 @@ import { AiFillApple } from "react-icons/ai";
 import { BsGooglePlay } from "react-icons/bs";
 
 const data = [
-  { title: "Blog", url: "/" },
-  { title: "About Us", url: "/" },
-  { title: "FAQ", url: "/" },
-  { title: "Privacy Policy", url: "/" },
-  { title: "Terms of Service", url: "/" },
-  { title: "Careers", url: "/" },
-  { title: "Contact", url: "/" },
+  { title: "About Us", url: "/ab/about" },
+  // { title: "FAQ", url: "/ab/faq" },
+  { title: "Privacy Policy", url: "/ab/privacy" },
+  { title: "Terms of Service", url: "/ab/terms" },
+  { title: "Contact", url: "/ab/contact" },
 ];
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 ">
+    <footer className="bg-gray-900 text-gray-300 bottom-10 ">
       <div className="w-11/12 m-auto">
         <div className="flex justify-between items-center border-b border-gray-500 py-5">
           <div className="flex text-xs gap-6">
