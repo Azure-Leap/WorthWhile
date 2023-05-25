@@ -28,8 +28,8 @@ const Appointments = () => {
       });
   }, [businessUser]);
 
-  const newArray = appointments.map((obj) => {
-    const services = obj.services.map((service) => service.serviceName);
+  const newArray = appointments?.map((obj) => {
+    const services = obj.services?.map((service) => service.serviceName);
     return {
       start: obj.startDate,
       title: services.join(", "),
