@@ -14,14 +14,12 @@ const GiftCard = ({ apps }: any) => {
       <div>
         <h1 className="text-2xl ">Gift Cards</h1>
       </div>
-      <div className="w-96">
+      <div>
         {apps &&
           apps.map((app: any, i: number) => (
             <Box
               key={i}
               sx={{
-                width: "340px",
-                height: "215px",
                 objectFit: "contain",
                 borderRadius: "10px",
                 overflow: "hidden",
@@ -34,7 +32,7 @@ const GiftCard = ({ apps }: any) => {
                 height={2000}
                 alt="zurag"
                 src={app?.image}
-                className="h-full w-full"
+                // className="h-full w-full"
                 priority
               />
               <Box

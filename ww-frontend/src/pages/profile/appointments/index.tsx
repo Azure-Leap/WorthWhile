@@ -1,31 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SideLayout from "@/components/SideLayout";
 import Appointments from "./appointment";
 import EmptyAppointment from "./empty";
-
-interface IAppointments {
-  services: string;
-  barber: string;
-  startTime: Date;
-}
+import { AuthContext } from "@/context/authContext";
+import axios from "axios";
+import { BASE_URL } from "@/variables";
 
 export default function App() {
-  const [apps, setApps] = useState<IAppointments[]>([
-    {
-      services: "Beard trim",
-      barber: "Byambaa",
-      startTime: new Date(),
-    },
-    {
-      services: "HairCut",
-      barber: "Tsogtoo",
-      startTime: new Date(),
-    },
-  ]);
+  const { user } = useContext(AuthContext);
+  const [appointments, setAppointments] = useState([]);
+
+  const getAppointments = async () => {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/users/appointments?userId=${user?._id}`
+      );
+      setAppointments(res.data.appointments);
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+  user && getAppointments();
 
   return (
     <SideLayout>
-      {apps.length ? <Appointments apps={apps} /> : <EmptyAppointment />}
+      {appointments?.length ? (
+        <Appointments appointments={appointments} />
+      ) : (
+        <EmptyAppointment />
+      )}
     </SideLayout>
   );
 }

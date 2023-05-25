@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { AlertContext } from "@/context/alertContext";
-import { AuthContext } from "@/context/authContext";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -8,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
 import { BASE_URL } from "@/variables";
+import CloseIcon from "@mui/icons-material/Close";
 
 const DeleteCard = ({ handleClose, payment, setPayments }: any) => {
   const { setMessage, setStatus } = useContext(AlertContext);
@@ -39,6 +39,19 @@ const DeleteCard = ({ handleClose, payment, setPayments }: any) => {
         <Typography component="h1" variant="h5">
           Are you sure?
         </Typography>
+        <button>
+          <CloseIcon
+            onClick={() => {
+              handleClose();
+            }}
+            sx={{
+              position: "absolute",
+              top: "5px",
+              right: "5px",
+              transition: "transform 0.3s ease-in-out",
+            }}
+          />
+        </button>
         <Box component="form" sx={{ mt: 3, display: "flex" }}>
           <Button
             fullWidth

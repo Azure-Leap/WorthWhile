@@ -1,12 +1,6 @@
 import React from "react";
 import Link from "next/link";
 
-interface IFavourite {
-  services: string;
-  serviceImage: string;
-  description: string;
-}
-
 const Favourite = ({ apps }: any) => {
   return (
     <div className="ml-5 mt-2 container">

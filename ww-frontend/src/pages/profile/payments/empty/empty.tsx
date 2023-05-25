@@ -1,5 +1,4 @@
 import React from "react";
-import SideLayout from "@/components/SideLayout";
 import Button from "@mui/material/Button";
 import AddCardModal from "./modal";
 
@@ -22,12 +21,12 @@ const EmptyPayment = () => {
         <Button
           sx={{
             color: "white",
-            bgcolor: "lime",
+            bgcolor: "#06b6d4",
             display: "block",
             margin: "auto",
             width: 250,
             ":hover": {
-              bgcolor: "green",
+              bgcolor: "#06b6d4",
             },
           }}
           onClick={handleOpen}

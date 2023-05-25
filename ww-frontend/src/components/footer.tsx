@@ -7,22 +7,21 @@ import {
 } from "react-icons/fa";
 import { AiFillApple } from "react-icons/ai";
 import { BsGooglePlay } from "react-icons/bs";
+import Logo from "./logo";
 
 const data = [
-  { title: "Blog", url: "/" },
-  { title: "About Us", url: "/" },
-  { title: "FAQ", url: "/" },
-  { title: "Privacy Policy", url: "/" },
-  { title: "Terms of Service", url: "/" },
-  { title: "Careers", url: "/" },
-  { title: "Contact", url: "/" },
+  { title: "About Us", url: "/ab/about" },
+  // { title: "FAQ", url: "/ab/faq" },
+  { title: "Privacy Policy", url: "/ab/privacy" },
+  { title: "Terms of Service", url: "/ab/terms" },
+  { title: "Contact", url: "/ab/contact" },
 ];
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 ">
+    <footer className="bg-cyan-600 text-white bottom-10 ">
       <div className="w-11/12 m-auto">
-        <div className="flex justify-between items-center border-b border-gray-500 py-5">
+        <div className="flex justify-between items-center border-b  py-5">
           <div className="flex text-xs gap-6">
             {data.map((el, idx) => {
               return (
@@ -51,7 +50,10 @@ const Footer: React.FC = () => {
         </div>
         <div className="flex justify-between py-5 items-center">
           <div className="flex justify-between gap-5 items-center">
-            <p className="text-lg font-semibold">WorthWhile</p>
+            {/* <p className="text-lg font-semibold">WorthWhile</p> */}
+            <div className="mt-5">
+              <Logo color={"#fff"} />
+            </div>
             <p className="text-xs">
               © 2023 WorthWhile Inc. All rights reserved
             </p>

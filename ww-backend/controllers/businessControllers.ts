@@ -260,11 +260,11 @@ export const AppointmentByBusinessId = async (
   try {
     const { businessId } = req.query;
     console.log(businessId);
-    const serviceDoc = await Service.findOne({
-      businessId,
-    });
+    // const serviceDoc = await Service.findOne({
+    //   businessId,
+    // });
     const appointments = await Appointment.find({
-      services: { $in: serviceDoc?._id },
+      businessId,
     }).populate("services");
 
     // []

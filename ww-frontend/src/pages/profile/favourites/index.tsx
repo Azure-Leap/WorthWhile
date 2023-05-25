@@ -6,12 +6,6 @@ import axios from "axios";
 import { BASE_URL } from "@/variables";
 import { AuthContext } from "@/context/authContext";
 
-interface IFavourite {
-  services: string;
-  serviceImage: string;
-  description: string;
-}
-
 export default function App() {
   const [favorites, setFavorites] = useState<any>(null);
   const { user } = useContext(AuthContext);

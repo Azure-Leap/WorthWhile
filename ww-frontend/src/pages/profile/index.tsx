@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SideLayout from "@/components/SideLayout";
+import { AuthContext } from "@/context/authContext";
 
 const Profile = () => {
+  const { user, setUserData } = useContext(AuthContext);
+
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setUserName(user.userName);
+    }
+  }, [user]);
+
   return (
     <SideLayout>
       <div className="ml-5 mt-2">
         <div>
-          <h1 className="text-2xl ">Welcome Ashid, Duulga, Zulaa</h1>
+          <h1 className="text-2xl ">Welcome {user.userName}</h1>
         </div>
         <div className="my-20">
           <img

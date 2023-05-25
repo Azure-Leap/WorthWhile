@@ -19,8 +19,9 @@ const SalonCard = ({ businessData }: any) => {
       <Link
         href={`/details/${businessData._id}`}
         style={{
-          minWidth: "35%",
-          maxWidth: "35%",
+          // minWidth: "35%",
+          // maxWidth: "35%",
+          width:"600px",
           height: "300px",
           objectFit: "cover",
         }}

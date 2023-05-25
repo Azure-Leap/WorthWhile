@@ -16,12 +16,12 @@ import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import axios from "axios";
 import { BASE_URL } from "@/variables";
+import CloseIcon from "@mui/icons-material/Close";
 
 const CardDetail = ({ handleClose }: any) => {
   const { user, setUserData } = useContext(AuthContext);
   const { setMessage, setStatus } = useContext(AlertContext);
 
-  // const [userId, setUserId] = localStorage.getItem("user", JSON.stringify(data));
   const [ownerName, setOwnerName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [expiredDate, setExpiredDate] = useState("");
@@ -82,6 +82,19 @@ const CardDetail = ({ handleClose }: any) => {
         <Typography component="h1" variant="h5">
           Add Your Payment Card
         </Typography>
+        <button>
+          <CloseIcon
+            onClick={() => {
+              handleClose();
+            }}
+            sx={{
+              position: "absolute",
+              top: "5px",
+              right: "5px",
+              transition: "transform 0.3s ease-in-out",
+            }}
+          />
+        </button>
         <Box component="form" sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -166,10 +179,10 @@ const CardDetail = ({ handleClose }: any) => {
             sx={{
               mt: 3,
               mb: 2,
-              bgcolor: "lime",
+              bgcolor: "#06b6d4",
               color: "white",
               ":hover": {
-                bgcolor: "green",
+                bgcolor: "#06b6d4 ",
               },
             }}
             onClick={() => {
