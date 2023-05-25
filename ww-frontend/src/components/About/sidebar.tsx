@@ -28,7 +28,7 @@ const Side2 = () => {
 
           <MenuItem component={<Link href={"/ab/contact"} />}>Contact</MenuItem>
 
-          <MenuItem component={<Link href={"/ab/faq"} />}>FAQ</MenuItem>
+          {/* <MenuItem component={<Link href={"/ab/faq"} />}>FAQ</MenuItem> */}
         </Menu>
       </Sidebar>
     </div>

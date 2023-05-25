@@ -7,7 +7,7 @@ const SideLayout2 = ({ children }: any) => {
   return (
     <>
       <Layout>
-        <div className="w-11/12">
+        <div className="mx-40">
           <div className="flex justify-center my-5 px-5 pb-10">
             <ProSidebarProvider>
               <Side2 />

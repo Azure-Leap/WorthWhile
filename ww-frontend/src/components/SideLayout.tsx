@@ -18,7 +18,7 @@ const SideLayout = ({ children }: any) => {
       <Layout>
         <div>
           {loading ? (
-            <div className="flex justify-center items-center w-full h-screen">
+            <div className="flex justify-center items-center w-full h-screen -translate-y-10">
               <BeatLoader color={"#000"} loading={loading} size={20} />
             </div>
           ) : (
