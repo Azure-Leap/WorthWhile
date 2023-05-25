@@ -14,19 +14,27 @@ const Appointments = () => {
   const { businessUser, setBusinessUser } = useContext(AuthContext);
   const { setMessage, setStatus } = useContext(AlertContext);
   const id = businessUser?._id;
-
   const [appointments, setAppointments] = useState();
+  console.log(id);
+
   useEffect(() => {
     axios
       .get(`${BASE_URL}/business/appointments?businessId=${id}`)
       .then((res) => {
-        console.log("App data==>", res.data.appointments);
         setAppointments(res.data.appointments);
       })
       .catch((err) => {
         console.log("err", err);
       });
   }, [businessUser]);
+
+  const newArray = appointments.map((obj) => {
+    const services = obj.services.map((service) => service.serviceName);
+    return {
+      start: obj.startDate,
+      title: services.join(", "),
+    };
+  });
 
   return (
     <BusinessLayout>
@@ -35,8 +43,8 @@ const Appointments = () => {
           plugins={[dayGridPlugin]}
           initialView="dayGridMonth"
           weekends={true}
-          events={events}
-          height={800}
+          events={newArray}
+          height={1000}
           // eventContent={renderEventContent}
         />
       </div>
