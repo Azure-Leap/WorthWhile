@@ -10,3 +10,8 @@ body {
   margin: "0";
   font-family: "Montserrat", sans-serif;
 }
+
+.PhoneInputInput:focus-visible {
+  outline: none;
+  border: none;
+}

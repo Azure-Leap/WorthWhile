@@ -33,7 +33,7 @@ const SalonList = () => {
   function onChangeText(e: any) {
     setSearch(e.target.value);
   }
-
+  console.log("busData", businessData);
   useEffect(() => {
     axios
       .get(`${BASE_URL}/business/`)

@@ -2,8 +2,9 @@ import { useState } from "react";
 import Head from "next/head";
 import BusinessSignIn from "@/components/BusinessAuth/singIn";
 import BusinessSignUp from "@/components/BusinessAuth/SignUp/signup";
+import { BASE_URL } from "@/variables";
 
-const SignInPage = () => {
+const SignInPage = ({ businesses }: any) => {
   const [isSignIn, setIsSignIn] = useState(true);
 
   return (
@@ -15,10 +16,20 @@ const SignInPage = () => {
       {isSignIn ? (
         <BusinessSignIn setIsSignIn={setIsSignIn} />
       ) : (
-        <BusinessSignUp />
+        <BusinessSignUp businesses={businesses} />
       )}
     </div>
   );
 };
 
 export default SignInPage;
+
+export async function getServerSideProps({ query }: any) {
+  const res = await fetch(`${BASE_URL}/business`);
+  const data = await res.json();
+  return {
+    props: {
+      businesses: data.business,
+    },
+  };
+}
