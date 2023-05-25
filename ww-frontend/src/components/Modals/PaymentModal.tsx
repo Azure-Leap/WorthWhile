@@ -245,15 +245,14 @@ const PaymentModal = () => {
             >
               <Button
                 onClick={() => {
+                  setOpen(false);
                   createAppointment();
                   addOrderToStaff();
                   removeGiftcard();
 
-                  setOpen(false);
-                  setModal("BookModal");
-
                   setMessage("Amjilttai zahiallaa");
                   setStatus("success");
+                  setModal("BookModal");
                 }}
                 className="bg-cyan-500"
                 variant="contained"

@@ -7,15 +7,15 @@ export const NavContext = createContext<any>(null);
 const NavProvider = ({ children }: any) => {
   const [allBusiness, setAllBusiness] = useState(null);
   useEffect(() => {
-    const getAllBusiness = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/business`);
-        setAllBusiness(res.data.services);
-      } catch (err) {
-        console.log("navContext getAll err", err);
-      }
-    };
-    getAllBusiness();
+    // const getAllBusiness = async () => {
+    //   try {
+    //     const res = await axios.get(`${BASE_URL}/business`);
+    //     setAllBusiness(res.data.services);
+    //   } catch (err) {
+    //     console.log("navContext getAll err", err);
+    //   }
+    // };
+    // getAllBusiness();
   }, []);
 
   return (

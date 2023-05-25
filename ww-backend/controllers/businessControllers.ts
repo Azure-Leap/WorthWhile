@@ -34,10 +34,9 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
       password,
       businessHours,
       address,
+      phoneNumber,
       description,
       socialMedia,
-      profileImg,
-      phoneNumber,
     }: any = req.body;
     const hashedPassword = bcrypt.hashSync(password.toString(), 10);
     const business = await Business.create({
@@ -46,10 +45,9 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
       password: hashedPassword,
       businessHours,
       address,
+      phoneNumber,
       description,
       socialMedia,
-      profileImg,
-      phoneNumber,
     });
     const { id } = business;
     const token = jwt.sign({ id }, secretKey, {
@@ -221,13 +219,26 @@ export const getReviewsByBusinessId = async (
   try {
     const { businessId } = req.query;
 
-    const reviews: any = await Review.find({}).populate({
-      path: "appointmentId",
-    });
+    const reviews: any = await Review.find({}).populate([
+      {
+        path: "appointmentId",
+        populate: {
+          path: "userId",
+          model: "User",
+        },
+      },
+      {
+        path: "appointmentId",
+        populate: {
+          path: "stafferId",
+          model: "Staffer",
+        },
+      },
+    ]);
     const filteredReviews = reviews.filter(
       (review: any) => review.appointmentId.businessId.toString() === businessId
     );
-
+    console.log(filteredReviews);
     if (filteredReviews.length === 0) {
       return res
         .status(200)

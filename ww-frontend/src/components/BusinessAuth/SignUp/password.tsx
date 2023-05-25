@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { AlertContext } from "@/context/alertContext";
+import React, { useContext, useEffect, useState } from "react";
 import "react-phone-number-input/style.css";
 
 const PasswordAuth = ({
@@ -6,7 +7,12 @@ const PasswordAuth = ({
   setPassword,
   rePassword,
   setRePassword,
+  isD,
 }: any) => {
+  useEffect(() => {
+    if (password !== rePassword) {
+    }
+  }, []);
   return (
     <>
       <h2 className="text-xl font-medium mb-4 ">Password Setup</h2>
@@ -24,7 +30,7 @@ const PasswordAuth = ({
             // required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className=" rounded block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:border-gray-800  sm:text-sm"
+            className=" rounded block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:border-gray-800  sm:text-sm mb-[10px]"
             placeholder="Password"
           />
           <input

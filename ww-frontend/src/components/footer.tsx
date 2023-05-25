@@ -26,10 +26,8 @@ const Footer: React.FC = () => {
           <div className="flex text-xs gap-6">
             {data.map((el, idx) => {
               return (
-                <Link href={el.url}>
-                  <p className="hover:text-white" key={idx}>
-                    {el.title}
-                  </p>
+                <Link key={idx} href={el.url}>
+                  <p className="hover:text-white">{el.title}</p>
                 </Link>
               );
             })}

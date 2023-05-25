@@ -8,6 +8,7 @@ const AboutYouAuth = ({
   phoneNumber,
   businessName,
 }: any) => {
+  // const inputComp: React.ElementType = <input className="outline-0" />;
   return (
     <>
       <h2 className="text-xl font-medium mb-4 ">About Your Business</h2>
@@ -25,7 +26,7 @@ const AboutYouAuth = ({
             // required
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
-            className=" rounded block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:border-gray-800  sm:text-sm"
+            className=" rounded block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:border-gray-800 text-sm"
             placeholder="Business name"
           />
         </div>
@@ -36,9 +37,9 @@ const AboutYouAuth = ({
         placeholder="Enter phone number"
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e)}
-        className="border border-gray-300 rounded p-2"
+        className="border border-gray-300 rounded p-2 text-[14px] placeholder-gray-500 outline-0 focus:border-gray-800"
         // onFocus={}
-        // inputComponent={CustomInput}
+        // inputComponent={inputComp}
       />
       <p className="text-xs text-left text-gray-500 m-0">
         Other sign in methods {">"}

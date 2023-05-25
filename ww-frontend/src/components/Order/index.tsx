@@ -16,7 +16,6 @@ const style = {
   maxWidth: 770,
   minWidth: 400,
   bgcolor: "background.paper",
-  border: "1px solid #000",
   borderRadius: "10px",
   overflow: "hidden",
   boxShadow: 24,

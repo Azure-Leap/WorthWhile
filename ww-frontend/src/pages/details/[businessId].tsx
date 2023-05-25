@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -12,8 +12,8 @@ import Layout from "@/components/layout";
 import Reviews from "@/components/Reviews";
 import { AuthContext } from "@/context/authContext";
 import { BASE_URL } from "@/variables";
-import ReviewProvider from "@/context/reviewContext";
 import { OrderContext } from "@/context/orderContext";
+import { ReviewContext } from "@/context/reviewContext";
 
 const SalonDetail = ({ business, giftCards }: any) => {
   const [index, setIndex] = useState(0);
@@ -21,6 +21,7 @@ const SalonDetail = ({ business, giftCards }: any) => {
   const [selectedGiftCard, setSelectedGiftCard] = useState(null);
   const { user, setUserData } = useContext(AuthContext);
   const { allStaffs, allServices } = useContext(OrderContext);
+  const { setBus } = useContext(ReviewContext);
 
   const servicesByBus = allServices?.filter(
     (el: any) => el.businessId._id === business._id
@@ -55,147 +56,149 @@ const SalonDetail = ({ business, giftCards }: any) => {
     }
   };
 
+  useEffect(() => {
+    setBus(business);
+  }, []);
+
   return (
-    <ReviewProvider>
-      <Layout>
-        <Grid container maxWidth="lg" sx={{ margin: "0 auto" }}>
-          <Grid
-            item
-            xs={12}
-            md={7.5}
+    <Layout>
+      <Grid container maxWidth="lg" sx={{ margin: "0 auto" }}>
+        <Grid
+          item
+          xs={12}
+          md={7.5}
+          sx={{
+            padding: { xs: "15px 15px", md: "45px 15px" },
+          }}
+        >
+          <img
+            src={business.profileImg}
+            alt="Salon"
+            style={{ width: "100%", borderRadius: "6px" }}
+          />
+          <Box
             sx={{
-              padding: { xs: "15px 15px", md: "45px 15px" },
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            <img
-              src={business.profileImg}
-              alt="Salon"
-              style={{ width: "100%", borderRadius: "6px" }}
-            />
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Box>
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: "36px",
+                  fontWeight: "medium",
+                  marginTop: "10px",
+                }}
+              >
+                {business.businessName}
+              </Typography>
+              <Typography sx={{ fontSize: "12px", color: "grey" }}>
+                {`${business.address.city} city, ${business.address.district} district,
+          ${business.address.street} street`}
+              </Typography>
+            </Box>
+            {user &&
+              (user?.favorites?.includes(business._id) ? (
+                <FavoriteIcon
+                  sx={{ zoom: 1.8, color: "#DC3535" }}
+                  onClick={() => removeFavorite(business._id)}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  sx={{
+                    zoom: 1.8,
+                    color: "#C3C2C2",
+                    "&:hover": { color: "#DC3535" },
+                  }}
+                  onClick={() => addFavorite(business._id)}
+                />
+              ))}
+          </Box>
+          <Box>
+            {["SERVICES", "REVIEWS", "GIFT CARDS"].map((el, i) => (
+              <button
+                onClick={() => setIndex(i)}
+                key={i}
+                style={{
+                  fontSize: "14px",
+                  margin: "10px 20px 20px 0",
+                  paddingBottom: "6px",
+                  borderBottom: index === i ? "2px solid" : "none",
+                  color: index === i ? "rgb(6 182 212)" : "grey",
+                  opacity: index === i ? 1 : 0.5,
+                }}
+              >
+                {el}
+              </button>
+            ))}
+          </Box>
+          {(index === 0 && (
+            <Box>
+              {servicesByBus?.map((service: any, i: any) => (
+                <Service
+                  key={i}
+                  service={service}
+                  business={business}
+                  staffs={staffsByBus}
+                  services={servicesByBus}
+                />
+              ))}
+            </Box>
+          )) ||
+            (index === 1 && <Reviews business={business} />) ||
+            (index === 2 && giftCards.length === 0 ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <CreditCardOffIcon
+                  sx={{
+                    fontSize: "100px",
+                    color: "#E6E5E5",
+                    margin: "20px 0",
+                  }}
+                />
                 <Typography
                   sx={{
-                    fontSize: "36px",
-                    fontWeight: "medium",
-                    marginTop: "10px",
-                  }}
-                >
-                  {business.businessName}
-                </Typography>
-                <Typography sx={{ fontSize: "12px", color: "grey" }}>
-                  {`${business.address.city} city, ${business.address.district} district,
-          ${business.address.street} street`}
-                </Typography>
-              </Box>
-              {user &&
-                (user?.favorites?.includes(business._id) ? (
-                  <FavoriteIcon
-                    sx={{ zoom: 1.8, color: "#DC3535" }}
-                    onClick={() => removeFavorite(business._id)}
-                  />
-                ) : (
-                  <FavoriteBorderIcon
-                    sx={{
-                      zoom: 1.8,
-                      color: "#C3C2C2",
-                      "&:hover": { color: "#DC3535" },
-                    }}
-                    onClick={() => addFavorite(business._id)}
-                  />
-                ))}
-            </Box>
-            <Box>
-              {["SERVICES", "REVIEWS", "GIFT CARDS"].map((el, i) => (
-                <button
-                  onClick={() => setIndex(i)}
-                  key={i}
-                  style={{
+                    color: "grey",
                     fontSize: "14px",
-                    margin: "10px 20px 20px 0",
-                    paddingBottom: "6px",
-                    borderBottom: index === i ? "2px solid" : "none",
-                    color: index === i ? "rgb(6 182 212)" : "grey",
-                    opacity: index === i ? 1 : 0.5,
+                    marginBottom: "40px",
                   }}
                 >
-                  {el}
-                </button>
-              ))}
-            </Box>
-            {(index === 0 && (
-              <Box>
-                {servicesByBus?.map((service: any, i: any) => (
-                  <Service
+                  There are no giftcards
+                </Typography>
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                }}
+              >
+                {giftCards.map((giftcard: any, i: any) => (
+                  <GiftCard
                     key={i}
-                    service={service}
-                    business={business}
-                    staffs={staffsByBus}
-                    services={servicesByBus}
+                    giftcard={giftcard}
+                    setOpen={setPayModalOpen}
+                    setSelectedGiftCard={setSelectedGiftCard}
                   />
                 ))}
+                <GiftCardPaymentModal
+                  open={payModalOpen}
+                  setOpen={setPayModalOpen}
+                  selectedGiftCard={selectedGiftCard}
+                />
               </Box>
-            )) ||
-              (index === 1 && <Reviews business={business} />) ||
-              (index === 2 && giftCards.length === 0 ? (
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <CreditCardOffIcon
-                    sx={{
-                      fontSize: "100px",
-                      color: "#E6E5E5",
-                      margin: "20px 0",
-                    }}
-                  />
-                  <Typography
-                    sx={{
-                      color: "grey",
-                      fontSize: "14px",
-                      marginBottom: "40px",
-                    }}
-                  >
-                    There are no giftcards
-                  </Typography>
-                </Box>
-              ) : (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {giftCards.map((giftcard: any, i: any) => (
-                    <GiftCard
-                      key={i}
-                      giftcard={giftcard}
-                      setOpen={setPayModalOpen}
-                      setSelectedGiftCard={setSelectedGiftCard}
-                    />
-                  ))}
-                  <GiftCardPaymentModal
-                    open={payModalOpen}
-                    setOpen={setPayModalOpen}
-                    selectedGiftCard={selectedGiftCard}
-                  />
-                </Box>
-              ))}
-          </Grid>
-          <Sidebar business={business} staffs={staffsByBus} />
+            ))}
         </Grid>
-      </Layout>
-    </ReviewProvider>
+        <Sidebar business={business} staffs={staffsByBus} />
+      </Grid>
+    </Layout>
   );
 };
 

@@ -9,6 +9,7 @@ import AlertComponent from "@/components/Alert";
 import OrderComponent from "@/components/Order";
 import { green, purple } from "@mui/material/colors";
 import NavProvider from "@/context/navContext";
+import ReviewProvider from "@/context/reviewContext";
 
 const lato = Montserrat({
   subsets: ["latin"],
@@ -38,9 +39,11 @@ export default function App({ Component, pageProps }: AppProps) {
           <NavProvider>
             <AuthProvider>
               <OrderProvider>
-                <AlertComponent />
-                <Component {...pageProps} />
-                <OrderComponent />
+                <ReviewProvider>
+                  <AlertComponent />
+                  <Component {...pageProps} />
+                  <OrderComponent />
+                </ReviewProvider>
               </OrderProvider>
             </AuthProvider>
           </NavProvider>
