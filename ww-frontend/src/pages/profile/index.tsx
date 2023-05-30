@@ -17,7 +17,7 @@ const Profile = () => {
     <SideLayout>
       <div className="ml-5 mt-2">
         <div>
-          <h1 className="text-2xl ">Welcome {user.userName}</h1>
+          <h1 className="text-2xl ">Welcome {user?.userName}</h1>
         </div>
         <div className="my-20">
           <img

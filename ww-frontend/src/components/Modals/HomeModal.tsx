@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FiArrowLeft, FiSearch } from "react-icons/fi";
 import { BASE_URL } from "@/variables";
+import Link from "next/link";
 interface Props {
   isOpen: boolean;
   setIsOpen: any;
@@ -54,17 +55,20 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
     const searchTerm = event.target.value;
     setSearch(searchTerm);
 
-    const filteredData = [
-      ...serviceList,
-      ...businessList,
-      ...staffList,
-    ]?.filter((item) =>
-      `${item.businessName}${item.serviceName}${item.stafferName}`
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    );
-    setFilteredResults(filteredData);
-    console.log("first==>", filteredData);
+    if (searchTerm.length) {
+      const filteredData = [
+        ...serviceList,
+        ...businessList,
+        ...staffList,
+      ]?.filter((item) =>
+        `${item.businessName}${item.serviceName}${item.stafferName}`
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      );
+      setFilteredResults(filteredData);
+    } else {
+      setFilteredResults([]);
+    }
   };
 
   if (!isOpen) {
@@ -72,8 +76,8 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-5">
-      <div className="bg-white rounded-md p-3 w-full md:w-3/6">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-5 ">
+      <div className="bg-white rounded-md p-3 w-full md:w-3/6 overflow-x-auto max-h-[500px]">
         <div className="relative w-full border-b border-gray-200 flex items-center">
           <div
             className="cursor-pointer"
@@ -93,9 +97,15 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
           />
         </div>
         {filteredResults?.map((item, idx) => (
-          <div className="flex items-center gap-2 my-1">
+          <div key={idx} className="flex items-center gap-2 my-1">
             <FiSearch color="gray" />
-            <div>
+            <Link
+              href={
+                item.businessId
+                  ? `/details/${item.businessId}`
+                  : `/details/${item._id}`
+              }
+            >
               <p className="textsm">
                 {item.businessName}
                 {item.serviceName}
@@ -104,7 +114,7 @@ const HomeModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
               <p className="text-xs text-gray-500">
                 {item.businessId?.businessName} салон
               </p>
-            </div>
+            </Link>
           </div>
         ))}
         <div className="my-5 gap-2">

@@ -44,10 +44,9 @@ export const createReview = async (
   next: NextFunction
 ) => {
   try {
-    const { reviewDate, rating, text, appointmentId } = req.body;
+    const { rating, text, appointmentId } = req.body;
 
     const review = await Review.create({
-      reviewDate,
       rating,
       text,
       appointmentId,

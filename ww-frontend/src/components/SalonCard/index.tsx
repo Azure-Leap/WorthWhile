@@ -21,7 +21,7 @@ const SalonCard = ({ businessData }: any) => {
         style={{
           // minWidth: "35%",
           // maxWidth: "35%",
-          width:"600px",
+          width: "600px",
           height: "300px",
           objectFit: "cover",
         }}
@@ -36,7 +36,7 @@ const SalonCard = ({ businessData }: any) => {
       <div className="w-full text-start pl-4">
         <h1 className="text-3xl font-medium">{businessData.businessName}</h1>
         <p className="text-sm text-gray-600 my-1">
-          {`${businessData.address.district} дүүрэг, 3-р хороо, ${businessData.address.street} гудамж, ${businessData.businessName}`}
+          {`${businessData?.address?.district} дүүрэг, 3-р хороо, ${businessData?.address?.street} гудамж, ${businessData?.businessName}`}
         </p>
 
         {servicesByBus?.map((el: any, i: number) => {

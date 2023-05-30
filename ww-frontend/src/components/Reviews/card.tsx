@@ -10,6 +10,7 @@ import { AuthContext } from "@/context/authContext";
 import { AlertContext } from "@/context/alertContext";
 import { ReviewContext } from "@/context/reviewContext";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { BASE_URL } from "@/variables";
 const ReviewCard = ({ review }: any) => {
   const { user } = useContext(AuthContext);
   const [isClickedLike, setIsClickedLike] = useState(
@@ -18,15 +19,12 @@ const ReviewCard = ({ review }: any) => {
   const [isClickedUnlike, setIsClickedUnlike] = useState(
     review.reaction.unlikedUsers.includes(user?._id)
   );
+  const [likedUsers, setLikedUsers] = useState<any>(review.reaction.likedUsers);
+  const [unlikedUsers, setUnlikedUsers] = useState<any>(
+    review.reaction.unlikedUsers
+  );
   const { setMessage, setStatus } = useContext(AlertContext);
-  const {
-    setReview,
-    likedUsers,
-    setLikedUsers,
-    unlikedUsers,
-    setUnlikedUsers,
-    setUpdate,
-  } = useContext(ReviewContext);
+  const { setReview } = useContext(ReviewContext);
 
   const serviceNameArr = review?.appointmentId.services?.map(
     (el: any) => el.serviceName
@@ -52,28 +50,49 @@ const ReviewCard = ({ review }: any) => {
     setIsClickedUnlike(!isClickedUnlike);
   };
 
+  const deleteData = async () => {
+    try {
+      const res = await axios.delete(`${BASE_URL}/reviews/${review?._id}`);
+      const deletedReview = res.data.review;
+      setReview(deletedReview);
+    } catch (err) {
+      console.log("deleteReview err", err);
+    }
+  };
+
+  const updateData = async () => {
+    try {
+      const res = await axios.put(`${BASE_URL}/reviews/${review?._id}`, {
+        reaction: { unlikedUsers: unlikedUsers, likedUsers: likedUsers },
+      });
+      const updatedReview = res.data.review;
+      setReview(updatedReview);
+    } catch (err) {
+      console.log("updateData err", err);
+    }
+  };
+
   useEffect(() => {
-    setLikedUsers(review.reaction.likedUsers);
-    setUnlikedUsers(review.reaction.unlikedUsers);
-    setUpdate(false);
     setReview(review);
     return () => {
-      setUpdate(true);
+      updateData();
     };
-  }, []);
+  }, [likedUsers, unlikedUsers]);
 
   return (
     <div className="py-[20px] border-b-[1px] text-[12px] relative">
       <CloseRoundedIcon
+        onClick={deleteData}
         sx={{
+          color: "rgb(6 182 212)",
           position: "absolute",
           right: 0,
           top: "5px",
           "&:hover": { transform: "rotate(90deg)" },
           transition: "transform 0.3s ease-in-out",
-          fontSize: "18px",
+          fontSize: "20px",
           display:
-            user._id === review.appointmentId.userId._id ? "block" : "none",
+            user?._id === review.appointmentId.userId._id ? "block" : "none",
         }}
       />
       <div>

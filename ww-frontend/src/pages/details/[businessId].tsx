@@ -74,7 +74,7 @@ const SalonDetail = ({ business, giftCards }: any) => {
           <img
             src={business.profileImg}
             alt="Salon"
-            style={{ width: "100%", borderRadius: "6px" }}
+            style={{ width: "100%", borderRadius: "8px" }}
           />
           <Box
             sx={{

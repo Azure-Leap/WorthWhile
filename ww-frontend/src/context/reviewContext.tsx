@@ -11,20 +11,22 @@ const ReviewProvider = ({ children }: any) => {
   const [review, setReview] = useState<any>(null);
   const [bus, setBus] = useState<any>(null);
   const { user } = useContext(AuthContext);
-  const [likedUsers, setLikedUsers] = useState(null);
-  const [unlikedUsers, setUnlikedUsers] = useState(null);
-  const [update, setUpdate] = useState(false);
 
-  const updateData = async () => {
+  const addReview = async (
+    selectedAppointmentId: any,
+    text: any,
+    rating: any
+  ) => {
     try {
-      const res = await axios.put(`${BASE_URL}/reviews/${review?._id}`, {
-        reaction: { unlikedUsers: unlikedUsers, likedUsers: likedUsers },
+      const res = await axios.post(`${BASE_URL}/reviews`, {
+        appointmentId: selectedAppointmentId,
+        text,
+        rating,
       });
-      const updatedReview = res.data.review;
-      console.log("UPDD", updatedReview);
-      setReview(updatedReview);
+      const addedReview = res.data.review;
+      setReview(addedReview);
     } catch (err) {
-      console.log("updateData err", err);
+      console.log("addReview err", err);
     }
   };
 
@@ -51,13 +53,6 @@ const ReviewProvider = ({ children }: any) => {
     }
   }, [bus, review]);
 
-  useEffect(() => {
-    if (update) {
-      console.log("upd", update);
-      updateData();
-    }
-  }, [update]);
-
   return (
     <ReviewContext.Provider
       value={{
@@ -69,11 +64,7 @@ const ReviewProvider = ({ children }: any) => {
         setBus,
         review,
         setReview,
-        likedUsers,
-        setLikedUsers,
-        unlikedUsers,
-        setUnlikedUsers,
-        setUpdate,
+        addReview,
       }}
     >
       {children}

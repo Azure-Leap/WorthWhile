@@ -18,12 +18,7 @@ const style = {
 
 const AddCardModal = ({ open, handleClose, handleOpen }: any) => {
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
+    <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         <CardDetail handleClose={handleClose} />
       </Box>
